@@ -1,0 +1,21 @@
+{
+	"name": "pijus/aavoya-woocommerce-request-a-quote",
+	"description": "Simple Request a Quote Plugin",
+	"type": "project",
+	"license": "GPL 2 or Later",
+	"authors": [
+		{
+			"name": "Pijush Gupta",
+			"email": "pijush@live.com"
+		}
+	],
+	"minimum-stability": "stable",
+	"autoload": {
+		"psr-4": {
+			"Awraq\\": "awraq/"
+		}
+	},
+	"require": {
+		"symfony/var-dumper": "5.4.2"
+	}
+}

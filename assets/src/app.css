@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#wpcontent {
+	padding-left: 0;
+}
+.aavoya-wraq-tab {
+	@apply border border-opacity-0 flex flex-row items-center  py-3 mb-1 px-6 text-sm cursor-pointer bg-gray-100;
+}
+.aavoya-wraq-tab.active {
+	@apply border-opacity-100 bg-white shadow-sm rounded text-blue-800;
+}
+.aavoya-wraq-tab.active .svg-class {
+	@apply bg-blue-200;
+}
+.svg-class{
+	@apply fill-current h-6 w-6 mr-2 p-1 rounded-full  bg-gray-200 inline;
+}
+
+input[type="checkbox"] {
+	@apply relative w-10 h-4 outline-none border-0 rounded-full  focus:shadow-none bg-gray-200 p-2 shadow-inner;
+}
+input:checked[type="checkbox"] {
+	@apply bg-blue-900 border-0  focus:shadow-none;
+}
+
+input[type="checkbox"]:before {
+	@apply w-4 h-4 bg-white rounded-full shadow-sm border border-gray-200;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: scale(1.3);
+	transition: 0.2s;
+}
+input:checked[type="checkbox"]:before {
+	@apply w-4 h-4 bg-white rounded-full shadow-sm border border-gray-200;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 1.5rem;
+	margin: 0;
+	transform: scale(1.3);
+}
+input[type="range"] {
+	-webkit-appearance: none !important;
+	appearance: none !important;
+	width: 100%;
+	height: 10px;
+	outline: none;
+	opacity: 1;
+	-webkit-transition: 0.2s;
+	transition: opacity 0.2s;
+	@apply bg-blue-900 rounded-full;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none; /* Override default look */
+	appearance: none;
+	width: 20px; /* Set a specific slider handle width */
+	height: 20px; /* Slider handle height */
+	border-radius: 999px;
+	@apply bg-white;
+	cursor: pointer; /* Cursor on hover */
+	border: 1px solid rgb(230, 230, 230);
+	@apply shadow-sm;
+}
+input[type="range"]::-moz-range-thumb {
+	width: 20px; /* Set a specific slider handle width */
+	height: 20px; /* Slider handle height */
+	border-radius: 999px;
+	@apply bg-white; /* Green background */
+	cursor: pointer; /* Cursor on hover */
+	border: 1px solid rgb(230, 230, 230);
+	@apply shadow-sm;
+}
