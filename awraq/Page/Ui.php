@@ -10,7 +10,9 @@ final class Ui
 
 	public static function activate()
 	{
-		add_action('admin_menu', array(self::$globalScopeName, 'create'));
+		if (current_user_can('manage_options')) {
+			add_action('admin_menu', array(self::$globalScopeName, 'create'));
+		}
 	}
 
 

@@ -40,14 +40,15 @@ use Awraq\Base\Enqueue;
  */
 function awraq_init_plugin()
 {
-	if (Init::activate() != TRUE) {
-		deactivate_plugins(plugin_basename(__FILE__));
-		Notice::error('Plugin got Deactivated. Please check the dependencies.', true);
-		return;
-	} else {
-	}
 
-	Ui::activate();
-	Enqueue::do();
+	if (Init::activate() != TRUE) {
+
+		deactivate_plugins(plugin_basename(__FILE__));
+		Notice::error('Plugin got Deactivated. Please Activate woocommerce and contact form 7', true);
+	} else {
+
+		Ui::activate();
+		Enqueue::do();
+	}
 }
 add_action('plugins_loaded', 'awraq_init_plugin');

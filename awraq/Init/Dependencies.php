@@ -13,11 +13,6 @@ final class dependencies
 	{
 		require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 
-		if (!current_user_can('manage_options')) {
-
-			return false;
-		}
-
 		//check if woocommerce is active or not
 		if (!is_plugin_active('woocommerce/woocommerce.php')) {
 
