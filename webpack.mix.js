@@ -1,7 +1,7 @@
 let mix = require('laravel-mix');
 
-mix.js("assets/src/app.js", "assets/dist")
-	.react()
-  .postCss("assets/src/app.css", "assets/dist", [
+mix.js("assets/src/main.js", "assets/dist")
+	.vue()
+  .postCss("assets/src/main.css", "assets/dist", [
     require("tailwindcss"),
   ]);

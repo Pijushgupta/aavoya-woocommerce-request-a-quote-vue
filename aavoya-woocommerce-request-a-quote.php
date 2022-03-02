@@ -24,7 +24,7 @@ define('AWRAQ_REL', plugins_url('', __FILE__));
 define('AWRAQ_ADMIN_MENU_TITLE', 'Aavoya Request a Quote');
 define('AWRAQ_ADMIN_MENU_NAME', 'Aavoya RAQ');
 define('AWRAQ_SPA_SLUG', 'aavoya_woocommerce_request_a_quote_setting');
-define('AWRAQ_REACT_ROOT_ID', 'awraq-root');
+define('AWRAQ_VUE_ROOT_ID', 'awraq-root');
 
 
 use Awraq\Init\Init;

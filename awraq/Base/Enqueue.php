@@ -18,12 +18,12 @@ final class Enqueue
 	{
 		if ($hook != 'toplevel_page_' . AWRAQ_SPA_SLUG) return;
 
-		if (file_exists(AWRAQ_ABS . 'assets/dist/app.js')) {
-			wp_enqueue_script('awraq-react-script', AWRAQ_REL . '/assets/dist/app.js', array(), '1.0.0', true);
+		if (file_exists(AWRAQ_ABS . 'assets/dist/main.js')) {
+			wp_enqueue_script('awraq-react-script', AWRAQ_REL . '/assets/dist/main.js', array(), '1.0.0', true);
 		}
 
-		if (file_exists(AWRAQ_ABS . 'assets/dist/app.css')) {
-			wp_enqueue_style('awraq-tailwind-style', AWRAQ_REL . '/assets/dist/app.css', array(), '1.0.0');
+		if (file_exists(AWRAQ_ABS . 'assets/dist/main.css')) {
+			wp_enqueue_style('awraq-tailwind-style', AWRAQ_REL . '/assets/dist/main.css', array(), '1.0.0');
 		}
 	}
 }

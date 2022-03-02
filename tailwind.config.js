@@ -1,10 +1,12 @@
 module.exports = {
 	content: [
-		"./assets/src/**/*.{js,jsx,ts,tsx}",
+		"./assets/src/**/*.{vue,js,jsx,ts,tsx}",
+		"./assets/src/*.{vue,js,jsx,ts,tsx}",
 		"./awraq/**/*.php",
   ],
   theme: {
-    extend: {},
+	  extend: {},
+	  
   },
   plugins: [],
 }

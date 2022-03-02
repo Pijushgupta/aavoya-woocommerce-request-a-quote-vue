@@ -32,6 +32,6 @@ final class Ui
 
 	public static function render()
 	{
-		printf('<div id="%1$s"></div>', 'awraq-root');
+		printf('<div id="%1$s"></div>', AWRAQ_VUE_ROOT_ID);
 	}
 }
