@@ -19,7 +19,7 @@ final class Enqueue
 		if ($hook != 'toplevel_page_' . AWRAQ_SPA_SLUG) return;
 
 		if (file_exists(AWRAQ_ABS . 'assets/dist/main.js')) {
-			wp_enqueue_script('awraq-react-script', AWRAQ_REL . '/assets/dist/main.js', array(), '1.0.0', true);
+			wp_enqueue_script('awraq-vue-script', AWRAQ_REL . '/assets/dist/main.js', array(), '1.0.0', true);
 		}
 
 		if (file_exists(AWRAQ_ABS . 'assets/dist/main.css')) {

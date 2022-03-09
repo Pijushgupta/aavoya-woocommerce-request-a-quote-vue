@@ -1,8 +1,8 @@
 <template>
 	<!-- Shortcode row -->
 	<div>
-		<Row v-for="row in rows" v-bind:key="row.id" v-bind:row="row"/>
-		<New/>
+		<Row v-for="row in rows" v-bind:key="row.id" v-bind:row="row" v-on:save-drawer="saveDrawer" v-on:delete-row='deletePost'/>
+		<New v-on:create-post='createPost' />
 	</div>
 	<!-- Shortcode row ends-->
 </template>
@@ -16,35 +16,96 @@ export default{
 		New
 	},
 	methods:{
-		openDrawer:function(){
-
+		/* Create Post*/
+		createPost:function(){
+			const data = new FormData();
+			data.append('action','awraqCreatePost');
+			data.append('awraq_nonce',awraq_nonce);
+			fetch(awraq_ajax_path,{
+				method:"POST",
+				credentials: 'same-origin',
+				body:data
+				})
+			.then((response) => response.json())
+			.then(response => {
+				console.log(response)
+			})
+			.catch(err => console.log(err));
 		},
+		/*Delete Post*/
+		deletePost: function (drawerId){
+			if(this.deleteQueue === false){
+				this.deleteQueue === true;
+
+				const data =  new FormData();
+				data.append('action','awraqDeletePost');
+				data.append('awraq_nonce',awraq_nonce);
+				data.append('post_id',drawerId);
+				
+				fetch(awraq_ajax_path,{
+					method:"POST",
+					credentials:"same-origin",
+					body:data
+				})
+				.then(response => response.json())
+				.then(response => {
+					if(response === true){
+						this.deleteARow(drawerId);
+					}
+				})
+				.catch(err => console.log(err));
+			}
+		},
+		deleteARow: function(drawerId){
+			this.rows = this.rows.filter((row) =>{
+				if(row.id != drawerId){
+					return row;
+				}
+			});
+		},
+		getRows: function(){
+			const data = new FormData();
+			data.append('action','awraqLoadPost');
+			data.append('awraq_nonce',awraq_nonce);
+			fetch(awraq_ajax_path,{
+				method:"POST",
+				credentials:"same-origin",
+				body: data
+			})
+			.then((response) => response.json())
+			.then((response) => {
+				if(response !== null){
+					console.log(response)
+					this.rows = response
+				}
+			})
+			.catch(err => console.log(err));
+		},
+
+		saveDrawer: function(drawer,drawerId){
+			const data = new FormData();
+			data.append('action','awraqtest');
+			fetch(awraq_ajax_path,{
+				method:'POST',
+				credentials:'same-origin',
+				body:data
+			})
+			.then(response => response.json())
+			.then(response =>{
+				console.log(response)
+			})
+			.catch(err=>console.log(err));
+		}
 	},
 	data: function(){
 		return {
-			rows:[]
+			rows:[],
+			deleteQueue:false,
 		}
 	},
 	created:function(){
-		this.rows = [
-			{
-				id:1,
-				title:'Hello world',
-				sc:'[awraq id="1"]',
-				sop:{selected:'one',options:{one:'one',two:'two',three:'three',four:'four'}},
-				drawer:{corners:24,paddingX:15,paddingY:7,fontWeight:300,backgroundColor:"#FF0000", hoverBackgroundColor:"#FF0000",textColor:"#FFFFFF",hoverTextColor:'#FFFFFF',buttonText:"Button",letterSpacing:1,fontSize:16,cssClass:"awraq",borderTab:false,borderType:"None",borderWidth:2,borderColor:"#000000"}
-
-			},
-			{
-				id:2,
-				title:'Hello world',
-				sc:'[awraq id="2"]',
-				sop:{selected:'one',options:{one:'two',two:'two',three:'three',four:'four'}},
-				drawer:{corners:24,paddingX:15,paddingY:7,fontWeight:300,backgroundColor:"#FF0000", hoverBackgroundColor:"#FF0000",textColor:"#ffffff",hoverTextColor:'#ffffff',buttonText:"Button",letterSpacing:1,fontSize:16,cssClass:"awraq",borderTab:true,borderType:"Solid",borderWidth:2,borderColor:"#000000"}
-
-			}
-
-		]
+		this.getRows();
+		
 	}
 }
 </script>

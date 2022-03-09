@@ -10,11 +10,9 @@
 			<span><svg xmlns="http://www.w3.org/2000/svg" class="inline  w-5 h-5 cursor-pointer " v-on:click="copyToClipBoard" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg></span>
 		</div>
 		<div class="w-1/5">
-			<select name="contact7form" class="w-full">
-				<option value="one">one</option>
-				<option value="two">two</option>
-				<option selected value="three">three</option>
-				<option value="four">four</option>
+			<select name="contact7form" class="w-full" v-model="selectedFormOption">
+				<option v-for="option in allFormOptions" v-bind:key="option.id" v-bind:value="option.id" v-bind:selected="selectedFormOption">{{option.title}}</option>
+			
 			</select>
 		</div>
 		<div>
@@ -22,7 +20,7 @@
 		</div>
 	</div>
 	<div v-show="drawerStatus === true" class="drawer-open">
-		<Drawer v-bind:drawerData="drawerData" v-bind:drawerId="row.id"/>
+		<Drawer v-bind:drawerData="drawerData" v-bind:drawerId="row.id" v-on:save-drawer = "emitDrawer" v-on:delete-row = "emitDrawerId"/>
 	</div>
 </div>
 
@@ -44,6 +42,8 @@ export default {
 			drawerIconPosition:false,
 			title:this.row.title ? this.row.title:'' ,
 			drawerData:this.row.drawer,
+			selectedFormOption: this.row.fso.selected,
+			allFormOptions: this.row.fso.options
 		}
 	},
 	methods:{
@@ -66,6 +66,12 @@ export default {
 		},
 		emitNotification: function(){
 			//emit notification
+		},
+		emitDrawer: function(drawer,drawerId){
+			this.$emit('save-drawer',drawer,drawerId);
+		},
+		emitDrawerId: function(drawerId){
+			this.$emit('delete-row',drawerId);
 		},
 		openDrawer: function(){
 			this.drawerStatus = !this.drawerStatus;

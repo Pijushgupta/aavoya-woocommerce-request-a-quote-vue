@@ -31,7 +31,9 @@ final class Ui
 	}
 
 	public static function render()
-	{
-		printf('<div id="%1$s"></div>', AWRAQ_VUE_ROOT_ID);
+	{	
+		$url = admin_url('admin-ajax.php');
+		$awraq = wp_create_nonce('awraq_nonce');
+		printf('<script> var awraq_ajax_path = "%1$s"; var awraq_nonce = "%2$s";</script><div id="%3$s"></div>',$url,$awraq, AWRAQ_VUE_ROOT_ID);
 	}
 }

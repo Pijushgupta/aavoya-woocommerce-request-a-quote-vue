@@ -17,7 +17,7 @@
 						</div>
 						
 						<div class="w-full">
-							<input type="range" min="0" max="100" name="corners" v-model="drawer.corners">
+							<input type="range" min="0" max="100" name="corners" v-model.number="drawer.corners">
 						</div>
 					</div>
 					<div class="flex flex-col flex-wrap w-1/3 pr-2 justify-between">
@@ -26,7 +26,7 @@
 							<span class="pill">{{drawer.paddingx}}</span>
 						</div>
 						<div class="w-full">
-							<input type="range" min="0" max="100" name="paddingx" v-model="drawer.paddingx">
+							<input type="range" min="0" max="100" name="paddingx" v-model.number="drawer.paddingx">
 						</div>
 						
 					</div>
@@ -36,7 +36,7 @@
 							<span class="pill">{{drawer.paddingy}}</span>
 						</div>
 						<div class="w-full">
-							<input type="range" min="0" max="100" name="paddingy" v-model="drawer.paddingy">
+							<input type="range" min="0" max="100" name="paddingy" v-model.number="drawer.paddingy">
 						</div>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 							<span class="pill">{{drawer.letterspacing}}</span>
 					</div>
 					<div class="w-full">
-						<input type="range" min="0" max="100" name="letterspacing" v-model="drawer.letterspacing">
+						<input type="range" min="0" max="100" name="letterspacing" v-model.number="drawer.letterspacing">
 					</div>
 				</div>
 				<div class="flex flex-col w-1/3 mt-2 pr-2 justify-between">
@@ -63,21 +63,13 @@
 							<span class="pill">{{drawer.fontsize}}</span>
 					</div>
 					<div class="w-full">
-						<input type="range" min="8" max="80" name="fontsize" v-model="drawer.fontsize">
+						<input type="range" min="8" max="80" name="fontsize" v-model.number="drawer.fontsize">
 					</div>
 				</div>
 				<div class="flex flex-col mt-2 w-1/3  justify-between">
 					<label class="label ">Weight</label>
-					<select v-model="drawer.fontweight" class="rounded">
-						<option>100</option>
-						<option>200</option>
-						<option>300</option>
-						<option>400</option>
-						<option>500</option>
-						<option>600</option>
-						<option>700</option>
-						<option>800</option>
-						<option>900</option>
+					<select v-model.number="drawer.fontweight" class="rounded">
+						<option v-for="fontWeight in fontWeights" v-bind:key="fontWeight.value" v-bind:value="fontWeight.value" v-bind:selected="drawer.fontweight">{{fontWeight.text}}</option>			
 					</select>
 				</div>
 				<div class="flex flex-col w-full mt-2 pt-2 justify-between">
@@ -148,16 +140,7 @@
 						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
 							<label class="label">Border Type</label>
 							<select v-model="drawer.bordertype">
-								<option selected>None</option>
-								<option>Dotted</option>
-								<option>Dashed</option>
-								<option>Solid</option>
-								<option>Double</option>
-								<option>Groove</option>
-								<option>Ridge</option>
-								<option>Inset</option>
-								<option>Outset</option>
-								<option>Hidden</option>
+								<option v-for="borderType in borderTypes" v-bind:value="borderType.value" v-bind:key="borderType.value" v-bind:selected="drawer.bordertype">{{borderType.text}}</option>
 							</select>
 						</div>
 						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
@@ -166,7 +149,7 @@
 								<span class="pill">{{drawer.borderwidth}}</span>
 							</div>
 							<div class="w-full">
-							<input type="range" min="0" max="100" name="border" v-model="drawer.borderwidth">
+							<input type="range" min="0" max="100" name="border" v-model.number="drawer.borderwidth">
 							</div>
 						</div>	
 						<div class="w-1/3 flex flex-col justify-between">
@@ -183,16 +166,7 @@
 						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
 							<label class="label">Hover Border Type</label>
 							<select v-model="drawer.hoverbordertype">
-								<option selected>None</option>
-								<option>Dotted</option>
-								<option>Dashed</option>
-								<option>Solid</option>
-								<option>Double</option>
-								<option>Groove</option>
-								<option>Ridge</option>
-								<option>Inset</option>
-								<option>Outset</option>
-								<option>Hidden</option>
+								<option v-for="hoverBorderType in hoverBorderTypes" v-bind:value="hoverBorderType.value" v-bind:key="hoverBorderType.value" v-bind:selected="drawer.hoverbordertype" >{{hoverBorderType.text}}</option>
 							</select>
 						</div>
 						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
@@ -201,7 +175,7 @@
 								<span class="pill">{{drawer.hoverborderwidth}}</span>
 							</div>
 							<div class="w-full">
-								<input type="range" min="0" max="100" name="border" v-model="drawer.hoverborderwidth">
+								<input type="range" min="0" max="100" name="border" v-model.number="drawer.hoverborderwidth">
 							</div>
 						</div>	
 						<div class="w-1/3 flex flex-col justify-between">
@@ -219,6 +193,19 @@
 			</div>
 			
 		</div>
+		<div class="w-full  flex flex-row justify-end mt-5 ">
+			<div class="flex flex-row justify-between">
+				<button class="bg-red-700  px-4 py-2 text-white rounded font-semibold capitalize mr-2 flex items-center" v-on:click="$emit('delete-row',drawerId)">
+					<svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 h-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+					Delete
+				</button>
+				<button class="bg-blue-800 px-4 py-2 text-white rounded font-semibold capitalize flex items-center" v-on:click="$emit('save-drawer',drawer,drawerId)">
+					<svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 h-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" /></svg>	
+					Save
+				</button>
+			</div>
+			
+		</div> 
 	</div>
 </template>
 <script>
@@ -235,6 +222,42 @@ export default{
 				drawer:{},
 				cssProperties:'',
 				buttonId:'liveExample' + this.drawerId,
+				fontWeights:[
+					{value:100,text:100},
+					{value:200,text:200},
+					{value:300,text:300},
+					{value:400,text:400},
+					{value:500,text:500},
+					{value:600,text:600},
+					{value:700,text:700},
+					{value:800,text:800},
+					{value:900,text:900}
+					],
+				borderTypes:[
+					{value:"none",text:"none"},
+					{value:"Dotted",text:"Dotted"},
+					{value:"Dashed",text:"Dashed"},
+					{value:"Solid",text:"Solid"},
+					{value:"Double",text:"Double"},
+					{value:"Groove",text:"Groove"},
+					{value:"Ridge",text:"Ridge"},
+					{value:"Inset",text:"Inset"},
+					{value:"Outset",text:"Outset"},
+					{value:"Hidden",text:"Hidden"},
+				],
+				hoverBorderTypes:[
+					{value:"none",text:"none"},
+					{value:"Dotted",text:"Dotted"},
+					{value:"Dashed",text:"Dashed"},
+					{value:"Solid",text:"Solid"},
+					{value:"Double",text:"Double"},
+					{value:"Groove",text:"Groove"},
+					{value:"Ridge",text:"Ridge"},
+					{value:"Inset",text:"Inset"},
+					{value:"Outset",text:"Outset"},
+					{value:"Hidden",text:"Hidden"},
+				]
+
 
 			}
 	},
@@ -254,7 +277,7 @@ export default{
 					paddingy: this.drawerData.paddingY ? this.drawerData.paddingY: 0,
 					letterspacing: this.drawerData.letterSpacing ? this.drawerData.letterSpacing : 0,
 					fontsize: this.drawerData.fontSize ? this.drawerData.fontSize : 0,
-					fontweight:this.drawerData.fontweight ? this.drawerData.fontweight : 300,
+					fontweight:this.drawerData.fontWeight ? this.drawerData.fontWeight : 300,
 					buttontext: this.drawerData.buttonText ? this.drawerData.buttonText : "AWRAQ",
 					cssclassname: this.drawerData.cssClass ? this.drawerData.cssClass : "aavoya",
 					backgroundcolor: this.drawerData.backgroundColor ? this.drawerData.backgroundColor : "#FF0000",
