@@ -1,90 +1,104 @@
 <template>
 	<div class="flex md:flex-row flex-wrap ">
-		<div class="w-full flex flex-row justify-center py-10">
-			<div v-html="cssProperties"></div>
-			<button v-bind:id="buttonId">{{drawer.buttontext}}</button>
-		</div>
-		<div class="w-1/2 pr-2 mt-2">
-			<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
-				<div class="w-full pb-2">
-					<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">Corners and Padding</label>
+		<div class="w-full flex flex-row flex-wrap justify-center py-10">
+			<div class="w-1/2 flex flex-col justify-center">
+				<div class="flex justify-center">
+					<div v-html="cssProperties"></div>
+					<button v-bind:id="buttonId">{{drawer.buttontext}}</button>
 				</div>
-				<div class="w-full flex flex-row flex-wrap mt-2 h-10">
-					<div class="flex flex-col flex-wrap w-1/3 pr-2 justify-between">
-						<div class="w-full flex flex-row flex-wrap justify-between items-center">
-							<label class="label ">Corners</label>
-							<span class="pill">{{drawer.corners}}</span>
-						</div>
+			</div>
+			<div class="w-1/2 flex justify-center">
+				<div class="flex justify-center">
+					<div v-html="formCssProperties"></div>
+					<div class="h-96 w-64 border" v-bind:id="formId">
 						
-						<div class="w-full">
-							<input type="range" min="0" max="100" name="corners" v-model.number="drawer.corners">
+						<div class="w-full h-full bg-gray-300" >
 						</div>
 					</div>
-					<div class="flex flex-col flex-wrap w-1/3 pr-2 justify-between">
+				</div>
+			</div>
+		</div>
+		<div class="flex w-1/2 pr-2 mt-2">
+			<div class="w-1/2 pr-2">
+				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+					<div class="w-full pb-2">
+						<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">Corners and Padding</label>
+					</div>
+					<div class="w-full flex flex-col mt-2">
+						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Corners</label>
+								<span class="pill">{{drawer.corners}}</span>
+							</div>
+							
+							<div class="w-full">
+								<input type="range" min="0" max="100" name="corners" v-model.number="drawer.corners">
+							</div>
+						</div>
+						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Padding X</label>
+								<span class="pill">{{drawer.paddingx}}</span>
+							</div>
+							<div class="w-full">
+								<input type="range" min="0" max="100" name="paddingx" v-model.number="drawer.paddingx">
+							</div>
+							
+						</div>
+						<div class="flex flex-col flex-wrap w-full justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Padding Y</label>
+								<span class="pill">{{drawer.paddingy}}</span>
+							</div>
+							<div class="w-full">
+								<input type="range" min="0" max="100" name="paddingy" v-model.number="drawer.paddingy">
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="flex flex-row flex-wrap w-full rounded mt-2 p-2 shadow">
+					<div class="w-full pb-2">
+						<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">Text</label>
+					</div>
+					<div class="flex flex-col w-full mt-2  justify-between">
 						<div class="w-full flex flex-row flex-wrap justify-between items-center">
-							<label class="label ">Padding X</label>
-							<span class="pill">{{drawer.paddingx}}</span>
+								<label class="label ">Tracking</label>
+								<span class="pill">{{drawer.letterspacing}}</span>
 						</div>
 						<div class="w-full">
-							<input type="range" min="0" max="100" name="paddingx" v-model.number="drawer.paddingx">
+							<input type="range" min="0" max="100" name="letterspacing" v-model.number="drawer.letterspacing">
 						</div>
-						
 					</div>
-					<div class="flex flex-col flex-wrap w-1/3 justify-between">
+					<div class="flex flex-col w-full mt-2  justify-between">
 						<div class="w-full flex flex-row flex-wrap justify-between items-center">
-							<label class="label ">Padding Y</label>
-							<span class="pill">{{drawer.paddingy}}</span>
+								<label class="label ">Size</label>
+								<span class="pill">{{drawer.fontsize}}</span>
 						</div>
 						<div class="w-full">
-							<input type="range" min="0" max="100" name="paddingy" v-model.number="drawer.paddingy">
+							<input type="range" min="8" max="80" name="fontsize" v-model.number="drawer.fontsize">
 						</div>
 					</div>
+					<div class="flex flex-col mt-2 w-full  justify-between">
+						<label class="label ">Weight</label>
+						<select v-model.number="drawer.fontweight" class="rounded">
+							<option v-for="fontWeight in fontWeights" v-bind:key="fontWeight.value" v-bind:value="fontWeight.value" v-bind:selected="drawer.fontweight">{{fontWeight.text}}</option>			
+						</select>
+					</div>
+					<div class="flex flex-col w-full mt-2 pt-2 justify-between">
+						<label class="label ">Button Text</label>
+						<input type="text" name="buttontext" v-model="drawer.buttontext" class="rounded">
+					</div>
+				</div>
+
+				<div class="flex flex-col mt-2 p-2 rounded shadow justify-between">
+					<label class="label ">Css Class(Optional)</label>
+					<input type="text" name="cssclassname" v-model="drawer.cssclassname" class="rounded">
 				</div>
 				
 			</div>
-			
-			
-			<div class="flex flex-row flex-wrap w-full rounded mt-2 p-2 shadow">
-				<div class="w-full pb-2">
-					<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">Text</label>
-				</div>
-				<div class="flex flex-col w-1/3 mt-2 pr-2 justify-between">
-					<div class="w-full flex flex-row flex-wrap justify-between items-center">
-							<label class="label ">Tracking</label>
-							<span class="pill">{{drawer.letterspacing}}</span>
-					</div>
-					<div class="w-full">
-						<input type="range" min="0" max="100" name="letterspacing" v-model.number="drawer.letterspacing">
-					</div>
-				</div>
-				<div class="flex flex-col w-1/3 mt-2 pr-2 justify-between">
-					<div class="w-full flex flex-row flex-wrap justify-between items-center">
-							<label class="label ">Size</label>
-							<span class="pill">{{drawer.fontsize}}</span>
-					</div>
-					<div class="w-full">
-						<input type="range" min="8" max="80" name="fontsize" v-model.number="drawer.fontsize">
-					</div>
-				</div>
-				<div class="flex flex-col mt-2 w-1/3  justify-between">
-					<label class="label ">Weight</label>
-					<select v-model.number="drawer.fontweight" class="rounded">
-						<option v-for="fontWeight in fontWeights" v-bind:key="fontWeight.value" v-bind:value="fontWeight.value" v-bind:selected="drawer.fontweight">{{fontWeight.text}}</option>			
-					</select>
-				</div>
-				<div class="flex flex-col w-full mt-2 pt-2 justify-between">
-					<label class="label ">Button Text</label>
-					<input type="text" name="buttontext" v-model="drawer.buttontext" class="rounded">
-				</div>
-			</div>
-			<div class="flex flex-col mt-2 p-2 rounded shadow justify-between">
-				<label class="label ">Css Class(Optional)</label>
-				<input type="text" name="cssclassname" v-model="drawer.cssclassname" class="rounded">
-			</div>
-			
-		</div>
-		
-		<div class="w-1/2 mt-2">
+			<div class="w-1/2 ">
 
 			<div class="flex flex-row flex-wrap w-full rounded p-2 mt-2  shadow">
 				<div class="w-full pb-2">
@@ -136,14 +150,14 @@
 					<div class="w-1/2 flex flex-row justify-end"><input type="checkbox" name="bordertab" v-model="drawer.bordertab"/></div>
 				</div>
 				<div class="w-full flex flex-row flex-wrap">
-					<div class="w-full flex flex-row my-2">
-						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
+					<div class="w-full flex flex-col mt-2">
+						<div class="w-full flex flex-col mb-2 justify-between">
 							<label class="label">Border Type</label>
 							<select v-model="drawer.bordertype">
 								<option v-for="borderType in borderTypes" v-bind:value="borderType.value" v-bind:key="borderType.value" v-bind:selected="drawer.bordertype">{{borderType.text}}</option>
 							</select>
 						</div>
-						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
+						<div class="w-1full flex flex-col mb-2 justify-between">
 							<div class="w-full flex flex-row flex-wrap justify-between items-center">
 								<label class="label ">Border</label>
 								<span class="pill">{{drawer.borderwidth}}</span>
@@ -152,7 +166,7 @@
 							<input type="range" min="0" max="100" name="border" v-model.number="drawer.borderwidth">
 							</div>
 						</div>	
-						<div class="w-1/3 flex flex-col justify-between">
+						<div class="w-full flex flex-col justify-between">
 							<div class="w-full flex flex-row flex-wrap justify-between items-center">
 								<label class="label ">Border Color</label>
 								<span class="pill">{{drawer.bordercolor}}</span>
@@ -162,14 +176,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="w-full flex flex-row mt-2 my-2">
-						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
+					<div class="w-full flex flex-col mt-2 ">
+						<div class="w-full flex flex-col mb-2 justify-between">
 							<label class="label">Hover Border Type</label>
 							<select v-model="drawer.hoverbordertype">
 								<option v-for="hoverBorderType in hoverBorderTypes" v-bind:value="hoverBorderType.value" v-bind:key="hoverBorderType.value" v-bind:selected="drawer.hoverbordertype" >{{hoverBorderType.text}}</option>
 							</select>
 						</div>
-						<div class="w-1/3 flex flex-col md:pr-2 justify-between">
+						<div class="w-full flex flex-col mb-2 justify-between">
 							<div class="w-full flex flex-row flex-wrap justify-between items-center">
 								<label class="label ">Hover Border</label>
 								<span class="pill">{{drawer.hoverborderwidth}}</span>
@@ -178,7 +192,7 @@
 								<input type="range" min="0" max="100" name="border" v-model.number="drawer.hoverborderwidth">
 							</div>
 						</div>	
-						<div class="w-1/3 flex flex-col justify-between">
+						<div class="w-full flex flex-col justify-between">
 							<div class="w-full flex flex-row flex-wrap justify-between items-center">
 								<label class="label ">Hover Border Color</label>
 								<span class="pill">{{drawer.hoverbordercolor}}</span>
@@ -192,7 +206,50 @@
 				
 			</div>
 			
+			</div>
 		</div>
+		<div class="w-1/2 mt-2">
+			<div class="w-1/2 pr-2">
+				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+					<div class="w-full pb-2">
+						<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">Corners and Padding</label>
+					</div>
+					<div class="w-full flex flex-col mt-2">
+						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Corners</label>
+								<span class="pill">{{formDrawer.corners}}</span>
+							</div>
+							
+							<div class="w-full">
+								<input type="range" min="0" max="100" name="corners" v-model.number="formDrawer.corners">
+							</div>
+						</div>
+						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Padding X</label>
+								<span class="pill">{{formDrawer.paddingx}}</span>
+							</div>
+							<div class="w-full">
+								<input type="range" min="0" max="100" name="paddingx" v-model.number="formDrawer.paddingx">
+							</div>
+							
+						</div>
+						<div class="flex flex-col flex-wrap w-full justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Padding Y</label>
+								<span class="pill">{{formDrawer.paddingy}}</span>
+							</div>
+							<div class="w-full">
+								<input type="range" min="0" max="100" name="paddingy" v-model.number="formDrawer.paddingy">
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>	
+		</div>
+		
 		<div class="w-full  flex flex-row justify-end mt-5 ">
 			<div class="flex flex-row justify-between">
 				<button class="bg-red-700  px-4 py-2 text-white rounded font-semibold capitalize mr-2 flex items-center" v-on:click="$emit('delete-row',drawerId)">
@@ -220,8 +277,11 @@ export default{
 	data: function(){
 		return {
 				drawer:{},
+				formDrawer:{},
 				cssProperties:'',
+				formCssProperties:'',
 				buttonId:'liveExample' + this.drawerId,
+				formId:'formLiveExample' + this.drawerId,
 				fontWeights:[
 					{value:100,text:100},
 					{value:200,text:200},
@@ -257,8 +317,6 @@ export default{
 					{value:"Outset",text:"Outset"},
 					{value:"Hidden",text:"Hidden"},
 				]
-
-
 			}
 	},
 	watch: {
@@ -266,33 +324,46 @@ export default{
 			handler: function (oldVal,newVal){
 				this.createCss(newVal);
 			},
-			deep:true,
+			deep:true
 			
+		},
+		formDrawer:{
+			handler: function(oldVal,newVal){
+				this.createFormCss(newVal);
+			},
+			deep:true
 		}
 	},
 	created:function(){
 		this.drawer = {
-					corners: this.drawerData.corners ? this.drawerData.corners : 0,
-					paddingx: this.drawerData.paddingX ? this.drawerData.paddingX: 0,
-					paddingy: this.drawerData.paddingY ? this.drawerData.paddingY: 0,
-					letterspacing: this.drawerData.letterSpacing ? this.drawerData.letterSpacing : 0,
-					fontsize: this.drawerData.fontSize ? this.drawerData.fontSize : 0,
-					fontweight:this.drawerData.fontWeight ? this.drawerData.fontWeight : 300,
-					buttontext: this.drawerData.buttonText ? this.drawerData.buttonText : "AWRAQ",
-					cssclassname: this.drawerData.cssClass ? this.drawerData.cssClass : "aavoya",
-					backgroundcolor: this.drawerData.backgroundColor ? this.drawerData.backgroundColor : "#FF0000",
-					textcolor: this.drawerData.textColor ? this.drawerData.textColor : "#ffffff",
-					hoverbackgroundcolor: this.drawerData.hoverBackgroundColor ? this.drawerData.hoverBackgroundColor : "#e5e7eb",
-					hovertextcolor: this.drawerData.hoverTextColor ? this.drawerData.hoverTextColor  : "#ffffff",
-					bordertab: this.drawerData.borderTab ? this.drawerData.borderTab : false,
-					bordertype: this.drawerData.borderType ? this.drawerData.borderType : "none",
-					borderwidth: this.drawerData.borderWidth ? this.drawerData.borderWidth : 0,
-					bordercolor: this.drawerData.borderColor ? this.drawerData.borderColor : '#00FFFFFF',
-					hoverbordertype: this.drawerData.hoverBorderType ? this.drawerData.hoverBorderType: "none",
-					hoverborderwidth: this.drawerData.hoverBorderWidth ? this.drawerData.hoverBorderWidth: 0,
-					hoverbordercolor: this.drawerData.hoverBorderColor ? this.drawerData.hoverBorderColor : "#00FFFFFF"
+			corners: this.drawerData.corners ? this.drawerData.corners : 0,
+			paddingx: this.drawerData.paddingX ? this.drawerData.paddingX: 0,
+			paddingy: this.drawerData.paddingY ? this.drawerData.paddingY: 0,
+			letterspacing: this.drawerData.letterSpacing ? this.drawerData.letterSpacing : 0,
+			fontsize: this.drawerData.fontSize ? this.drawerData.fontSize : 0,
+			fontweight:this.drawerData.fontWeight ? this.drawerData.fontWeight : 300,
+			buttontext: this.drawerData.buttonText ? this.drawerData.buttonText : "AWRAQ",
+			cssclassname: this.drawerData.cssClass ? this.drawerData.cssClass : "aavoya",
+			backgroundcolor: this.drawerData.backgroundColor ? this.drawerData.backgroundColor : "#FF0000",
+			textcolor: this.drawerData.textColor ? this.drawerData.textColor : "#ffffff",
+			hoverbackgroundcolor: this.drawerData.hoverBackgroundColor ? this.drawerData.hoverBackgroundColor : "#e5e7eb",
+			hovertextcolor: this.drawerData.hoverTextColor ? this.drawerData.hoverTextColor  : "#ffffff",
+			bordertab: this.drawerData.borderTab ? this.drawerData.borderTab : false,
+			bordertype: this.drawerData.borderType ? this.drawerData.borderType : "none",
+			borderwidth: this.drawerData.borderWidth ? this.drawerData.borderWidth : 0,
+			bordercolor: this.drawerData.borderColor ? this.drawerData.borderColor : '#00FFFFFF',
+			hoverbordertype: this.drawerData.hoverBorderType ? this.drawerData.hoverBorderType: "none",
+			hoverborderwidth: this.drawerData.hoverBorderWidth ? this.drawerData.hoverBorderWidth: 0,
+			hoverbordercolor: this.drawerData.hoverBorderColor ? this.drawerData.hoverBorderColor : "#00FFFFFF"
 		}
 		this.createCss(this.drawer);
+
+		this.formDrawer = {
+			corners:8,
+			paddingx:4,
+			paddingy:2,
+		}
+		this.createFormCss(this.formDrawer);
 	},
 	methods:{
 		createCss: function (css){
@@ -325,6 +396,14 @@ export default{
 			}	
 				</style>`;
 			
+		},
+		createFormCss: function(css){
+			this.formCssProperties = `<style>
+			#${this.formId}{
+				border-radius:${css.corners}px;
+				padding:${css.paddingy}px ${css.paddingx}px; 
+			}
+			</style>`;
 		}
 	}
 }

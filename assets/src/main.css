@@ -108,5 +108,5 @@ input[type=color]{
 	@apply mb-0;
 }
 .pill{
-	@apply bg-blue-400 text-white px-3 rounded-full text-xs ;
+	@apply bg-blue-400 text-white px-2 rounded-full text-xs ;
 }
