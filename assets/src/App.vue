@@ -5,8 +5,8 @@
 	</div> 
 </template>
 <script>
-import Header from './components/Header'
-import Content from './components/Content'
+import Header from './Components/Header'
+import Content from './Components/Content'
 
 
 export default{

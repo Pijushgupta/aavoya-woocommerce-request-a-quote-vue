@@ -15,10 +15,7 @@ final class dependencies
 
 
 		//check if contact form 7 is active or not
-		if (!is_plugin_active('contact-form-7/wp-contact-form-7.php')) {
-
-			return false;
-		}
+		
 
 		return true;
 	}

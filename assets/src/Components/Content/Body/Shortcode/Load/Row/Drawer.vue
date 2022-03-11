@@ -208,7 +208,7 @@
 			
 			</div>
 		</div>
-		<div class="w-1/2 mt-2">
+		<div class="w-1/2 mt-2 flex flex-row flex-wrap">
 			<div class="w-1/2 pr-2">
 				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
 					<div class="w-full pb-2">
@@ -247,8 +247,52 @@
 					</div>
 					
 				</div>
+
 			</div>	
+			<div class="w-1/2">
+				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+					<div class="w-full pb-2">
+						<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">Background Colour</label>
+						
+					</div>
+					<div class="w-full flex flex-col mt-2">
+						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Colour</label>
+								<span class="pill">{{formDrawer.bgcolor}}</span>
+							</div>
+							
+							<div class="w-full">
+								<input type="color" v-model.number="formDrawer.bgcolor">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+					<div class="w-full pb-2">
+						<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">X Button</label>
+						
+					</div>
+					<div class="w-full flex flex-col mt-2">
+						<div class="flex flex-col  w-full mb-2 justify-between">
+							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<label class="label ">Button Position</label>
+								<span class="pill">{{formDrawer.btpossition}}</span>
+							</div>
+							
+							<div class="w-full">
+								
+								<select v-model="formDrawer.btpossition">
+									<option>Top Right</option>
+									<option>Top Left</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		
 		
 		<div class="w-full  flex flex-row justify-end mt-5 ">
 			<div class="flex flex-row justify-between">
@@ -362,6 +406,8 @@ export default{
 			corners:8,
 			paddingx:4,
 			paddingy:2,
+			bgcolor:"#ececec",
+			btpossition:"top-right"
 		}
 		this.createFormCss(this.formDrawer);
 	},
@@ -401,7 +447,8 @@ export default{
 			this.formCssProperties = `<style>
 			#${this.formId}{
 				border-radius:${css.corners}px;
-				padding:${css.paddingy}px ${css.paddingx}px; 
+				padding:${css.paddingy}px ${css.paddingx}px;
+				background-color:${css.bgcolor} 
 			}
 			</style>`;
 		}
