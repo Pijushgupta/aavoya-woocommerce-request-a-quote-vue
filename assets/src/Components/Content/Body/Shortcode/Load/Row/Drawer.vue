@@ -10,8 +10,12 @@
 			<div class="w-1/2 flex justify-center">
 				<div class="flex justify-center">
 					<div v-html="formCssProperties"></div>
-					<div class="h-96 w-64 border" v-bind:id="formId">
-						
+					<div v-html="xButtonCssProperties"></div>
+					<div v-html="xButtonSvgCss"></div>
+					<div class="h-96 w-64 border relative" v-bind:id="formId">
+						<span v-bind:id="xCloseId">
+							<svg xmlns="http://www.w3.org/2000/svg" v-bind:id="xButtonSvg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+						</span>
 						<div class="w-full h-full bg-gray-300" >
 						</div>
 					</div>
@@ -231,7 +235,7 @@
 								<span class="pill">{{formDrawer.paddingx}}</span>
 							</div>
 							<div class="w-full">
-								<input type="range" min="0" max="100" name="paddingx" v-model.number="formDrawer.paddingx">
+								<input type="range" min="0" max="100"  v-model.number="formDrawer.paddingx">
 							</div>
 							
 						</div>
@@ -241,15 +245,12 @@
 								<span class="pill">{{formDrawer.paddingy}}</span>
 							</div>
 							<div class="w-full">
-								<input type="range" min="0" max="100" name="paddingy" v-model.number="formDrawer.paddingy">
+								<input type="range" min="0" max="100"  v-model.number="formDrawer.paddingy">
 							</div>
 						</div>
 					</div>
 					
 				</div>
-
-			</div>	
-			<div class="w-1/2">
 				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
 					<div class="w-full pb-2">
 						<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">Background Colour</label>
@@ -263,30 +264,56 @@
 							</div>
 							
 							<div class="w-full">
-								<input type="color" v-model.number="formDrawer.bgcolor">
+								<input type="color" v-model="formDrawer.bgcolor">
 							</div>
 						</div>
 					</div>
 				</div>
+
+			</div>	
+			<div class="w-1/2">
+				
 				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
 					<div class="w-full pb-2">
 						<label class="px-4 py-1 bg-gray-200 rounded-full font-semibold">X Button</label>
 						
 					</div>
 					<div class="w-full flex flex-col mt-2">
-						<div class="flex flex-col  w-full mb-2 justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mb-2 ">
 								<label class="label ">Button Position</label>
-								<span class="pill">{{formDrawer.btpossition}}</span>
-							</div>
-							
-							<div class="w-full">
-								
-								<select v-model="formDrawer.btpossition">
-									<option>Top Right</option>
-									<option>Top Left</option>
+								<select v-model="formDrawer.btposition">
+									<option v-for="xButtonLocation in xButtonLocations" v-bind:value="xButtonLocation.value" v-bind:key="xButtonLocation.value">{{xButtonLocation.value}}</option>
 								</select>
-							</div>
+						</div>
+						<div class="flex flex-col  w-full mb-2">
+								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+									<label class="label ">Fill Color</label>
+									<span class="pill">{{formDrawer.svgfill}}</span>
+								</div>
+								<input type="color" v-model="formDrawer.svgfill" >
+						</div>
+						<div class="flex flex-col  w-full mb-2">
+								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+									<label class="label ">Stroke Color</label>
+									<span class="pill">{{formDrawer.svgstroke}}</span>
+								</div>
+								<input type="color" v-model="formDrawer.svgstroke" >
+						</div>
+						<div class="flex flex-col  w-full mb-2">
+								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+									<label class="label ">Background Color</label>
+									<span class="pill">{{formDrawer.svgspanbg}}</span>
+								</div>
+								<input type="color" v-model="formDrawer.svgspanbg" >
+						</div>
+						<div class="flex flex-col flex-wrap w-full justify-between">
+								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+									<label class="label ">Size</label>
+									<span class="pill">{{formDrawer.svgsize}}</span>
+								</div>
+								<div class="w-full">
+								<input type="range" min="0" max="100" v-model.number="formDrawer.svgsize" >
+								</div>
 						</div>
 					</div>
 				</div>
@@ -324,8 +351,12 @@ export default{
 				formDrawer:{},
 				cssProperties:'',
 				formCssProperties:'',
+				xButtonCssProperties:'',
+				xButtonSvgCss:'',
 				buttonId:'liveExample' + this.drawerId,
 				formId:'formLiveExample' + this.drawerId,
+				xCloseId:'xCloseId' + this.drawerId,
+				xButtonSvg:'xButtonSvg' + this.drawerId,
 				fontWeights:[
 					{value:100,text:100},
 					{value:200,text:200},
@@ -360,7 +391,11 @@ export default{
 					{value:"Inset",text:"Inset"},
 					{value:"Outset",text:"Outset"},
 					{value:"Hidden",text:"Hidden"},
-				]
+				],
+				xButtonLocations:[
+					{value:"top-right", text:"Top Right"},
+					{value:"top-left", text:"Top Left"}
+				],
 			}
 	},
 	watch: {
@@ -407,7 +442,11 @@ export default{
 			paddingx:4,
 			paddingy:2,
 			bgcolor:"#ececec",
-			btpossition:"top-right"
+			btposition:"top-right",
+			svgfill:"#ff0000",
+			svgstroke:"#ffffff",
+			svgspanbg: "#ffffff",
+			svgsize:20
 		}
 		this.createFormCss(this.formDrawer);
 	},
@@ -444,11 +483,56 @@ export default{
 			
 		},
 		createFormCss: function(css){
+			/* Form Css */
 			this.formCssProperties = `<style>
 			#${this.formId}{
 				border-radius:${css.corners}px;
 				padding:${css.paddingy}px ${css.paddingx}px;
 				background-color:${css.bgcolor} 
+			}
+			</style>`;
+
+			/* X button Css Generator */
+			if(css.btposition == 'top-right'){
+				this.xButtonCssProperties = `<style>
+				#${this.xCloseId}{	
+					position: absolute;
+					right: 0;
+					top: 0;
+					margin-right: -${css.svgsize/2}px;
+					margin-top: -${css.svgsize/2}px;
+					background: #fff;
+					border-radius: 9999px;
+					background-color:${css.svgspanbg};
+				}
+				</style>`;
+			} 
+
+			/* X button Css Generator */
+			if(css.btposition == 'top-left'){
+				this.xButtonCssProperties = `<style>
+				#${this.xCloseId}{
+					
+					position: absolute;
+					left: 0;
+					top: 0;
+					margin-left: -${css.svgsize/2}px;
+					margin-top: -${css.svgsize/2}px;
+					background: #fff;
+					border-radius: 9999px;
+					background-color:${css.svgspanbg};
+
+				}
+				</style>`;
+			}
+
+			/* X button Svg  Css Generator */
+			this.xButtonSvgCss = `<style>
+			#${this.xButtonSvg}{
+				fill:${css.svgfill};
+				stroke:${css.svgstroke};
+				width:${css.svgsize}px;
+				height:${css.svgsize}px;
 			}
 			</style>`;
 		}
