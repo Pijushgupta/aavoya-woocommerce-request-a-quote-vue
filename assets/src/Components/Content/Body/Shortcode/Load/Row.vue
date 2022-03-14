@@ -3,15 +3,22 @@
 	<div class="drawer flex md:flex-row justify-between items-center ">
 		
 		<div class="title w-2/5 pr-2">
-			<input class="w-full " name="title" type="text" v-model.trim="title" placeholder="Title"/>
+			<input class="w-full " type="text" v-model.trim="title" placeholder="Title"/>
 		</div>
 		<div class="short-code w-1/5">
-			<span class="code">[awraq id="{{row.id}}"]</span >
+			<span class="code">{{row.sc}}</span >
 			<span><svg xmlns="http://www.w3.org/2000/svg" class="inline  w-5 h-5 cursor-pointer " v-on:click="copyToClipBoard" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg></span>
 		</div>
 		<div class="w-1/5">
-			<select name="contact7form" class="w-full" v-model="selectedFormOption">
-				<option v-for="option in allFormOptions" v-bind:key="option.id" v-bind:value="option.id" v-bind:selected="selectedFormOption">{{option.title}}</option>
+			<select name="contact7form" class="w-full" v-model.number="selectedFormOption">
+				<option 
+				v-for="option in allFormOptions" 
+				v-bind:key="option.id" 
+				v-bind:value="option.id" 
+				v-bind:selected="selectedFormOption"
+				>
+				{{option.title}}
+				</option>
 			
 			</select>
 		</div>
@@ -20,7 +27,15 @@
 		</div>
 	</div>
 	<div v-show="drawerStatus === true" class="drawer-open">
-		<Drawer v-bind:drawerData="drawerData" v-bind:drawerId="row.id" v-on:save-drawer = "emitDrawer" v-on:delete-row = "emitDrawerId"/>
+		<Drawer 
+			v-bind:drawerData="drawerData"  
+			v-bind:formDrawerData="formDrawerData" 
+			v-bind:drawerId="row.id" 
+			v-on:send-data = "saveData" 
+			v-on:delete-row = "emitDrawerId" 
+			v-on:toogle-state = "toggleSate" 
+			v-bind:state="state"
+		/>
 	</div>
 </div>
 
@@ -30,7 +45,8 @@ import Drawer from './Row/Drawer'
 export default {
 	name:'Row',
 	props:{
-		row:Object
+		row:Object,
+		state:Object
 	},
 	components:{
 		Drawer
@@ -42,8 +58,15 @@ export default {
 			drawerIconPosition:false,
 			title:this.row.title ? this.row.title:'' ,
 			drawerData:this.row.drawer,
+			formDrawerData : {
+
+			},
 			selectedFormOption: this.row.fso.selected,
-			allFormOptions: this.row.fso.options
+			allFormOptions: this.row.fso.options,
+			
+
+			
+			
 		}
 	},
 	methods:{
@@ -67,11 +90,13 @@ export default {
 		emitNotification: function(){
 			//emit notification
 		},
-		emitDrawer: function(drawer,drawerId){
-			this.$emit('save-drawer',drawer,drawerId);
-		},
+	
 		emitDrawerId: function(drawerId){
 			this.$emit('delete-row',drawerId);
+		},
+		toggleSate:function(statename){
+			this.$emit('toggle-state',statename);
+			
 		},
 		openDrawer: function(){
 			this.drawerStatus = !this.drawerStatus;
@@ -79,6 +104,42 @@ export default {
 		rotateIcon: function(){
 			this.drawerIconPosition = !this.drawerIconPosition;
 			
+		},
+
+		saveData: function(drawerId,drawer,formDrawer){
+			this.$emit('save-a-row',drawerId,this.title,this.selectedFormOption,drawer,formDrawer);
+		},
+		
+
+	},
+	created:function(){
+		this.formDrawerData = {
+			corner: 4,
+			paddingX:4,
+			paddingY:4,
+			bgColor:"#ececec",
+			formShadow:{
+				hOffset:1,
+				vOffset:1,
+				blur:3,
+				spread:2,
+				color:"#cfcfcf"
+			},
+			formCssClassName:"awraqform",
+			btPosition:"top-left",
+			svgFill:"#00ff00",
+			svgStroke:"#ffffff",
+			svgSpanBg:"#ffffff",
+			svgSize: 20,
+			svgShadow:{
+				hOffset:1,
+				vOffset:1,
+				blur:2,
+				spread:5,
+				color:"#cfcfcf"
+			},
+			svgCssClassname:"awraqsvg"
+
 		}
 	}
 }

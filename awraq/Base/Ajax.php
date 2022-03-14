@@ -18,6 +18,7 @@ class Ajax
 		add_action('wp_ajax_awraqCreatePost', array(self::$globalScopeName, 'awraqCreatePost'));	
 		add_action('wp_ajax_awraqLoadPost', array(self::$globalScopeName, 'awraqLoadPost'));	
 		add_action('wp_ajax_awraqDeletePost', array(self::$globalScopeName, 'awraqDeletePost'));	
+		add_action('wp_ajax_awraqSavePost', array(self::$globalScopeName, 'awraqSavePost'));
 		
 	}
 
@@ -55,7 +56,9 @@ class Ajax
 		wp_die();
 	}
 
-	public static function awraqtest(){
+	public static function awraqSavePost(){
+		if(Officer::check($_POST) == false ) wp_die();
+
 		
 		
 		
