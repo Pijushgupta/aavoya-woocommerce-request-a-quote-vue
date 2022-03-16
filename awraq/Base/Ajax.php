@@ -58,8 +58,16 @@ class Ajax
 
 	public static function awraqSavePost(){
 		if(Officer::check($_POST) == false ) wp_die();
-
 		
+		// $drawerId	= intval($_POST['drawerId']);
+		// $title		= sanitize_text_field( $_POST['title'] );
+		// $fs			= intval($_POST['fs']);
+		// $drawer		= json_decode($_POST['drawer'],true);
+		// $formDrawer	= json_decode($_POST['formDrawer'], true);
+
+		// echo json_encode($drawer["corners"]);
+		// wp_die();
+
 		
 		
 	}

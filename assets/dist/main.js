@@ -17436,6 +17436,9 @@ __webpack_require__.r(__webpack_exports__);
       fetch(awraq_ajax_path, {
         method: "POST",
         credentials: "same-origin",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: data
       }).then(function (response) {
         return response.json();
@@ -17452,22 +17455,23 @@ __webpack_require__.r(__webpack_exports__);
       // console.log(drawerId);
       // console.log(title);
       // console.log(fs);
-      // console.log(drawer);
-      // console.log(formDrawer);
       var data = new FormData();
       data.append('action', 'awraqSavePost');
       data.append('awraq_nonce', awraq_nonce);
       data.append('drawerId', drawerId);
       data.append('title', title);
       data.append('fs', fs);
-      data.append('drawer', drawer);
-      data.append('formDrawer', formDrawer);
+      data.append('drawer', JSON.stringify(drawer));
+      data.append('formDrawer', JSON.stringify(formDrawer));
       fetch(awraq_ajax_path, {
         method: "POST",
         credentials: "same-origin",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: data
       }).then(function (response) {
-        return response.json;
+        return response.json();
       }).then(function (response) {
         console.log(response);
       })["catch"](function (err) {

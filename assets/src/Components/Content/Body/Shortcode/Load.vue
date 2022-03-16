@@ -108,6 +108,9 @@ export default{
 			fetch(awraq_ajax_path,{
 				method:"POST",
 				credentials:"same-origin",
+				headers:{
+      					'Content-Type': 'application/json'
+     					},
 				body: data
 			})
 			.then((response) => response.json())
@@ -124,8 +127,8 @@ export default{
 			// console.log(drawerId);
 			// console.log(title);
 			// console.log(fs);
-			// console.log(drawer);
-			// console.log(formDrawer);
+			
+			
 
 			const data = new FormData();
 			data.append('action','awraqSavePost');
@@ -134,16 +137,23 @@ export default{
 			data.append('drawerId',drawerId);
 			data.append('title',title);
 			data.append('fs',fs);
-			data.append('drawer',drawer);
-			data.append('formDrawer',formDrawer);
+			data.append('drawer',JSON.stringify(drawer));
+			data.append('formDrawer',JSON.stringify(formDrawer));
 
 			fetch(awraq_ajax_path,{
 				method:"POST",
 				credentials:"same-origin",
-				body: data
+				headers:{
+      					'Content-Type': 'application/json'
+     					},
+				body: data,
+				
 			})
-			.then(function(response){ return response.json})
-			.then(function(response){ console.log(response)})
+			.then(function(response){ return response.json()})
+			.then(function(response){ 
+				
+				console.log(response)
+			})
 			.catch(function(err){console.log(err)});
 			
 		},
