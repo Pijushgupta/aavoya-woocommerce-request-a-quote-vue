@@ -48,8 +48,7 @@ export default{
 		}
 	},
 	created:function(){
-		this.getRows();
-		
+		this.getRows();	
 	},
 	methods:{
 		/* Create Post*/
@@ -108,12 +107,16 @@ export default{
 			fetch(awraq_ajax_path,{
 				method:"POST",
 				credentials:"same-origin",
-				headers:{
-      					'Content-Type': 'application/json'
-     					},
 				body: data
 			})
-			.then((response) => response.json())
+			.then((response) => {
+				if(response.ok){
+					return response.json();
+				}else{
+					return null;
+				}
+				
+			})
 			.then((response) => {
 				if(response !== null){
 					console.log(response)
@@ -124,11 +127,6 @@ export default{
 		},
 
 		saveARow: function(drawerId,title, fs , drawer, formDrawer){
-			// console.log(drawerId);
-			// console.log(title);
-			// console.log(fs);
-			
-			
 
 			const data = new FormData();
 			data.append('action','awraqSavePost');
@@ -143,9 +141,6 @@ export default{
 			fetch(awraq_ajax_path,{
 				method:"POST",
 				credentials:"same-origin",
-				headers:{
-      					'Content-Type': 'application/json'
-     					},
 				body: data,
 				
 			})
@@ -204,7 +199,8 @@ export default{
 					break;
 			}
 				
-		}
+		},
+		
 	},
 	
 }
