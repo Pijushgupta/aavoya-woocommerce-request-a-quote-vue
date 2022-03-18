@@ -17453,9 +17453,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     saveARow: function saveARow(drawerId, title, fs, drawer, formDrawer) {
-      // console.log(drawerId);
-      // console.log(title);
-      // console.log(fs);
       var data = new FormData();
       data.append('action', 'awraqSavePost');
       data.append('awraq_nonce', awraq_nonce);
@@ -17581,12 +17578,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      codeToCopy: '[awraq id="' + this.row.id + '"]',
+      codeToCopy: this.row.sc,
       drawerStatus: false,
       drawerIconPosition: false,
       title: this.row.title ? this.row.title : '',
       drawerData: this.row.drawer,
-      formDrawerData: {},
+      formDrawerData: this.row.formDrawer,
       selectedFormOption: this.row.fso.selected,
       allFormOptions: this.row.fso.options
     };
@@ -17626,35 +17623,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('save-a-row', drawerId, this.title, this.selectedFormOption, drawer, formDrawer);
     }
   },
-  created: function created() {
-    this.formDrawerData = {
-      corner: 4,
-      paddingX: 4,
-      paddingY: 4,
-      bgColor: "#ececec",
-      formShadow: {
-        hOffset: 1,
-        vOffset: 1,
-        blur: 3,
-        spread: 2,
-        color: "#cfcfcf"
-      },
-      formCssClassName: "awraqform",
-      btPosition: "top-left",
-      svgFill: "#00ff00",
-      svgStroke: "#ffffff",
-      svgSpanBg: "#ffffff",
-      svgSize: 20,
-      svgShadow: {
-        hOffset: 1,
-        vOffset: 1,
-        blur: 2,
-        spread: 5,
-        color: "#cfcfcf"
-      },
-      svgCssClassname: "awraqsvg"
-    };
-  }
+  created: function created() {}
 });
 
 /***/ }),

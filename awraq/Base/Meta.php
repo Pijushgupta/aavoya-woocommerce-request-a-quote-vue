@@ -27,13 +27,10 @@ class Meta {
 			));
 			update_post_meta($id, 'aavoya_wraq_meta_key', $meta);
 		}
-
-
 	}
 
 	public static function get($posts){
-		
-		
+
 		$options = array();
 		foreach(AWRAQ_SUPPORTED_PLUGINS as $supportedPlugin){
 			$options = array_merge($options,Forms::getForms($supportedPlugin['post_type']));
@@ -45,11 +42,12 @@ class Meta {
 			$postMeta = unserialize(get_post_meta($post->ID, 'aavoya_wraq_meta_key', true));
 
 			$row[$key] = array(
-				'id'	=> intval($post->ID),
-				'title'	=> esc_html($post->post_title),
-				'sc'	=> $postMeta['sc'],
-				'fso'	=> array('selected' => $postMeta['fs'],'options'  => $options),
-				'drawer'=> $postMeta['drawer'],
+				'id'		=> intval($post->ID),
+				'title'		=> esc_html($post->post_title),
+				'sc'		=> $postMeta['sc'],
+				'fso'		=> array('selected' => $postMeta['fs'],'options'  => $options),
+				'drawer'	=> $postMeta['drawer'],
+				'formDrawer'=> $postMeta['formDrawer'],
 			);
 		
 		}
@@ -59,5 +57,18 @@ class Meta {
 	public static function delete($id){
 		
 		delete_post_meta($id, 'aavoya_wraq_meta_key');
+	}
+
+	public static function update($id = null, $title = '',$sc,$fso,$drawer,$formDrawer){
+		if($id == null) return false;
+		$postMeta = array(
+			'sc'		=> $sc,
+			'fs'		=> $fso,
+			'drawer'	=> $drawer,
+			'formDrawer'=> $formDrawer
+		);
+
+		
+		return update_post_meta($id , 'aavoya_wraq_meta_key', serialize($postMeta));
 	}
 }
