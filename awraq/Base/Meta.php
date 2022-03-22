@@ -13,7 +13,7 @@ class Meta {
 		if($id == false) return;
 		$id = intval($id);
 
-		$metastyle = get_option('aavoya_wraq_global_settings',null);
+		$metastyle = unserialize(get_option('aavoya_wraq_global_settings',null));
 
 		if($metastyle != null){
 
@@ -22,7 +22,8 @@ class Meta {
 			$meta = serialize(array(
 				'sc'		=> '[awraq id="'.$id.'"]',
 				'fs'		=> $fs,
-				'drawer'	=> unserialize($metastyle),
+				'drawer'	=> $metastyle['drawer'],
+				'formDrawer'=> $metastyle['formDrawer']
 
 			));
 			update_post_meta($id, 'aavoya_wraq_meta_key', $meta);

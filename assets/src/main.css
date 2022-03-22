@@ -25,19 +25,42 @@
 .svg-class {
 	@apply inline fill-current w-5 h-5  mr-2;
 }
-input[type=text], input[type=email], input[type=number], input[type=password], input[type=tel], input[type=url], input[type=search], textarea, select {
+.short-code,input[type=text], input[type=email], input[type=number], input[type=password], input[type=tel], input[type=url], input[type=search], textarea, select {
 	background-color: rgb(241, 241, 241) !important;
 	@apply border-0 rounded focus:outline-none;
+	
+    line-height: 2;
+    min-height: 30px;
+}
+.wp-core-ui select{
+	max-width: 100%;
+}
+.short-code{
+	background-color: rgb(241, 241, 241) !important;
+	@apply border-0 rounded focus:outline-none;
+	padding: 0;
+    line-height: 2;
+    min-height: 30px;
+}
+.copy-button{
+	@apply bg-gray-50 rounded;
+	margin: 2px;
+    padding: 0px 4px;
+	border: 1px solid #fff;
+}
+.icon-button{
+	@apply bg-gray-50 border ;
+	padding: 2px 5px;
+    margin-right: 8px;
+    border-radius: 5px;
 }
 input[type=text]:focus{
 	border:0;
 	@apply  rounded-none border-b-2 border-blue-800;
 }
-.code{
-	@apply rounded-none bg-gray-50 border-0;
-}
+
 .label{
-	@apply text-xs tracking-wide;
+	@apply text-xs;
 }
 input[type="checkbox"] {
 	@apply relative w-10 h-4 outline-none border-0 rounded-full  focus:shadow-none bg-gray-200 p-2 shadow-inner m-0 ;
@@ -98,8 +121,22 @@ input[type="range"]::-moz-range-thumb {
 	border: 1px solid rgb(230, 230, 230);
 	@apply shadow-sm;
 }
-input[type=color]{
-	@apply border-0
+input[type="color"] {
+	-webkit-appearance: none;
+	border: 4px solid #fff;
+	width: 40px;
+	height: 40px;
+	border-radius: 9999px;
+	overflow: hidden;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+.label-parent{
+	@apply w-full flex flex-row flex-wrap justify-between items-center py-1;
 }
 .drawer-row{
 	@apply w-full bg-white shadow px-2 py-2 mb-4  rounded-lg;
@@ -109,4 +146,19 @@ input[type=color]{
 }
 .pill{
 	@apply bg-blue-400 text-white px-2 rounded-full text-xs ;
+}
+.control-box{
+	@apply rounded mt-2 px-6 py-4 shadow;
+}
+.Vue-Toastification__toast--default.awraq-toast {
+	@apply bg-blue-900 rounded ;
+}
+.Vue-Toastification__toast--error.awraq-toast {
+	@apply rounded ;
+}
+.Vue-Toastification__toast--error.awraq-toast .Vue-Toastification__toast-body,.Vue-Toastification__toast--default.awraq-toast .Vue-Toastification__toast-body{
+	@apply text-sm font-semibold;
+}
+.Vue-Toastification__close-button{
+	@apply opacity-100;
 }

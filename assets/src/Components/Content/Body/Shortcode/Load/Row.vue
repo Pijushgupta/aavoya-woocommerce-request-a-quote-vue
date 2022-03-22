@@ -1,15 +1,15 @@
 <template>
 <div class="drawer-row">
-	<div class="drawer flex md:flex-row justify-between items-center ">
+	<div class="drawer flex md:flex-row items-center justify-between">
 		
-		<div class="title w-2/5 pr-2">
+		<div class="icon-button">
+			<svg xmlns="http://www.w3.org/2000/svg" class="inline  w-5 h-6 cursor-pointer" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+		</div>
+		<div class="title w-4/12 ">
 			<input class="w-full " type="text" v-model.trim="title" placeholder="Title"/>
 		</div>
-		<div class="short-code w-1/5">
-			<span class="code">{{row.sc}}</span >
-			<span><svg xmlns="http://www.w3.org/2000/svg" class="inline  w-5 h-5 cursor-pointer " v-on:click="copyToClipBoard" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg></span>
-		</div>
-		<div class="w-1/5">
+		
+		<div class="w-4/12">
 			<select name="contact7form" class="w-full" v-model.number="selectedFormOption">
 				<option 
 				v-for="option in allFormOptions" 
@@ -22,8 +22,18 @@
 			
 			</select>
 		</div>
-		<div>
-			<svg xmlns="http://www.w3.org/2000/svg" v-bind:class="drawerIconPosition !== false ? 'h-5 w-5 hover:cursor-pointer transform rotate-90':'h-5 w-5 hover:cursor-pointer'"  v-on:click="openDrawer(); rotateIcon();" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" /></svg>
+		<div class="short-code  py-1  flex flex-row flex-wrap items-center ">
+			<div class="flex flex-row justify-center">
+				<span class="code px-4">{{row.sc}}</span >
+			</div>
+			
+			<div class="flex flex-row justify-end">
+				<span class="copy-button"><svg xmlns="http://www.w3.org/2000/svg" class="inline  w-5 h-6 cursor-pointer " v-on:click="copyToClipBoard" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg></span>
+			</div>
+			
+		</div>
+		<div class="icon-button">
+			<svg xmlns="http://www.w3.org/2000/svg" v-bind:class="drawerIconPosition !== false ? 'h-6 w-5 hover:cursor-pointer transform rotate-90':'h-6 w-5 hover:cursor-pointer'"  v-on:click="openDrawer(); rotateIcon();" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" /></svg>
 		</div>
 	</div>
 	<div v-show="drawerStatus === true" class="drawer-open">
@@ -46,7 +56,7 @@ export default {
 	name:'Row',
 	props:{
 		row:Object,
-		state:Object
+		
 	},
 	components:{
 		Drawer
@@ -61,6 +71,23 @@ export default {
 			formDrawerData : this.row.formDrawer,
 			selectedFormOption: this.row.fso.selected,
 			allFormOptions: this.row.fso.options,
+
+			/* States */
+			state:{
+				buttonCornersAndPadding:false,
+				buttonText:false,
+				buttonShadow:false,
+				buttonColor:false,
+				buttonBorder:false,
+				buttonCssClass:false,
+				formCornersAndPadding:false,
+				formColor:false,
+				formShadow:false,
+				formCssClass:false,
+				xButton:false,
+				xButtonShadow:false,
+				xButtonCssClass:false
+			}
 			
 
 			
@@ -93,7 +120,49 @@ export default {
 			this.$emit('delete-row',drawerId);
 		},
 		toggleSate:function(statename){
-			this.$emit('toggle-state',statename);
+			switch(statename){
+				case "buttonCornersAndPadding":
+					this.state.buttonCornersAndPadding = !this.state.buttonCornersAndPadding;
+					break;
+				case "buttonText":
+					this.state.buttonText = !this.state.buttonText;
+					break;
+				case "buttonShadow":
+					this.state.buttonShadow = !this.state.buttonShadow;
+					break;
+				case "buttonColor":
+					this.state.buttonColor = !this.state.buttonColor;
+					break;
+				case "buttonBorder":
+					this.state.buttonBorder = !this.state.buttonBorder;
+					break;
+				case "buttonCssClass":
+					this.state.buttonCssClass = !this.state.buttonCssClass;
+					break;
+				case "formCornersAndPadding":
+					this.state.formCornersAndPadding = !this.state.formCornersAndPadding;
+					break;
+				case "formColor":
+					this.state.formColor = !this.state.formColor;
+					break;
+				case "formShadow":
+					this.state.formShadow = !this.state.formShadow;
+					break;
+				case "formCssClass":
+					this.state.formCssClass = !this.state.formCssClass;
+					break;
+				case "xButton":
+					this.state.xButton = !this.state.xButton;
+					break;
+				case "xButtonShadow":
+					this.state.xButtonShadow = !this.state.xButtonShadow;
+					break;
+				case "xButtonCssClass":
+					this.state.xButtonCssClass = !this.state.xButtonCssClass;
+					break;
+				default:
+					break;
+			}
 			
 		},
 		openDrawer: function(){

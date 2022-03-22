@@ -441,6 +441,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .static {
   position: static;
 }
+.absolute {
+  position: absolute;
+}
 .relative {
   position: relative;
 }
@@ -478,6 +481,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-5 {
   height: 1.25rem;
 }
+.h-6 {
+  height: 1.5rem;
+}
 .h-96 {
   height: 24rem;
 }
@@ -490,11 +496,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-5 {
   width: 1.25rem;
 }
-.w-2\/5 {
-  width: 40%;
-}
-.w-1\/5 {
-  width: 20%;
+.w-4\/12 {
+  width: 33.333333%;
 }
 .w-1\/2 {
   width: 50%;
@@ -548,6 +551,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border {
   border-width: 1px;
 }
+.border-r {
+  border-right-width: 1px;
+}
 .bg-blue-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 64 175 / var(--tw-bg-opacity));
@@ -560,22 +566,25 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
-.bg-red-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
-}
 .fill-current {
   fill: currentColor;
+}
+.stroke-blue-500 {
+  stroke: #3b82f6;
 }
 .p-4 {
   padding: 1rem;
 }
-.p-2 {
-  padding: 0.5rem;
+.p-6 {
+  padding: 1.5rem;
 }
 .px-5 {
   padding-left: 1.25rem;
@@ -589,13 +598,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 .pt-5 {
   padding-top: 1.25rem;
@@ -631,12 +644,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.shadow-sm {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .blur {
   --tw-blur: blur(8px);
   filter: var(--tw-filter);
 }
 .filter {
   filter: var(--tw-filter);
+}
+.transition {
+  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 #wpcontent {
@@ -697,14 +722,54 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 1.25rem;
   fill: currentColor;
 }
-input[type=text], input[type=email], input[type=number], input[type=password], input[type=tel], input[type=url], input[type=search], textarea, select {
+.short-code,input[type=text], input[type=email], input[type=number], input[type=password], input[type=tel], input[type=url], input[type=search], textarea, select {
+	background-color: rgb(241, 241, 241) !important;
+}
+.short-code, input[type=text], input[type=email], input[type=number], input[type=password], input[type=tel], input[type=url], input[type=search], textarea, select {
+  border-radius: 0.25rem;
+  border-width: 0px;
+}
+.short-code:focus, input[type=text]:focus, input[type=email]:focus, input[type=number]:focus, input[type=password]:focus, input[type=tel]:focus, input[type=url]:focus, input[type=search]:focus, textarea:focus, select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.short-code,input[type=text], input[type=email], input[type=number], input[type=password], input[type=tel], input[type=url], input[type=search], textarea, select {
+	
+    line-height: 2;
+    min-height: 30px;
+}
+.wp-core-ui select{
+	max-width: 100%;
+}
+.short-code{
 	background-color: rgb(241, 241, 241) !important;
 	border-radius: 0.25rem;
 	border-width: 0px;
 }
-input[type=text]:focus, input[type=email]:focus, input[type=number]:focus, input[type=password]:focus, input[type=tel]:focus, input[type=url]:focus, input[type=search]:focus, textarea:focus, select:focus {
+.short-code:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+.short-code{
+	padding: 0;
+    line-height: 2;
+    min-height: 30px;
+}
+.copy-button {
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+	margin: 2px;
+    padding: 0px 4px;
+	border: 1px solid #fff;
+}
+.icon-button {
+  border-width: 1px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+	padding: 2px 5px;
+    margin-right: 8px;
+    border-radius: 5px;
 }
 input[type=text]:focus{
 	border:0;
@@ -713,16 +778,10 @@ input[type=text]:focus{
 	--tw-border-opacity: 1;
 	border-color: rgb(30 64 175 / var(--tw-border-opacity));
 }
-.code {
-  border-radius: 0px;
-  border-width: 0px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
+
 .label {
   font-size: 0.75rem;
   line-height: 1rem;
-  letter-spacing: 0.025em;
 }
 input[type="checkbox"] {
   position: relative;
@@ -845,8 +904,29 @@ input[type="range"]::-moz-range-thumb {
 	--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
 	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
-input[type=color] {
-  border-width: 0px;
+input[type="color"] {
+	-webkit-appearance: none;
+	border: 4px solid #fff;
+	width: 40px;
+	height: 40px;
+	border-radius: 9999px;
+	overflow: hidden;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+.label-parent {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 .drawer-row {
   margin-bottom: 1rem;
@@ -875,6 +955,33 @@ input[type=color] {
   line-height: 1rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.control-box {
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.Vue-Toastification__toast--default.awraq-toast {
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 58 138 / var(--tw-bg-opacity));
+}
+.Vue-Toastification__toast--error.awraq-toast {
+  border-radius: 0.25rem;
+}
+.Vue-Toastification__toast--error.awraq-toast .Vue-Toastification__toast-body, .Vue-Toastification__toast--default.awraq-toast .Vue-Toastification__toast-body {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+.Vue-Toastification__close-button {
+  opacity: 1;
 }
 .hover\:cursor-pointer:hover {
   cursor: pointer;

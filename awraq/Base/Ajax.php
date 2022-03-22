@@ -29,7 +29,7 @@ class Ajax
 		$post_id 	= Post::create();
 		Meta::addDefault($post_id);
 
-		echo json_encode(0);
+		echo json_encode (Meta::get(Post::read(1)));
 		wp_die();
 
 	}
@@ -122,8 +122,9 @@ class Ajax
 			'svgStroke'				=> Officer::sanitize($formDrawer['svgStroke'],'color')
 		);
 
-		
-		echo json_encode(Meta::update($drawerId,$title,$sc,$fs,$drawer,$formDrawer));
+		Post::update($drawerId,array('title'=> $title,'status'=>'publish'));
+		Meta::update($drawerId,$title,$sc,$fs,$drawer,$formDrawer);
+		echo json_encode(true);
 
 		
 		wp_die();	

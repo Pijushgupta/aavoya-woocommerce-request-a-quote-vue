@@ -1,7 +1,7 @@
 <template>
 	<div class="flex md:flex-row flex-wrap ">
 		<div class="w-full flex flex-row flex-wrap justify-center py-10">
-			<div class="w-1/2 flex flex-col justify-center">
+			<div class="w-1/2 flex flex-col justify-center border-r">
 				<div class="flex justify-center">
 					<!-- Live Button Css Dump -->
 					<div v-html="cssProperties"></div>
@@ -46,18 +46,18 @@
 			<!-- Button controls 1st column  -->
 			<div class="w-1/2 pr-2">
 				<!-- Buttons Corners and Padding -->
-				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap  control-box">
 					<div class="w-full ">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold" 
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','buttonCornersAndPadding')"
 						>
-						Corners and Padding
+						Button Corners and Padding <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.buttonCornersAndPadding == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
-					<div v-bind:class="state.buttonCornersAndPadding == false ? 'w-full flex flex-col mt-2 hidden':'w-full flex flex-col mt-2'">
-						<div class="flex flex-col flex-wrap w-full mt-2 justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+					<div v-bind:class="state.buttonCornersAndPadding == false ? 'hidden':'w-full flex flex-col mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="flex flex-col flex-wrap w-full  justify-between">
+							<div class="label-parent">
 								<label class="label ">Corners</label>
 								<span class="pill">{{drawer.corners}}</span>
 							</div>
@@ -72,7 +72,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col flex-wrap w-full mt-2 justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 								<label class="label ">Padding X</label>
 								<span class="pill">{{drawer.paddingX}}</span>
 							</div>
@@ -87,7 +87,7 @@
 							
 						</div>
 						<div class="flex flex-col flex-wrap w-full mt-2 justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 								<label class="label ">Padding Y</label>
 								<span class="pill">{{drawer.paddingY}}</span>
 							</div>
@@ -105,18 +105,18 @@
 				</div>
 				<!-- Buttons corners and paddings ends -->
 				<!-- Buttons Text controls -->
-				<div class="flex flex-row flex-wrap w-full rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap control-box">
 					<div class="w-full">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold" 
+						class="py-1 rounded-full font-semibold" 
 						v-on:click="$emit('toogle-state','buttonText')"
 						>
-						Button Text
+						Button Text <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.buttonText == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
-					<div v-bind:class="state.buttonText == false ? 'hidden':'w-full flex flex-col mt-2'">
-						<div class="flex flex-col w-full mt-2  justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+					<div v-bind:class="state.buttonText == false ? 'hidden':'w-full flex flex-col mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="flex flex-col w-full justify-between">
+							<div class="label-parent">
 									<label class="label ">Letter Spacing</label>
 									<span class="pill">{{drawer.letterSpacing}}</span>
 							</div>
@@ -130,7 +130,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col w-full mt-2  justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 									<label class="label ">Size</label>
 									<span class="pill">{{drawer.fontSize}}</span>
 							</div>
@@ -168,18 +168,19 @@
 				</div>
 				<!-- Buttons text controls ends -->
 				<!-- Buttons shadow -->
-				<div class="flex flex-row flex-wrap w-full rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap control-box">
 					<div class="w-full">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','buttonShadow')"
 						>
-						Button Shadow
+						Button Shadow <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.buttonShadow == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
+						
 					</div>
-					<div v-bind:class="state.buttonShadow == false ? 'hidden':'w-full flex flex-col mt-2'">
-						<div class="flex flex-col w-full mt-2  justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+					<div v-bind:class="state.buttonShadow == false ? 'hidden':'w-full flex flex-col mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="flex flex-col w-full  justify-between">
+							<div class="label-parent">
 									<label class="label ">H-Offset</label>
 									<span class="pill">{{drawer.buttonShadow.hOffset}}</span>
 							</div>
@@ -193,7 +194,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col w-full mt-2  justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 									<label class="label ">V-Offset</label>
 									<span class="pill">{{drawer.buttonShadow.vOffset}}</span>
 							</div>
@@ -207,7 +208,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col w-full mt-2  justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 									<label class="label ">Blur</label>
 									<span class="pill">{{drawer.buttonShadow.blur}}</span>
 							</div>
@@ -221,7 +222,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col w-full mt-2  justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 									<label class="label ">Spread</label>
 									<span class="pill">{{drawer.buttonShadow.spread}}</span>
 							</div>
@@ -235,7 +236,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col w-full mt-2  justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 									<label class="label ">Colour</label>
 									<span class="pill">{{drawer.buttonShadow.color}}</span>
 							</div>
@@ -252,18 +253,18 @@
 			<!-- Button controls 2nd column -->
 			<div class="w-1/2 ">
 				<!-- Buttons Colors -->
-				<div class="flex flex-col w-full rounded p-2 mt-2  shadow">
+				<div class="flex flex-col control-box">
 					<div class="w-full">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','buttonColor')"
 						>
-						Button Colours
+						Button Colours <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.buttonColor == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
-					<div v-bind:class="state.buttonColor == false ? 'hidden':'w-full flex-row flex-wrap mt-2'">
-						<div class="flex flex-col  justify-between mt-2 ">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+					<div v-bind:class="state.buttonColor == false ? 'hidden':'w-full flex-row flex-wrap mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="flex flex-col  justify-between  ">
+							<div class="label-parent">
 								<label class="label ">Background</label>
 								<span class="pill">{{drawer.backgroundColor}}</span>
 							</div>
@@ -275,7 +276,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col  justify-between mt-2">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 								<label class="label ">Text</label>
 								<span class="pill">{{drawer.textColor}}</span>
 							</div>
@@ -287,7 +288,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col  justify-between mt-2 ">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="label-parent">
 								<label class="label ">Background Hover</label>
 								<span class="pill">{{drawer.hoverBackgroundColor}}</span>
 							</div>
@@ -299,7 +300,7 @@
 							</div>
 						</div>
 						<div class="flex flex-col  justify-between mt-2">
-						<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="label-parent">
 							<label class="label ">Text Hover</label>
 							<span class="pill">{{drawer.hoverTextColor}}</span>
 						</div>
@@ -315,14 +316,14 @@
 				</div>
 				<!-- Buttons color ends -->
 				<!-- Button Border -->
-				<div class="flex flex-col flex-wrap w-full rounded p-2 mt-2  shadow">
+				<div class="flex flex-col control-box">
 					<div class="w-full flex flex-row justify-between items-center">
 						
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','buttonBorder')"
 						>
-						Button Border
+						Button Border <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.buttonBorder == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					
 						<div class="w-1/2 flex flex-row justify-end">
@@ -332,9 +333,9 @@
 							/>
 						</div>
 					</div>
-					<div v-bind:class="state.buttonBorder == false ? 'hidden':'w-full flex flex-row flex-wrap mt-2'">
-						<div class="w-full flex flex-col mt-2">
-							<div class="w-full flex flex-col mb-2 justify-between">
+					<div v-bind:class="state.buttonBorder == false ? 'hidden':'w-full flex flex-row flex-wrap mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="w-full flex flex-col ">
+							<div class="w-full flex flex-col  justify-between">
 								<label class="label">Border Type</label>
 								<select v-model="drawer.borderType">
 									<option 
@@ -347,8 +348,8 @@
 									</option>
 								</select>
 							</div>
-							<div class="w-1full flex flex-col mb-2 justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="w-1full flex flex-col mt-2 justify-between">
+								<div class="label-parent">
 									<label class="label ">Border</label>
 									<span class="pill">{{drawer.borderWidth}}</span>
 								</div>
@@ -362,7 +363,7 @@
 								</div>
 							</div>	
 							<div class="w-full flex flex-col justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<div class="label-parent">
 									<label class="label ">Border Colour</label>
 									<span class="pill">{{drawer.borderColor}}</span>
 								</div>
@@ -373,9 +374,7 @@
 									/>
 								</div>
 							</div>
-						</div>
-						<div class="w-full flex flex-col mt-2 ">
-							<div class="w-full flex flex-col mb-2 justify-between">
+							<div class="w-full flex flex-col mt-2 justify-between">
 								<label class="label">Hover Border Type</label>
 								<select v-model="drawer.hoverBorderType">
 									<option 
@@ -388,8 +387,8 @@
 									</option>
 								</select>
 							</div>
-							<div class="w-full flex flex-col mb-2 justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+							<div class="w-full flex flex-col mt-2 justify-between">
+								<div class="label-parent">
 									<label class="label ">Hover Border</label>
 									<span class="pill">{{drawer.hoverBorderWidth}}</span>
 								</div>
@@ -403,7 +402,7 @@
 								</div>
 							</div>	
 							<div class="w-full flex flex-col justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<div class="label-parent">
 									<label class="label ">Hover Border Colour</label>
 									<span class="pill">{{drawer.hoverBorderColor}}</span>
 								</div>
@@ -417,18 +416,21 @@
 								</div>
 							</div>
 						</div>
+						
+							
+						
 					</div>
 					
 				</div>
 				<!-- Button Border ends -->
 				<!-- Additional css class for Button -->
-				<div class="flex flex-col mt-2 p-2 rounded shadow justify-between">
+				<div class="flex flex-col control-box justify-between">
 					<div class="w-full flex flex-row justify-between">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','buttonCssClass')"
 						>
-						Button Css Class(Optional)
+						Button Css Class(Optional) <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.buttonCssClass == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
 					<div v-bind:class="state.buttonCssClass == false ? 'hidden':'w-full mt-2'" >
@@ -449,18 +451,18 @@
 			<!-- Form Controls -->
 			<div class="w-1/2 pr-2">
 				<!-- Form Corners and Padding -->
-				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap control-box">
 					<div class="w-full">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','formCornersAndPadding')"
 						>
-						Form Corners and Padding
+						Form Corners and Padding  <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.formCornersAndPadding == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
-					<div v-bind:class="state.formCornersAndPadding == false ? 'hidden':'w-full flex flex-col mt-2'">
-						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+					<div v-bind:class="state.formCornersAndPadding == false ? 'hidden':'w-full flex flex-col mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="flex flex-col flex-wrap w-full  justify-between">
+							<div class="label-parent">
 								<label class="label ">Corners</label>
 								<span class="pill">{{formDrawer.corners}}</span>
 							</div>
@@ -474,8 +476,8 @@
 								>
 							</div>
 						</div>
-						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col flex-wrap w-full mt-2 justify-between">
+							<div class="label-parent">
 								<label class="label ">Padding X</label>
 								<span class="pill">{{formDrawer.paddingX}}</span>
 							</div>
@@ -489,8 +491,8 @@
 							</div>
 							
 						</div>
-						<div class="flex flex-col flex-wrap w-full justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col flex-wrap w-full mt-2 justify-between">
+							<div class="label-parent">
 								<label class="label ">Padding Y</label>
 								<span class="pill">{{formDrawer.paddingY}}</span>
 							</div>
@@ -507,19 +509,19 @@
 				</div>
 				<!-- Form Corner and Padding ends -->
 				<!-- Form Background -->
-				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap control-box">
 					<div class="w-full">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','formColor')"
 						>
-						Form Background Colour
+						Form Background Colour <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.formColor == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 						
 					</div>
-					<div v-bind:class="state.formColor == false ? 'hidden':'w-full flex flex-col mt-2'">
-						<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-							<div class="w-full flex flex-row flex-wrap justify-between items-center">
+					<div v-bind:class="state.formColor == false ? 'hidden':'w-full flex flex-col mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="flex flex-col flex-wrap w-full justify-between">
+							<div class="label-parent">
 								<label class="label ">Colour</label>
 								<span class="pill">{{formDrawer.bgColor}}</span>
 							</div>
@@ -534,20 +536,20 @@
 				</div>
 				<!-- Form Background ends -->
 				<!-- Form Shadow Area -->
-				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap control-box">
 					<div class="w-full">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','formShadow')"
 						>
-						Form Shadows
+						Form Shadows <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.formShadow == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 						
 					</div>
-					<div v-bind:class="state.formShadow == false ? 'hidden':'w-full'">
-						<div class="w-full flex flex-col mt-2">
+					<div v-bind:class="state.formShadow == false ? 'hidden':'w-full mt-2 bg-gray-100 rounded-lg p-6 '">
+						<div class="w-full flex flex-col ">
 							<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<div class="label-parent">
 									<label class="label ">H-Offset</label>
 									<span class="pill">{{formDrawer.formShadow.hOffset}}</span>
 								</div>
@@ -564,7 +566,7 @@
 						</div>
 						<div class="w-full flex flex-col mt-2">
 							<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<div class="label-parent">
 									<label class="label ">V-Offset</label>
 									<span class="pill">{{formDrawer.formShadow.vOffset}}</span>
 								</div>
@@ -581,7 +583,7 @@
 						</div>
 						<div class="w-full flex flex-col mt-2">
 							<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<div class="label-parent">
 									<label class="label ">Blur</label>
 									<span class="pill">{{formDrawer.formShadow.blur}}</span>
 								</div>
@@ -598,7 +600,7 @@
 						</div>
 						<div class="w-full flex flex-col mt-2">
 							<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<div class="label-parent">
 									<label class="label ">Spread</label>
 									<span class="pill">{{formDrawer.formShadow.spread}}</span>
 								</div>
@@ -615,7 +617,7 @@
 						</div>
 						<div class="w-full flex flex-col mt-2">
 							<div class="flex flex-col flex-wrap w-full mb-2 justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+								<div class="label-parent">
 									<label class="label ">Colour</label>
 									<span class="pill">{{formDrawer.formShadow.color}}</span>
 								</div>
@@ -632,13 +634,13 @@
 				</div>
 				<!-- Form shadow area ends -->
 				<!-- Form css class name -->
-				<div class="flex flex-col mt-2 p-2 rounded shadow justify-between">
+				<div class="flex flex-col justify-between control-box">
 					<div class="w-full flex flex-row justify-between">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','formCssClass')"
 						>
-						Form Css Class(Optional)
+						Form Css Class(Optional) <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.formCssClass == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
 					<div v-bind:class="state.formCssClass == false ? 'hidden':'w-full mt-2'">
@@ -655,18 +657,18 @@
 			<!-- X button Controls -->
 			<div class="w-1/2">
 				
-				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap control-box">
 					<div class="w-full ">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','xButton')"
 						>
-						X Button
+						X Button <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.xButton == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 						
 					</div>
-					<div v-bind:class="state.xButton == false ? 'hidden': 'w-full flex flex-col mt-2'">
-						<div class="flex flex-col  w-full mb-2 ">
+					<div v-bind:class="state.xButton == false ? 'hidden': 'w-full flex flex-col mt-2 bg-gray-100 rounded-lg p-6'">
+						<div class="flex flex-col  w-full">
 								<label class="label ">Button Position</label>
 								<select v-model="formDrawer.btPosition">
 									<option 
@@ -678,8 +680,8 @@
 									</option>
 								</select>
 						</div>
-						<div class="flex flex-col  w-full mb-2">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mt-2">
+								<div class="label-parent">
 									<label class="label ">Fill Colour</label>
 									<span class="pill">{{formDrawer.svgFill}}</span>
 								</div>
@@ -688,8 +690,8 @@
 								v-model="formDrawer.svgFill" 
 								/>
 						</div>
-						<div class="flex flex-col  w-full mb-2">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mt-2">
+								<div class="label-parent">
 									<label class="label ">Stroke Colour</label>
 									<span class="pill">{{formDrawer.svgStroke}}</span>
 								</div>
@@ -698,8 +700,8 @@
 								v-model="formDrawer.svgStroke" 
 								/>
 						</div>
-						<div class="flex flex-col  w-full mb-2">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mt-2">
+								<div class="label-parent">
 									<label class="label ">Background Colour</label>
 									<span class="pill">{{formDrawer.svgSpanBg}}</span>
 								</div>
@@ -708,8 +710,8 @@
 								v-model="formDrawer.svgSpanBg" 
 								/>
 						</div>
-						<div class="flex flex-col flex-wrap w-full justify-between">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col flex-wrap w-full mt-2 justify-between">
+								<div class="label-parent">
 									<label class="label ">Size</label>
 									<span class="pill">{{formDrawer.svgSize}}</span>
 								</div>
@@ -726,20 +728,20 @@
 					</div>
 					
 				</div>
-				<div class="flex flex-row flex-wrap rounded mt-2 p-2 shadow">
+				<div class="flex flex-row flex-wrap control-box">
 					<div class="w-full ">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','xButtonShadow')"
 						>
-						X Button Shadow
+						X Button Shadow <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.xButtonShadow == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
 
-					<div v-bind:class="state.xButtonShadow == false ? 'hidden': 'w-full flex flex-col mt-2'">
+					<div v-bind:class="state.xButtonShadow == false ? 'hidden': 'w-full flex flex-col mt-2 bg-gray-100 rounded-lg p-6'">
 
-						<div class="flex flex-col  w-full mb-2 ">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full">
+								<div class="label-parent">
 									<label class="label ">H-Offset</label>
 									<span class="pill">{{formDrawer.svgShadow.hOffset}}</span>
 								</div>
@@ -752,8 +754,8 @@
 									/>
 								</div>
 						</div>
-						<div class="flex flex-col  w-full mb-2 ">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mt-2 ">
+								<div class="label-parent">
 									<label class="label ">V-Offset</label>
 									<span class="pill">{{formDrawer.svgShadow.vOffset}}</span>
 								</div>
@@ -766,8 +768,8 @@
 									/>
 								</div>
 						</div>
-						<div class="flex flex-col  w-full mb-2 ">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mt-2 ">
+								<div class="label-parent">
 									<label class="label ">Blur</label>
 									<span class="pill">{{formDrawer.svgShadow.blur}}</span>
 								</div>
@@ -780,8 +782,8 @@
 									/>
 								</div>
 						</div>
-						<div class="flex flex-col  w-full mb-2 ">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mt-2 ">
+								<div class="label-parent">
 									<label class="label ">Spread</label>
 									<span class="pill">{{formDrawer.svgShadow.spread}}</span>
 								</div>
@@ -794,8 +796,8 @@
 									/>
 								</div>
 						</div>
-						<div class="flex flex-col  w-full mb-2 ">
-								<div class="w-full flex flex-row flex-wrap justify-between items-center">
+						<div class="flex flex-col  w-full mt-2 ">
+								<div class="label-parent">
 									<label class="label ">Colour</label>
 									<span class="pill">{{formDrawer.svgShadow.color}}</span>
 								</div>
@@ -808,13 +810,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex flex-col mt-2 p-2 rounded shadow justify-between">
+				<div class="flex flex-col justify-between control-box">
 					<div class="w-full flex flex-row justify-between">
 						<label 
-						class="px-4 py-1 bg-gray-200 rounded-full font-semibold"
+						class="py-1 rounded-full font-semibold"
 						v-on:click="$emit('toogle-state','xButtonCssClass')"
 						>
-						X Button Css Class(Optional)
+						X Button Css Class(Optional) <svg xmlns="http://www.w3.org/2000/svg" v-bind:class=" state.xButtonCssClass == false ? 'h-5 w-5 inline':'h-5 w-5 inline transform rotate-90 stroke-blue-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
 						</label>
 					</div>
 					<div v-bind:class="state.xButtonCssClass == false ? 'hidden': 'w-full mt-2'">
@@ -831,12 +833,10 @@
 		<!-- Save and Delete Button -->
 		<div class="w-full  flex flex-row justify-end mt-5 ">
 			<div class="flex flex-row justify-between">
-				<button class="bg-red-700  px-4 py-2 text-white rounded font-semibold capitalize mr-2 flex items-center" v-on:click="$emit('delete-row',drawerId)">
-					<svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 h-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+				<button class="bg-gray-200  px-10 py-2 shadow-sm rounded font-semibold capitalize mr-2 flex items-center" v-on:click="$emit('delete-row',drawerId)">
 					Delete
 				</button>
-				<button class="bg-blue-800 px-4 py-2 text-white rounded font-semibold capitalize flex items-center" v-on:click="sendData">
-					<svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 h-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" /></svg>	
+				<button class="bg-gray-200  px-10 py-2 shadow-sm rounded font-semibold capitalize flex items-center" v-on:click="sendData">
 					Save
 				</button>
 			</div>
@@ -936,11 +936,11 @@ export default{
 			hoverBorderWidth: this.drawerData.hoverBorderWidth ? this.drawerData.hoverBorderWidth: 0,
 			hoverBorderColor: this.drawerData.hoverBorderColor ? this.drawerData.hoverBorderColor : "#00FFFFFF",
 			buttonShadow:{
-				hOffset:this.drawerData.buttonShadow ? this.drawerData.buttonShadow.hOffset ? this.drawerData.buttonShadow.hOffset: 0 : 0,
-				vOffset:this.drawerData.buttonShadow ? this.drawerData.buttonShadow.vOffset ? this.drawerData.buttonShadow.vOffset : 0 : 0,
-				blur:this.drawerData.buttonShadow ? this.drawerData.buttonShadow.blur ? this.drawerData.buttonShadow.blur : 3 : 3,
-				spread:this.drawerData.buttonShadow ? this.drawerData.buttonShadow.spread ? this.drawerData.buttonShadow.spread : 2 : 2,
-				color:this.drawerData.buttonShadow ? this.drawerData.buttonShadow.color ? this.drawerData.buttonShadow.color : "#cfcfcf" : "#cfcfcf"
+				hOffset:this.drawerData.buttonShadow.hOffset ? this.drawerData.buttonShadow.hOffset: 0 ,
+				vOffset:this.drawerData.buttonShadow.vOffset ? this.drawerData.buttonShadow.vOffset : 0,
+				blur:this.drawerData.buttonShadow.blur ? this.drawerData.buttonShadow.blur : 0,
+				spread:this.drawerData.buttonShadow.spread ? this.drawerData.buttonShadow.spread : 0,
+				color:this.drawerData.buttonShadow.color ? this.drawerData.buttonShadow.color : "#cfcfcf",
 			},
 		}
 		this.createButtonCss(this.drawer);
@@ -952,11 +952,11 @@ export default{
 			paddingY:this.formDrawerData.paddingY ? this.formDrawerData.paddingY:4,
 			bgColor:this.formDrawerData.bgColor ? this.formDrawerData.bgColor:"#ececec",
 			formShadow:{
-				hOffset:this.formDrawerData.formShadow ? this.formDrawerData.formShadow.hOffset ? this.formDrawerData.formShadow.hOffset:0:0,
-				vOffset:this.formDrawerData.formShadow ? this.formDrawerData.formShadow.vOffset ? this.formDrawerData.formShadow.vOffset:0:0,
-				blur:this.formDrawerData.formShadow ? this.formDrawerData.formShadow.blur ? this.formDrawerData.formShadow.blur:3:3,
-				spread:this.formDrawerData.formShadow ? this.formDrawerData.formShadow.spread ? this.formDrawerData.formShadow.spread:2:2,
-				color:this.formDrawerData.formShadow ? this.formDrawerData.formShadow.color ? this.formDrawerData.formShadow.color:"#cfcfcf":"#cfcfcf"
+				hOffset:this.formDrawerData.formShadow.hOffset ? this.formDrawerData.formShadow.hOffset:0,
+				vOffset:this.formDrawerData.formShadow.vOffset ? this.formDrawerData.formShadow.vOffset:0,
+				blur:this.formDrawerData.formShadow.blur ? this.formDrawerData.formShadow.blur:0,
+				spread:this.formDrawerData.formShadow.spread ? this.formDrawerData.formShadow.spread:0,
+				color:this.formDrawerData.formShadow.color ? this.formDrawerData.formShadow.color:"#cfcfcf"
 			},
 			formCssClassName:this.formDrawerData.formCssClassName ? this.formDrawerData.formCssClassName : "formawraq",
 			btPosition:this.formDrawerData.btPosition ? this.formDrawerData.btPosition : "top-right",
@@ -965,11 +965,11 @@ export default{
 			svgSpanBg: this.formDrawerData.svgSpanBg ? this.formDrawerData.svgSpanBg : "#ffffff",
 			svgSize:this.formDrawerData.svgSize ? this.formDrawerData.svgSize : 20,
 			svgShadow: {
-				hOffset:this.formDrawerData.svgShadow ? this.formDrawerData.svgShadow.hOffset ? this.formDrawerData.svgShadow.hOffset : 0 : 0,
-				vOffset:this.formDrawerData.svgShadow ? this.formDrawerData.svgShadow.vOffset ? this.formDrawerData.svgShadow.vOffset : 0 : 0,
-				blur:this.formDrawerData.svgShadow ? this.formDrawerData.svgShadow.blur ? this.formDrawerData.svgShadow.blur : 3 : 3,
-				spread:this.formDrawerData.svgShadow ? this.formDrawerData.svgShadow.spread ? this.formDrawerData.svgShadow.spread : 2 : 2,
-				color:this.formDrawerData.svgShadow ? this.formDrawerData.svgShadow.color ? this.formDrawerData.svgShadow.color : "#cfcfcf" : "#cfcfcf"
+				hOffset:this.formDrawerData.svgShadow.hOffset ? this.formDrawerData.svgShadow.hOffset:0,
+				vOffset:this.formDrawerData.svgShadow.vOffset ? this.formDrawerData.svgShadow.vOffset:0,
+				blur:this.formDrawerData.svgShadow.blur ? this.formDrawerData.svgShadow.blur : 0,
+				spread:this.formDrawerData.svgShadow.spread ? this.formDrawerData.svgShadow.spread : 0,
+				color:this.formDrawerData.svgShadow.color ? this.formDrawerData.svgShadow.color : "#cfcfcf"
 			},
 			svgCssClassName: this.formDrawerData.svgCssClassName ? this.formDrawerData.svgCssClassName : "svgwraq"
 		}

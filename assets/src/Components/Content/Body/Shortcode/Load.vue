@@ -7,10 +7,9 @@
 		v-bind:row="row" 
 		v-on:save-a-row="saveARow" 
 		v-on:delete-row='deletePost' 
-		v-on:toggle-state = "toggleState" 
-		v-bind:state="state" 
 		
-		 />
+		/>
+		
 		<New v-on:create-post='createPost' />
 	</div>
 	<!-- Shortcode row ends-->
@@ -18,6 +17,7 @@
 <script>
 import Row from './Load/Row'
 import New from './Load/New'
+import { useToast } from 'vue-toastification'
 export default{
 	name:'Load',
 	components:{
@@ -29,22 +29,7 @@ export default{
 			rows:[],
 			deleteQueue:false,
 
-			/* States */
-			state:{
-				buttonCornersAndPadding:false,
-				buttonText:false,
-				buttonShadow:false,
-				buttonColor:false,
-				buttonBorder:false,
-				buttonCssClass:false,
-				formCornersAndPadding:false,
-				formColor:false,
-				formShadow:false,
-				formCssClass:false,
-				xButton:false,
-				xButtonShadow:false,
-				xButtonCssClass:false
-			}
+			
 		}
 	},
 	created:function(){
@@ -63,7 +48,11 @@ export default{
 				})
 			.then((response) => response.json())
 			.then(response => {
-				console.log(response)
+				this.rows.unshift(response[0])
+				const toast = useToast();
+				toast("Button Added");
+				
+				
 			})
 			.catch(err => console.log(err));
 		},
@@ -86,6 +75,8 @@ export default{
 				.then(response => {
 					if(response === true){
 						this.deleteARow(drawerId);
+						const toast = useToast();
+						toast.error("Button Deleted");
 					}
 				})
 				.catch(err => console.log(err));
@@ -147,59 +138,22 @@ export default{
 			.then(function(response){ return response.json()})
 			.then(function(response){ 
 				
-				console.log(response)
+				if(response === true ) {
+					 const toast = useToast(); 
+					 toast("Button Updated");
+				}
+				if(response === false){
+					const toast = useToast(); 
+					toast.error("Nothing to Update");
+				}
+				console.log(response);	
+				
 			})
 			.catch(function(err){console.log(err)});
 			
 		},
 
-		toggleState: function(statename){
-			
-			switch(statename){
-				case "buttonCornersAndPadding":
-					this.state.buttonCornersAndPadding = !this.state.buttonCornersAndPadding;
-					break;
-				case "buttonText":
-					this.state.buttonText = !this.state.buttonText;
-					break;
-				case "buttonShadow":
-					this.state.buttonShadow = !this.state.buttonShadow;
-					break;
-				case "buttonColor":
-					this.state.buttonColor = !this.state.buttonColor;
-					break;
-				case "buttonBorder":
-					this.state.buttonBorder = !this.state.buttonBorder;
-					break;
-				case "buttonCssClass":
-					this.state.buttonCssClass = !this.state.buttonCssClass;
-					break;
-				case "formCornersAndPadding":
-					this.state.formCornersAndPadding = !this.state.formCornersAndPadding;
-					break;
-				case "formColor":
-					this.state.formColor = !this.state.formColor;
-					break;
-				case "formShadow":
-					this.state.formShadow = !this.state.formShadow;
-					break;
-				case "formCssClass":
-					this.state.formCssClass = !this.state.formCssClass;
-					break;
-				case "xButton":
-					this.state.xButton = !this.state.xButton;
-					break;
-				case "xButtonShadow":
-					this.state.xButtonShadow = !this.state.xButtonShadow;
-					break;
-				case "xButtonCssClass":
-					this.state.xButtonCssClass = !this.state.xButtonCssClass;
-					break;
-				default:
-					break;
-			}
-				
-		},
+		
 		
 	},
 	

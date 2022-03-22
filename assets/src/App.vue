@@ -16,6 +16,9 @@ export default{
 		Header,
 		Content
 	},
+	methods:{
+		confirmpop();
+	}
 	
 }
 </script>
