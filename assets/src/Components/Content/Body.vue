@@ -1,8 +1,9 @@
 <template>
-	<div class="bg-gray-50 p-4 rounded-lg ">
+	<div class="">
 		<div v-if="loadBody === 1" ><Shortcode/></div>
 		<div v-if="loadBody === 2"><Woocommerce/></div>
-		<div v-if="loadBody === 3"><Settings/></div>
+		<div v-if="loadBody === 3"><Forms/></div>
+		<div v-if="loadBody === 4"><Settings/></div>
 	</div>
 </template>
 <script>

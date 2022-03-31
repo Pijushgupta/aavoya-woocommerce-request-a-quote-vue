@@ -1,6 +1,7 @@
 <template>
 	<!-- Shortcode row -->
 	<div>
+		<ul>
 		<Row 
 		v-for="row in rows" 
 		v-bind:key="row.id" 
@@ -9,7 +10,7 @@
 		v-on:delete-row='deletePost' 
 		
 		/>
-		
+		</ul>
 		<New v-on:create-post='createPost' />
 	</div>
 	<!-- Shortcode row ends-->
@@ -110,7 +111,6 @@ export default{
 			})
 			.then((response) => {
 				if(response !== null){
-					console.log(response)
 					this.rows = response
 				}
 			})

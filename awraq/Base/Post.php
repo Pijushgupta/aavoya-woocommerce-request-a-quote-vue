@@ -9,9 +9,6 @@ class Post {
 	}
 
 	public static function read($posts_per_page = -1){
-
-
-
 		return get_posts(array('post_type' => 'aavoya_wraq','post_status' => 'publish','posts_per_page' => $posts_per_page));
 	}
 
@@ -25,8 +22,6 @@ class Post {
 		if(!is_array($data)) return false;
 
 		$data['post_status'] = $data['post_status'] ? $data['post_status'] : 'publish';
-	
-
 		return wp_update_post(array('ID'=>$id,'post_title'=> $data['title'], 'post_status' => $data['status']));
 		
 	}

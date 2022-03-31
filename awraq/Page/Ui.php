@@ -34,6 +34,9 @@ final class Ui
 	{	
 		$url = admin_url('admin-ajax.php');
 		$awraq = wp_create_nonce('awraq_nonce');
-		printf('<script> var awraq_ajax_path = "%1$s"; var awraq_nonce = "%2$s";</script><div id="%3$s"></div>',$url,$awraq, AWRAQ_VUE_ROOT_ID);
+		$hasWoo = class_exists('WooCommerce') ? 1 : 0;
+		printf('<script> var awraq_ajax_path = "%1$s"; var awraq_nonce = "%2$s"; var has_woo = "%3$b";</script><div id="%4$s"></div>',$url,$awraq,$hasWoo, AWRAQ_VUE_ROOT_ID);
 	}
+
+	
 }

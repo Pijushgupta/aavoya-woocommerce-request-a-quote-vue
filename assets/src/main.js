@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import Toast from "vue-toastification";
 import App from './App.vue';
 
-import Confirm from './plugin/confirmPopup/Confirm';
+
 
 import "vue-toastification/dist/index.css";
 
@@ -18,5 +18,5 @@ const toastOption = {
 
 createApp(App)
 	.use(Toast, toastOption)
-	.use(Confirm)
+	
 	.mount('#awraq-root');

@@ -18,48 +18,16 @@ if (file_exists(__DIR__) . '/vendor/autoload.php') {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
-define('AWRAQ_TEXT_DOMAIN', 'aavoya-woocommerce-request-a-quote');
-define('AWRAQ_ABS', plugin_dir_path(__FILE__));
-define('AWRAQ_REL', plugins_url('', __FILE__));
-define('AWRAQ_ADMIN_MENU_TITLE', 'Aavoya Request a Quote');
-define('AWRAQ_ADMIN_MENU_NAME', 'Aavoya RAQ');
-define('AWRAQ_SPA_SLUG', 'aavoya_woocommerce_request_a_quote_setting');
-define('AWRAQ_VUE_ROOT_ID', 'awraq-root');
-
-define('AWRAQ_SUPPORTED_PLUGINS',array(
-	array(
-		'name'=>'Contact Form 7',
-		'post_type'=>'wpcf7_contact_form',
-		'plugin_dir'=>'contact-form-7/wp-contact-form-7.php'
-	),
-	array(
-		'name'=>'WPForms',
-		'post_type'=>'wpforms',
-		'plugin_dir'=>'wpforms-lite/wpforms.php'
-	),
-	array(
-		'name'=>'Forminator Form',
-		'post_type'=>'forminator_forms',
-		'plugin_dir'=>'forminator/forminator.php'
-	),
-	array(
-		'name'=>'Forminator Poll',
-		'post_type'=>'forminator_polls',
-		'plugin_dir'=>'forminator/forminator.php'
-	),
-	array(
-		'name'=>'Forminator Quiz',
-		'post_type'=>'forminator_quizzes',
-		'plugin_dir'=>'forminator/forminator.php'
-	)
-));
-
+if(file_exists(__DIR__) . '/config.php'){
+	require_once __DIR__ . '/config.php';
+}
 
 use Awraq\Init\Init;
 use Awraq\Base\Notice;
 use Awraq\Page\Ui;
 use Awraq\Base\Enqueue;
 use Awraq\Base\Ajax;
+use Awraq\Thirdparty\Woho;
 
 
 
@@ -69,17 +37,11 @@ use Awraq\Base\Ajax;
  */
 function awraq_init_plugin()
 {
-
-	if (Init::activate() != TRUE) {
-
-		deactivate_plugins(plugin_basename(__FILE__));
-		Notice::error('Plugin got Deactivated. Please Activate woocommerce and contact form 7', true);
-	} else {
-
-		Ui::activate();
-		Enqueue::do();
-		Ajax::enable();
-	}
+	Init::activate();
+	Ui::activate();
+	Enqueue::do();
+	Ajax::enable();
+	Woho::enable();
 }
 add_action('plugins_loaded', 'awraq_init_plugin');
 

@@ -1,10 +1,13 @@
 <template>
-<div class="w-full px-5 pt-5">
+<div class="w-full px-5 border-b mb-4 bg-white">
 	<div class="container mx-auto ">
-		<div class="flex flex-col">
-			<Tab v-on:set-active-tab = "setActiveTab" v-bind:activeTab='loadTab'/>
-			<Body v-bind:loadBody = 'loadTab'/>
-		</div>
+		<Tab v-on:set-active-tab = "setActiveTab" v-bind:activeTab='loadTab'/>
+	</div>
+</div>
+
+<div class="w-full px-5">
+	<div class="container mx-auto ">
+		<Body v-bind:loadBody = 'loadTab'/>
 	</div>
 </div>
 </template>

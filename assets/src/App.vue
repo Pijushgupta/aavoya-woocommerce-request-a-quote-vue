@@ -1,10 +1,12 @@
 <template>
 	<div>
+
 	<Header/>
 	<Content />
 	</div> 
 </template>
 <script>
+
 import Header from './Components/Header'
 import Content from './Components/Content'
 
@@ -16,8 +18,17 @@ export default{
 		Header,
 		Content
 	},
+	
 	methods:{
-		confirmpop();
+		returnPopup: (feedBack) => {
+			console.log(feedBack);
+		}
+	},
+
+	data: () => {
+		return {
+			activate : false
+		}
 	}
 	
 }
