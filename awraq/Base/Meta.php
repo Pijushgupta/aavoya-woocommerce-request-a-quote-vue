@@ -55,6 +55,12 @@ class Meta {
 		return $row;
 	}
 
+	public static function getProduct($id = null){
+		if($id === null) return false;
+		$id = intval($id);
+		return unserialize(get_post_meta($id, '_awraq_button_data', true));
+	}
+
 	public static function delete($id){
 		
 		delete_post_meta($id, 'aavoya_wraq_meta_key');
@@ -71,5 +77,11 @@ class Meta {
 
 		
 		return update_post_meta($id , 'aavoya_wraq_meta_key', serialize($postMeta));
+	}
+
+	public static function updateProduct($id = null, $data){
+		if($id == null) return false;
+		$id = intval($id);
+		return update_post_meta($id , '_awraq_button_data', serialize($data));
 	}
 }

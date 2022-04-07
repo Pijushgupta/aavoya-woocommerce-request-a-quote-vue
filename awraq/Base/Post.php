@@ -12,6 +12,10 @@ class Post {
 		return get_posts(array('post_type' => 'aavoya_wraq','post_status' => 'publish','posts_per_page' => $posts_per_page));
 	}
 
+	public static function readProduct(){
+		return get_posts(array('post_type' => 'product','post_status' => 'publish','posts_per_page' => -1));
+	}
+
 	public static function delete($id = null){
 		if($id == null) return false;
 		wp_delete_post($id, true);

@@ -6,7 +6,7 @@
 			<div class="container mx-auto">
 				<div class="flex md:flex-row md:h-28 justify-start items-center">
 					<div class="w-full ">
-						<h1 class="text-black inline text-2xl uppercase tracking-wide "><span class="font-bold ">RAQ</span></h1>
+						<h1 class="text-black inline text-4xl uppercase tracking-wide "><span class="font-bold ">RAQ</span></h1>
 					</div>
 				</div>
 			</div>
