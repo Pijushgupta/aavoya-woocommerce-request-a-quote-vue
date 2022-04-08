@@ -13,7 +13,7 @@ class Init
 	public static function activate()
 	{
 
-			Cpt::createPostType();
+			Cpt::create();
 			Initdata::addInitData();
 			return TRUE;
 		

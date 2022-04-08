@@ -13,8 +13,7 @@ class Ajax
 {
 	private static $globalScopeName = 'Awraq\Base\Ajax';
 
-	public static function enable()
-	{
+	public static function enable(){
 		add_action('wp_ajax_awraqCreatePost', array(self::$globalScopeName, 'awraqCreatePost'));	
 		add_action('wp_ajax_awraqLoadPost', array(self::$globalScopeName, 'awraqLoadPost'));	
 		add_action('wp_ajax_awraqDeletePost', array(self::$globalScopeName, 'awraqDeletePost'));	
@@ -22,8 +21,7 @@ class Ajax
 		
 	}
 
-	public static function awraqCreatePost()
-	{
+	public static function awraqCreatePost(){
 		if(Officer::check($_POST) == false ) wp_die();
 
 		$post_id 	= Post::create();
@@ -34,8 +32,7 @@ class Ajax
 
 	}
 
-	public static function awraqLoadPost()
-	{
+	public static function awraqLoadPost(){
 		if(Officer::check($_POST) == false ) wp_die();
 		$posts = Post::read();
 		$row_bundle = Meta::get($posts);

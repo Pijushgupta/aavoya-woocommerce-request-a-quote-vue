@@ -9,12 +9,14 @@
 <script>
 import Shortcode from './Body/Shortcode';
 import Woocommerce from './Body/Woocommerce';
+import Forms from './Body/Forms.vue';
 import Settings from './Body/Settings';
 export default{
 	name:'Body',
 	components:{
 		Shortcode,
 		Woocommerce,
+		Forms,
 		Settings
 	},
 	props:{

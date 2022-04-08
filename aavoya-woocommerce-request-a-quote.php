@@ -41,7 +41,10 @@ function awraq_init_plugin()
 	Ui::activate();
 	Enqueue::do();
 	Ajax::enable();
-	Woho::enable();
+	if(class_exists('WooCommerce')){
+		Woho::enable();
+	}
+	
 }
 add_action('plugins_loaded', 'awraq_init_plugin');
 

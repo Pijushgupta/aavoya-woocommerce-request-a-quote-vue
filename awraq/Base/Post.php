@@ -7,6 +7,9 @@ class Post {
 	public static function create($id = ''){
 		return wp_insert_post(array(ID => $id, 'post_type' => 'aavoya_wraq', 'post_status' => 'publish'));
 	}
+	public static function createForm($id = ''){
+		return wp_insert_post(array(ID => $id, 'post_type' => 'aavoya_wraq_form', 'post_status' => 'publish'));
+	}
 
 	public static function read($posts_per_page = -1){
 		return get_posts(array('post_type' => 'aavoya_wraq','post_status' => 'publish','posts_per_page' => $posts_per_page));
@@ -14,6 +17,10 @@ class Post {
 
 	public static function readProduct(){
 		return get_posts(array('post_type' => 'product','post_status' => 'publish','posts_per_page' => -1));
+	}
+
+	public static function readForm(){
+		return get_posts(array('post_type' => 'aavoya_wraq_form','post_status' => 'publish','posts_per_page' => -1));
 	}
 
 	public static function delete($id = null){

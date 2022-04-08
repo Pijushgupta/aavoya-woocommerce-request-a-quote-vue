@@ -1,12 +1,12 @@
 <template>
 	<li class="p-3 border-b last:border-0 m-0 flex flex-row items-center">
 		<div class=" w-8/12 flex">
-		<div v-html='localCategory.name'></div>
-		<div class="ml-2 rounded-full bg-gray-500 text-white inline px-2 py-0 h-4 text-xs">{{localCategory.count}}</div></div>
+		<div v-html='localTag.name'></div>
+		<div class="ml-2 rounded-full bg-gray-500 text-white inline px-2 py-0 h-4 text-xs">{{localTag.count}}</div></div>
 		<div class="flex justify-around w-3/12">
-			<select v-model.number="localCategory.selected">
+			<select v-model.number="localTag.selected">
 					<option 
-					v-for="option in localCategory.options"
+					v-for="option in localTag.options"
 					v-bind:key="option.id"
 					v-bind:value="option.id"
 					>
@@ -16,7 +16,7 @@
 			</select>
 		</div>
 		<div class="flex justify-end w-1/12">
-			<input type="checkbox" v-model="localCategory.switch">
+			<input type="checkbox" v-model="localTag.switch">
 		</div>
 	</li>
 	
@@ -27,11 +27,11 @@
 export default {
 	name:'Row',
 	props:{
-		category:Object
+		tag:Object
 	},
 	data: function(){
 		return{
-			localCategory:this.category ? this.category : '',
+			localTag:this.tag ? this.tag : '',
 		}
 	},
 	methods: {
@@ -54,10 +54,9 @@ export default {
 		}
 	},
 	watch:{
-		localCategory:{
+		localTag:{
 			handler: function(oldVal,newVal){
 				this.updateOnChange(newVal);
-				
 			},
 			deep: true
 		}
