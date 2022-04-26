@@ -2,10 +2,6 @@ import { createApp } from 'vue';
 import Toast from "vue-toastification";
 import App from './App.vue';
 
-
-
-import "vue-toastification/dist/index.css";
-
 const toastOption = {
 	transition: "Vue-Toastification__fade",
 	maxToasts: 20,
@@ -18,5 +14,4 @@ const toastOption = {
 
 createApp(App)
 	.use(Toast, toastOption)
-	
 	.mount('#awraq-root');

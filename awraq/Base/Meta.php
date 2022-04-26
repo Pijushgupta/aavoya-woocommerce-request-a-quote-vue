@@ -61,6 +61,12 @@ class Meta {
 		return unserialize(get_post_meta($id, '_awraq_button_data', true));
 	}
 
+	public static function getForm($id = null){
+		if($id === null) return false;
+		$id = intval($id);
+		return unserialize(get_post_meta($id, '_awraq_form_data', true));
+	}
+
 	public static function delete($id){
 		
 		delete_post_meta($id, 'aavoya_wraq_meta_key');
@@ -83,5 +89,11 @@ class Meta {
 		if($id == null) return false;
 		$id = intval($id);
 		return update_post_meta($id , '_awraq_button_data', serialize($data));
+	}
+
+	public static function updateForm($id = null, $data){
+		if($id == null) return false;
+		$id = intval($id);
+		return update_post_meta($id , '_awraq_form_data', serialize($data));
 	}
 }

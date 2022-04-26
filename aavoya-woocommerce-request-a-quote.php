@@ -28,6 +28,7 @@ use Awraq\Page\Ui;
 use Awraq\Base\Enqueue;
 use Awraq\Base\Ajax;
 use Awraq\Thirdparty\Woho;
+use Awraq\Base\Forms;
 
 
 
@@ -44,6 +45,7 @@ function awraq_init_plugin()
 	if(class_exists('WooCommerce')){
 		Woho::enable();
 	}
+	Forms::activate();
 	
 }
 add_action('plugins_loaded', 'awraq_init_plugin');

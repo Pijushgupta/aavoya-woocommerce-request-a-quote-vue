@@ -33,7 +33,10 @@ class Post {
 		if(!is_array($data)) return false;
 
 		$data['post_status'] = $data['post_status'] ? $data['post_status'] : 'publish';
-		return wp_update_post(array('ID'=>$id,'post_title'=> $data['title'], 'post_status' => $data['status']));
-		
+		return wp_update_post(array('ID'=>$id,'post_title'=> $data['title'], 'post_status' => $data['status']));	
+	}
+
+	public static function updateForm($post){
+
 	}
 }
