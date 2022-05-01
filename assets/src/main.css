@@ -155,17 +155,23 @@ input[type="color"]::-webkit-color-swatch {
 .control-box{
 	@apply rounded mt-2 px-6 py-4 border;
 }
+.Vue-Toastification__container.top-center{
+	top:4em !important;
+}
 .Vue-Toastification__toast--default.awraq-toast {
-	@apply bg-blue-500 rounded ;
+	@apply bg-gray-50 rounded shadow-sm;
 }
 .Vue-Toastification__toast--error.awraq-toast {
 	@apply rounded ;
 }
 .Vue-Toastification__toast--error.awraq-toast .Vue-Toastification__toast-body,.Vue-Toastification__toast--default.awraq-toast .Vue-Toastification__toast-body{
-	@apply text-sm font-semibold;
+	@apply text-sm font-semibold text-gray-500;
 }
 .Vue-Toastification__close-button{
-	@apply opacity-100;
+	@apply opacity-100 text-gray-300 !important; ;
+}
+.awraq-toast svg path{
+	@apply fill-blue-500;
 }
 .tab-input{
 	@apply inline-block px-2 py-1 border-r m-0 cursor-pointer font-semibold;

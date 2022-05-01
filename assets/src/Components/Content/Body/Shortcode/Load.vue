@@ -77,7 +77,7 @@ export default{
 					if(response === true){
 						this.deleteARow(drawerId);
 						const toast = useToast();
-						toast.error("Button Deleted");
+						toast("Button Deleted");
 					}
 				})
 				.catch(err => console.log(err));
@@ -102,6 +102,8 @@ export default{
 				body: data
 			})
 			.then((response) => {
+
+			
 				if(response.ok){
 					return response.json();
 				}else{
@@ -111,8 +113,9 @@ export default{
 			})
 			.then((response) => {
 				if(response !== null){
-					this.rows = response
+					this.rows = response;
 				}
+				
 			})
 			.catch(err => console.log(err));
 		},
@@ -144,7 +147,7 @@ export default{
 				}
 				if(response === false){
 					const toast = useToast(); 
-					toast.error("Nothing to Update");
+					toast("Nothing to Update");
 				}
 				console.log(response);	
 				

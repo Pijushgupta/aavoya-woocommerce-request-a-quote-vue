@@ -165,7 +165,7 @@
 											<div class="w-full p-4 flex justify-center items-center">
 												
 												<div v-show="element.data.dateType == 0" class="w-4/6">
-													<Datepicker v-model="element.data.dateData[0].range"  />
+													<Datepicker v-model="element.data.dateData[0].range"  range/>
 												</div>
 												
 												<div v-show="element.data.dateType == 1" class="w-4/6">
@@ -334,7 +334,7 @@ export default {
 									{key:1,name:'Video(.mp4,.avi,.mov)',type:'video'},
 									{key:2,name:'Audio(.mp3,.wav,.ogg)',type:'audio'},
 									{key:3,name:'Document(.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx)',type:'document'},
-									{key:4,name:'Archive(.zip,.rar)',type:'archive'},
+									{key:4,name:'Archive(.zip,.rar,.7z,.tar,.gz)',type:'archive'},
 									{key:5,name:'All',type:'all'},
 									]
 							}
@@ -443,3 +443,4 @@ export default {
 	}
 }
 </script>
+<style></style>

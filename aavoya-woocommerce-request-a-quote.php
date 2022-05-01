@@ -29,6 +29,7 @@ use Awraq\Base\Enqueue;
 use Awraq\Base\Ajax;
 use Awraq\Thirdparty\Woho;
 use Awraq\Base\Forms;
+use Awraq\Frontend\Shortcode;
 
 
 
@@ -46,6 +47,7 @@ function awraq_init_plugin()
 		Woho::enable();
 	}
 	Forms::activate();
+	Shortcode::activate();
 	
 }
 add_action('plugins_loaded', 'awraq_init_plugin');

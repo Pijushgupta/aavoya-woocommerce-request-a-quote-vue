@@ -96,7 +96,7 @@ class Officer{
 
 				$value['data']['label']					= self::sanitize($value['data']['label'],'text') == false ? '' : self::sanitize($value['data']['label'],'text');
 				$value['data']['required']			= self::sanitize($value['data']['required'],'bool');
-				$value['data']['cssClass']			= self::sanitize($value['data']['cssClass'],'class');
+				$value['data']['cssClass']			= self::sanitize($value['data']['cssClass'],'class') == false ? '' : self::sanitize($value['data']['cssClass'],'class');
 				/* Common Properties ends */
 
 				switch($value['type']){

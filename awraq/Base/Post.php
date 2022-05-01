@@ -5,7 +5,7 @@ if(!defined('ABSPATH')) exit;
 class Post {
 
 	public static function create($id = ''){
-		return wp_insert_post(array(ID => $id, 'post_type' => 'aavoya_wraq', 'post_status' => 'publish'));
+		return wp_insert_post(array('ID' => $id, 'post_type' => 'aavoya_wraq', 'post_status' => 'publish'));
 	}
 	public static function createForm($id = ''){
 		return wp_insert_post(array(ID => $id, 'post_type' => 'aavoya_wraq_form', 'post_status' => 'publish'));

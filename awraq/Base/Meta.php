@@ -17,7 +17,31 @@ class Meta {
 
 		if($metastyle != null){
 
-			$fs = (Forms::oldest('wpcf7_contact_form')) ? Forms::oldest('wpcf7_contact_form') : (Forms::oldest('wpforms')) ?  Forms::oldest('wpforms') : (Forms::oldest('forminator_forms'))? Forms::oldest('forminator_forms') : (Forms::oldest('forminator_polls'))? Forms::oldest('forminator_polls') : (Forms::oldest('forminator_quizzes'))? Forms::oldest('forminator_quizzes') : 0;
+
+			if(Forms::oldest('wpcf7_contact_form')){
+
+				$fs = Forms::oldest('wpcf7_contact_form');
+
+			}elseif(Forms::oldest('wpforms')){
+
+				$fs = Forms::oldest('wpforms');
+
+			}elseif(Forms::oldest('forminator_forms')){
+
+				$fs = Forms::oldest('forminator_forms');
+
+			}elseif(Forms::oldest('forminator_polls')){
+
+				$fs = Forms::oldest('forminator_polls');
+
+			}elseif(Forms::oldest('forminator_quizzes')){
+
+				$fs = Forms::oldest('forminator_quizzes');
+
+			}else{
+				
+				$fs = 0;
+			}
 
 			$meta = serialize(array(
 				'sc'		=> '[awraq id="'.$id.'"]',
@@ -32,10 +56,19 @@ class Meta {
 
 	public static function get($posts){
 
+		/* For simple ID to meta instead of POST(array of object) */
+		if(gettype($posts) != 'array'){
+
+			/* return will terminate the flow */
+			return unserialize(get_post_meta($posts, 'aavoya_wraq_meta_key', true));
+		}
+		/* ends */
+
 		$options = array();
 		foreach(AWRAQ_SUPPORTED_PLUGINS as $supportedPlugin){
 			$options = array_merge($options,Forms::getForms($supportedPlugin['post_type']));
 		}
+		
 
 		$row = array();
 		foreach ($posts as $key => $post) {
@@ -43,11 +76,11 @@ class Meta {
 			$postMeta = unserialize(get_post_meta($post->ID, 'aavoya_wraq_meta_key', true));
 
 			$row[$key] = array(
-				'id'		=> intval($post->ID),
-				'title'		=> esc_html($post->post_title),
-				'sc'		=> $postMeta['sc'],
-				'fso'		=> array('selected' => $postMeta['fs'],'options'  => $options),
-				'drawer'	=> $postMeta['drawer'],
+				'id'				=> intval($post->ID),
+				'title'			=> esc_html($post->post_title),
+				'sc'				=> $postMeta['sc'],
+				'fso'				=> array('selected' => $postMeta['fs'],'options'  => $options),
+				'drawer'		=> $postMeta['drawer'],
 				'formDrawer'=> $postMeta['formDrawer'],
 			);
 		

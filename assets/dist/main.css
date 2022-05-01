@@ -1195,10 +1195,16 @@ input[type="color"]::-webkit-color-swatch {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.Vue-Toastification__container.top-center{
+	top:4em !important;
+}
 .Vue-Toastification__toast--default.awraq-toast {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .Vue-Toastification__toast--error.awraq-toast {
   border-radius: 0.25rem;
@@ -1207,9 +1213,16 @@ input[type="color"]::-webkit-color-swatch {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 .Vue-Toastification__close-button {
-  opacity: 1;
+  --tw-text-opacity: 1 !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+  opacity: 1 !important;
+}
+.awraq-toast svg path {
+  fill: #3b82f6;
 }
 .tab-input {
   margin: 0px;

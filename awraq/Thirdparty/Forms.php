@@ -36,7 +36,7 @@ class Forms{
 
 		if($postType == null) return false;
 
-		require_once(ABSPATH . '/wp-admin/includes/plugin.php');
+		require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 		
 		foreach(AWRAQ_SUPPORTED_PLUGINS as $supportedPlugin){
 
@@ -50,10 +50,7 @@ class Forms{
 	public static function getForms($type = null){
 		if($type == null) return false;
 
-		/**
-		 * checking if form plugin installed or not 
-		 */
-		if(!self::isInstalled($type)) return false;
+	
 
 		/**
 		 * checking if form plugin is supported or not 
@@ -76,7 +73,13 @@ class Forms{
 
 		return $formsFormatted;
 	}
-
+	
+	/**
+	 * oldest
+	 * Returns the oldest form id among all the forms
+	 * @param  mixed $type
+	 * @return void
+	 */
 	public static function oldest($type = null){
 		if($type == null) return;
 		 
