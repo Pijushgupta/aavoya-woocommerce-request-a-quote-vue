@@ -7,6 +7,7 @@
 			 v-for="row in rows" 
 			 v-bind:key="row.ID" 
 			 v-bind:row="row"
+			 v-on:removeRow="removeRow"
 			 />
 			 </ul>
 		 </div>
@@ -52,9 +53,7 @@ export default {
 			})
 			.then((response) => response.json())
 			.then((response) =>{
-				this.rows = response;
-				console.log(this.rows);
-				
+				this.rows = response;	
 			})
 			.catch((err) => console.log(err));
 		},
@@ -71,11 +70,17 @@ export default {
 			})
 			.then(response => response.json())
 			.then(response => {
+				if(this.rows === null){
+					this.rows = [];
+				}
 				this.rows.unshift(response);
 				
 			})
 			.catch((err) => console.log(err));
 
+		},
+		removeRow: function(id){
+			this.rows = this.rows.filter(row => row.ID !== id);
 		}
 	},
 	created: function(){

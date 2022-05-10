@@ -22,7 +22,8 @@ class Action{
 	 * @return void
 	 */
 	public static function onSubmit(){
-		echo "Hello";
+
+		
 		/* Verifying Nonce for CSFR */
 		if(wp_verify_nonce($_POST['awraqf_nonce'], 'awraqf_nonce') == false) return;
 		/* verification ends */
@@ -38,6 +39,7 @@ class Action{
 		$formMeta = Meta::getForm($formID);
 
 		var_dump($formMeta);
+		die;
 
 
 		

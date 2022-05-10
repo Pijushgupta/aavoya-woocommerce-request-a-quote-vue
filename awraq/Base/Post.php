@@ -8,7 +8,7 @@ class Post {
 		return wp_insert_post(array('ID' => $id, 'post_type' => 'aavoya_wraq', 'post_status' => 'publish'));
 	}
 	public static function createForm($id = ''){
-		return wp_insert_post(array(ID => $id, 'post_type' => 'aavoya_wraq_form', 'post_status' => 'publish'));
+		return wp_insert_post(array('ID' => $id, 'post_type' => 'aavoya_wraq_form', 'post_status' => 'publish'));
 	}
 
 	public static function read($posts_per_page = -1){
@@ -32,11 +32,8 @@ class Post {
 		if($id == null) return false;
 		if(!is_array($data)) return false;
 
-		$data['post_status'] = $data['post_status'] ? $data['post_status'] : 'publish';
+		$data['status'] = $data['status'] ? $data['status'] : 'publish';
 		return wp_update_post(array('ID'=>$id,'post_title'=> $data['title'], 'post_status' => $data['status']));	
 	}
 
-	public static function updateForm($post){
-
-	}
 }

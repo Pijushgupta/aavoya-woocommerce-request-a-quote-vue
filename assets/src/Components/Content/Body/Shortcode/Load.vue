@@ -102,7 +102,6 @@ export default{
 				body: data
 			})
 			.then((response) => {
-
 			
 				if(response.ok){
 					return response.json();
@@ -149,7 +148,7 @@ export default{
 					const toast = useToast(); 
 					toast("Nothing to Update");
 				}
-				console.log(response);	
+					
 				
 			})
 			.catch(function(err){console.log(err)});

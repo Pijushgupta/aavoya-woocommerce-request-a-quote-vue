@@ -105,6 +105,11 @@ class Meta {
 		delete_post_meta($id, 'aavoya_wraq_meta_key');
 	}
 
+	public static function deleteForm($id){
+		
+		delete_post_meta($id, '_awraq_form_data');
+	}
+
 	public static function update($id = null, $title = '',$sc,$fso,$drawer,$formDrawer){
 		if($id == null) return false;
 		$postMeta = array(

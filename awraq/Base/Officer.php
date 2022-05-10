@@ -93,9 +93,11 @@ class Officer{
 				$value['type']			= self::sanitize($value['type'],'text') == false ? '' : self::sanitize($value['type'],'text');
 				$value['dataType']	= self::sanitize($value['dataType'],'text') == false ? '' : self::sanitize($value['dataType'],'text');
 				$value['tabState']	= (int)self::sanitize($value['tabState'],'int');
-
+				/* TODO for multi level inputs, add array validation for labels and require */
 				$value['data']['label']					= self::sanitize($value['data']['label'],'text') == false ? '' : self::sanitize($value['data']['label'],'text');
 				$value['data']['required']			= self::sanitize($value['data']['required'],'bool');
+				/* ends */
+
 				$value['data']['cssClass']			= self::sanitize($value['data']['cssClass'],'class') == false ? '' : self::sanitize($value['data']['cssClass'],'class');
 				/* Common Properties ends */
 

@@ -5,7 +5,8 @@ if(!defined('ABSPATH')) exit;
 class Form {
 	public static function create($formInputs,$id){
 		$form ='<div>';
-		$form .= '<form id="awraq-form-'.$id.'" class="awraq-form" action="'.admin_url('admin-post.php?action=awraqfSubmit').'" method="post">';
+		$form .= '<form id="awraq-form-'.$id.'" class="awraq-form" action="'.admin_url('admin-post.php').'" method="post">';
+		$form .= self::createAction();
 		$form .= self::createCsfrProtection();
 		$form .= self::createFormId($id);
 		$form .= self::createBasicCssReset();
@@ -162,6 +163,10 @@ class Form {
 
 	public static function createFormId($id){
 		return '<input type="hidden" name="formPostId" value="'.$id.'">';
+	}
+
+	public static function createAction(){
+		return '<input type="hidden" name="action" value="awraqfSubmit" />';
 	}
 
 }

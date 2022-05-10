@@ -16,6 +16,7 @@ class Forms {
 		add_action('wp_ajax_awraqCreateForms', array(self::$globalScopeName, 'awraqCreateForms'));
 		add_action('wp_ajax_awraqSaveFormData', array(self::$globalScopeName, 'awraqSaveFormData'));
 		add_action('wp_ajax_awraqGetFormMeta', array(self::$globalScopeName, 'awraqGetFormMeta'));
+		add_action('wp_ajax_awraqDeleteForm', array(self::$globalScopeName, 'awraqDeleteForm'));
 	}
 
 	public static function awraqGetForms(){
@@ -38,9 +39,21 @@ class Forms {
 		if(!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['id'], 'int');
 		if($postId == 0) wp_die();
+		
+		/* Sanitizing Form Title from backend */
+		$formTitle = Officer::sanitize($_POST['title'],'text');
+		
+		/* Updating Form Title */
+		if($formTitle) {
+			Post::update($postId, array('title' => $formTitle,'status' => 'publish'));
+		}
+		/* Updating Form Title ends */
 
+		/* Converting json string of form filed to array and Sanitizing Form fields -  from backend */
 		$data = Officer::jsonToArray($_POST['formdata']);
 		$dataSanitized = Officer::formInputSanitize($data);
+		
+
 		return json_encode(Meta::updateForm($postId, $dataSanitized));
 		wp_die();
 	}
@@ -51,6 +64,18 @@ class Forms {
 		if($postId == 0) wp_die();
 
 		echo json_encode(Meta::getForm($postId));
+		wp_die();
+	}
+
+	public static function awraqDeleteForm(){
+		if(!Officer::check($_POST)) wp_die();
+		$postId = (int)Officer::sanitize($_POST['id'], 'int');
+		if($postId == 0) wp_die();
+
+		Meta::deleteForm($postId);
+		Post::delete($postId);
+
+		echo json_encode(true);
 		wp_die();
 	}
 
