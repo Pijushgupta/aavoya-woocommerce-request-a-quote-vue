@@ -27855,7 +27855,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         dataType: 'string',
         tabState: 0,
         data: {
-          label: '',
+          label: 'Phone',
           placeholder: '',
           required: false,
           cssClass: ''
@@ -27881,7 +27881,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         dataType: 'string',
         tabState: 0,
         data: {
-          label: '',
+          label: 'Email',
           placeholder: '',
           required: false,
           cssClass: ''
@@ -27936,7 +27936,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         dataType: 'string',
         tabState: 0,
         data: {
-          label: '',
+          label: 'File',
           required: false,
           cssClass: '',
           selectedFileType: [],
@@ -27975,7 +27975,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         dataType: 'string',
         tabState: 0,
         data: {
-          label: '',
+          label: 'Select date',
           required: false,
           cssClass: '',
           dateType: 0,
@@ -28155,6 +28155,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return response.json();
       }).then(function (response) {
         if (response !== false) {
+          console.log(response);
           _this2.emptyInputs = response;
         }
       })["catch"](function (err) {

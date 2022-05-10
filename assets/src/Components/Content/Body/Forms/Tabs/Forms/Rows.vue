@@ -513,7 +513,7 @@ export default {
 					},
 					{name:'Phone',type:'phone',uniqueName:'',dataType:'string',tabState:0,
 							data:{
-								label:'',
+								label:'Phone',
 								placeholder:'',
 								required:false,
 								cssClass:''
@@ -531,7 +531,7 @@ export default {
 					},
 					{name:'Email',type:'email',uniqueName:'',dataType:'string',tabState:0,
 						data:{
-							label:'',
+							label:'Email',
 							placeholder:'',
 							required:false,
 							cssClass:''
@@ -558,7 +558,7 @@ export default {
 					},
 					{name:'File Upload',type:'file',uniqueName:'',dataType:'string',tabState:0,
 							data:{
-								label:'',
+								label:'File',
 								required:false,
 								cssClass:'',
 								selectedFileType:[],
@@ -576,7 +576,7 @@ export default {
 					},
 					{name:'Date',type:'date',uniqueName:'',dataType:'string',tabState:0,
 						data:{
-							label:'',
+							label:'Select date',
 							required:false,
 							cssClass:'',
 							dateType: 0,
@@ -722,6 +722,7 @@ export default {
 			.then(response => response.json())
 			.then(response => {
 				if(response !== false){
+					console.log(response);
 					this.emptyInputs = response;
 				}
 			
