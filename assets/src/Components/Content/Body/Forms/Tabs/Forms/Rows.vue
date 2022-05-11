@@ -52,9 +52,8 @@
 
 							<li class=" lg:w-1/2 md:w-full p-2 mb-0 " v-on:click.prevent="onClickCopyInput(index)">
 								<div class="flex flex-col items-center px-2 py-4 border  shadow-sm cursor-move  rounded  font-semibold bg-white">
-									<div v-html="element.svg"></div>
-									<span class="text-gray-500 lowercase">{{element.name}}</span>
-									
+									<Svg :type="element.type" />
+									<span class="text-gray-500 lowercase">{{element.name}}</span>				
 								</div>
 							</li>
 
@@ -83,7 +82,7 @@
 									<li class="mb-0">
 										<ul class="flex flex-row">
 											<li class="px-2 py-2 mb-0 font-semibold">
-												<span v-html="element.svg"></span>
+												<Svg :type="element.type" />
 												{{element.name}}
 											</li>
 											<li class="px-2 py-2 mb-0 font-semibold text-gray-300"> {{'{'+element.uniqueName+'}'}}</li>
@@ -272,7 +271,6 @@
 													v-bind:key="e" 
 													class="border rounded-lg  flex-col w-11/12" 
 													v-show="element.data.tabState == e" 
-												
 													>
 														<div class="border-b flex flex-row px-4 py-2 items-center">
 															<div class="w-1/4 flex justify-end pr-4">
@@ -300,7 +298,7 @@
 														</div>
 														<div class="flex flex-row px-4 py-3 items-center">
 															<div class="w-1/4 flex justify-end pr-4">
-																Enable / Disable
+																Enable
 															</div>
 															<div class="w-2/4 flex justify-end">
 																<input class="w-full" type="checkbox" v-model='o.enabled'/>
@@ -366,7 +364,7 @@
 														</div>
 														<div class="flex flex-row px-4 py-3 items-center">
 															<div class="w-1/4 flex justify-end pr-4">
-																Enable / Disable
+																Enable
 															</div>
 															<div class="w-2/4 flex justify-end">
 																<input class="w-full" type="checkbox" v-model='o.enabled'/>
@@ -396,7 +394,7 @@
 														Css Class
 													</div>
 													<div class="w-2/4">
-														<input class="w-full" type="text" v-model='element.data.cssClass'/>
+														<input class="w-full" type="text" v-model='element.cssClass'/>
 													</div>
 												</div>
 											</div>
@@ -427,6 +425,7 @@
 
 <script>
 import draggable from "vuedraggable";
+import Svg from './Svg/Svg.vue';
 import Editor from './Editor/Editor.vue'
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
@@ -437,6 +436,7 @@ export default {
 		draggable,
 		Datepicker,
 		Editor,
+		Svg
 	},
 	props:{
 		row:Object
@@ -467,100 +467,94 @@ export default {
 			/* DRAGGABLE ITEMS */
 
 			inputs:[
-					{name:'Text',type:'text',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Text',type:'text',uniqueName:'',dataType:'string',tabState:0, cssClass:'',
 							data:{
 								label:'',
 								placeholder:'',
-								required:false,
-								cssClass:''
+								required:false
+								
 							},
-							svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /> <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /> </svg>',
+							
 					},
-					{name:'Name',type:'name',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Name',type:'name',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
 								tabState:0,
 								Options:[
-									{name:'first name', label:'First Name',value:'',enabled:true, required:false, placeholder:''},
-									{name:'middle name', label:'Middle Name',value:'',enabled:true, required:false, placeholder:''},
-									{name:'last name',label:'Last Name',value:'',enabled:true, required:false, placeholder:''},
-								],
-								cssClass:''
+									{name:'first name', label:'First Name',enabled:true, required:false, placeholder:''},
+									{name:'middle name', label:'Middle Name',enabled:true, required:false, placeholder:''},
+									{name:'last name',label:'Last Name',enabled:true, required:false, placeholder:''},
+								]
+								
 							},
-							svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" /> </svg>',
+							
 					},
-					{name:'Address',type:'address',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Address',type:'address',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
 							tabState:0,
 								Options:[
-									{name:'address', label:'Address',value:'',enabled:true, required:false, placeholder:''},
-									{name:'apartment', label:'Apartment',value:'',enabled:true, required:false, placeholder:''},
-									{name:'city',label:'City',value:'',enabled:true, required:false, placeholder:''},
-									{name:'state',label:'State',value:'',enabled:true, required:false, placeholder:''},
-									{name:'zip',label:'ZIP',value:'',enabled:true, required:false, placeholder:''},
-									{name:'country',label:'Country',value:'',enabled:true, required:false, placeholder:''},
-								],
-								
-								cssClass:''
+									{name:'address', label:'Address',enabled:true, required:false, placeholder:''},
+									{name:'apartment', label:'Apartment',enabled:true, required:false, placeholder:''},
+									{name:'city',label:'City',enabled:true, required:false, placeholder:''},
+									{name:'state',label:'State',enabled:true, required:false, placeholder:''},
+									{name:'zip',label:'ZIP',enabled:true, required:false, placeholder:''},
+									{name:'country',label:'Country',enabled:true, required:false, placeholder:''},
+								]
 							},
-							svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /> </svg>',
+						
 					},
-					{name:'Content',type:'content',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Content',type:'content',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
-								content:'<p>Sample text</p>',
-								cssClass:''
+								content:'<p>Sample text</p>'
 							},
-							svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" /> </svg>',
+							
 					},
-					{name:'Phone',type:'phone',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Phone',type:'phone',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
 								label:'Phone',
 								placeholder:'',
-								required:false,
-								cssClass:''
-							},
-							svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /> </svg>',
+								required:false
+							}						
 					},			
-					{name:'Textbox',type:'textarea',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Textbox',type:'textarea',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
 								label:'',
 								placeholder:'',
-								required:false,
-								cssClass:''
-							},
-							svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>',
+								required:false
+							}
+							
 					},
-					{name:'Email',type:'email',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Email',type:'email',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 						data:{
 							label:'Email',
 							placeholder:'',
 							required:false,
-							cssClass:''
-						},
-						svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M2.94 6.412A2 2 0 002 8.108V16a2 2 0 002 2h12a2 2 0 002-2V8.108a2 2 0 00-.94-1.696l-6-3.75a2 2 0 00-2.12 0l-6 3.75zm2.615 2.423a1 1 0 10-1.11 1.664l5 3.333a1 1 0 001.11 0l5-3.333a1 1 0 00-1.11-1.664L10 11.798 5.555 8.835z" clip-rule="evenodd" /> </svg>'
+						}			
 					},
-					{name:'Checkbox',type:'checkbox',uniqueName:'',dataType:'boolean',tabState:0,
+					{name:'Checkbox',type:'checkbox',uniqueName:'',dataType:'boolean',tabState:0,cssClass:'',
 						data:{
 							label:'',
-							required:false,
-							cssClass:'',
-							Options:[{id:0, name:'Option 1',value:'Option 1'},{id:1,name:'Option 2',value:'Option 2'}],
-						},
-						svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /> </svg>'
+							required:false,					
+							Options:[
+								{id:0, name:'Option 1',value:'Option 1'},
+								{id:1,name:'Option 2',value:'Option 2'}
+								],
+						}
+				
 					},
-					{name:'Radio',type:'radio',uniqueName:'',dataType:'boolean',tabState:0,
+					{name:'Radio',type:'radio',uniqueName:'',dataType:'boolean',tabState:0,cssClass:'',
 						data:{
-							label:'',
+							label:'Chose one',
 							required:false,
-							cssClass:'',
-							Options:[{id:0, name:'Option 1',value:'Option 1'},{id:1,name:'Option 2',value:'Option 2'}],
-						},
-						svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd" /> </svg>'
+							Options:[
+								{id:0, name:'Option 1',value:'Option 1'},
+								{id:1,name:'Option 2',value:'Option 2'}
+								],
+						}
 					},
-					{name:'File Upload',type:'file',uniqueName:'',dataType:'string',tabState:0,
+					{name:'File Upload',type:'file',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
 								label:'File',
 								required:false,
-								cssClass:'',
 								selectedFileType:[],
 								maxFileSize:3,
 								supportedFileTypes:[
@@ -572,21 +566,19 @@ export default {
 									{key:5,name:'All',type:'all'},
 									]
 							},
-							svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" /> </svg>'
+						
 					},
-					{name:'Date',type:'date',uniqueName:'',dataType:'string',tabState:0,
+					{name:'Date',type:'date',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 						data:{
 							label:'Select date',
 							required:false,
-							cssClass:'',
 							dateType: 0,
 							dateData:[
 								{key:0, name:'Simple',range : { startDate:'' ,endDate:''}},
 								{key:1,name:'Range',range : {startDate:'' ,endDate : ''}},
-							],
-						},
-						svg:'<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-300 inline mb-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /> </svg>',
-					},
+							]
+						}
+					}
 				],
 
 			/* DROPPED ITEMS */
@@ -677,10 +669,8 @@ export default {
 
 		/* This to save form fields */
 		saveFormData: function(){
-			if(this.localRow.post_title == '' || this.localRow.title == 'Untitled Form'){
-				alert('Please enter a title for the form');
-				return;
-			}
+			if(this.localRow.post_title == '' || this.localRow.title == 'Untitled Form'){ alert('Please enter a title for the form'); return;}
+
 			const data = new FormData();
 			data.append('awraq_nonce',awraq_nonce);
 			data.append('action','awraqSaveFormData');
@@ -698,7 +688,7 @@ export default {
 			.then(response => {
 				console.log(response);
 
-				if(response == 0){
+				if(response != 0 || response != false){
 					const toast = useToast();
 					toast("Form Saved!");
 				}
@@ -721,8 +711,9 @@ export default {
 			})
 			.then(response => response.json())
 			.then(response => {
+				console.log(response);
 				if(response !== false){
-					console.log(response);
+					
 					this.emptyInputs = response;
 				}
 			

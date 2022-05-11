@@ -46,6 +46,12 @@
     <button @click="editor.chain().focus().setHorizontalRule().run()">
       hr
     </button>
+		<button @click="setLink">
+      <svg class="w-3 " style="height:1.2rem;" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <title>insert-link</title> <desc>Created with sketchtool.</desc> <g id="text-edit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="insert-link" fill="#000000" fill-rule="nonzero"> <path d="M11,9 L7,9 C5.34314575,9 4,10.3431458 4,12 C4,13.6568542 5.34314575,15 7,15 L11,15 L11,17 L7,17 C4.23857625,17 2,14.7614237 2,12 C2,9.23857625 4.23857625,7 7,7 L11,7 L11,9 Z M13,15 L17,15 C18.6568542,15 20,13.6568542 20,12 C20,10.3431458 18.6568542,9 17,9 L13,9 L13,7 L17,7 C19.7614237,7 22,9.23857625 22,12 C22,14.7614237 19.7614237,17 17,17 L13,17 L13,15 Z M9,11 L15,11 C15.5522847,11 16,11.4477153 16,12 C16,12.5522847 15.5522847,13 15,13 L9,13 C8.44771525,13 8,12.5522847 8,12 C8,11.4477153 8.44771525,11 9,11 Z" id="Shape"></path> </g> </g> </svg>
+    </button>
+		<button @click="editor.chain().focus().unsetLink().run()" :disabled="!editor.isActive('link')">
+      <svg class="w-3 " style="height:1.2rem;" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <path fill="#444" d="M8 0h1v4h-1v-4z"></path> <path fill="#444" d="M8 12h1v4h-1v-4z"></path> <path fill="#444" d="M7 9h-4c-0.552 0-1-0.448-1-1s0.448-1 1-1h4v-2h-4c-1.657 0-3 1.343-3 3s1.343 3 3 3h4v-2z"></path> <path fill="#444" d="M13 5h-4v2h4c0.552 0 1 0.448 1 1s-0.448 1-1 1h-4v2h4c1.657 0 3-1.343 3-3s-1.343-3-3-3z"></path> <path fill="#444" d="M4.51 15.44l2.49-3.44h-1.23l-2.080 2.88 0.82 0.56z"></path> <path fill="#444" d="M12.49 15.44l-2.49-3.44h1.23l2.080 2.88-0.82 0.56z"></path> <path fill="#444" d="M12.49 0.99l-2.49 3.010h1.23l2.080-2.66-0.82-0.35z"></path> <path fill="#444" d="M4.51 0.99l2.49 3.010h-1.23l-2.080-2.66 0.82-0.35z"></path> </svg>
+    </button>
     <button @click="editor.chain().focus().setHardBreak().run()">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-3 " style="height:1.2rem;" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" /> </svg>
     </button>
@@ -66,6 +72,7 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
+import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
 
 
@@ -108,6 +115,9 @@ export default {
       extensions: [
         StarterKit,
 				Underline,
+				Link.configure({
+          openOnClick: false,
+        }),
       ],
       content: this.modelValue,
       onUpdate: () => {
@@ -123,9 +133,41 @@ export default {
   beforeUnmount() {
     this.editor.destroy()
   },
+
+	methods: {
+		setLink() {
+      const previousUrl = this.editor.getAttributes('link').href
+      const url = window.prompt('URL', previousUrl)
+
+      // cancelled
+      if (url === null) {
+        return
+      }
+
+      // empty
+      if (url === '') {
+        this.editor
+          .chain()
+          .focus()
+          .extendMarkRange('link')
+          .unsetLink()
+          .run()
+
+        return
+      }
+
+      // update link
+      this.editor
+        .chain()
+        .focus()
+        .extendMarkRange('link')
+        .setLink({ href: url })
+        .run()
+    }
+	},
 }
 </script>
-<style language="postcss" scoped>
+<style  scoped>
 button {
 	padding: 5px 10px;
 	border: 1px solid #ccc;
