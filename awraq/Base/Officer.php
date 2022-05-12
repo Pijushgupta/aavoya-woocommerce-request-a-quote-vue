@@ -184,10 +184,9 @@ class Officer
 	 */
 	public static function contentDataSanitization(&$data)
 	{
-		$data['content']	= self::sanitize($data['content'], 'text') == false ? '' : self::sanitize($data['content'], 'text');
 
-		$data['content'] = wp_kses($data[content], array(
-			'a' 						=> array('href' => array(), 'title' => array()),
+		$allowed_tags = array(
+
 			'br' 						=> array(),
 			'hr' 						=> array(),
 			'strong' 				=> array(),
@@ -200,8 +199,13 @@ class Officer
 			'h6' 						=> array(),
 			'ul' 						=> array(),
 			'ol' 						=> array(),
-			'<blockquote>' 	=> array(),
-		));
+			'li' 						=> array(),
+			'div' 					=> array(),
+			'a'						=> array('href' => array(), 'target' => array(), 'rel' => array()),
+			'blockquote' 		=> array(),
+		);
+
+		$data['content'] = wp_kses_post($data['content'], $allowed_tags);
 	}
 
 

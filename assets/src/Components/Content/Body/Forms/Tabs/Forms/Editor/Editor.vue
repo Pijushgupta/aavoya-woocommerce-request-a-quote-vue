@@ -119,7 +119,10 @@ export default {
           openOnClick: false,
         }),
       ],
-      content: this.modelValue,
+      content: {
+				"type": "doc",
+				content: this.modelValue
+			},
       onUpdate: () => {
         // HTML
         this.$emit('update:modelValue', this.editor.getHTML())

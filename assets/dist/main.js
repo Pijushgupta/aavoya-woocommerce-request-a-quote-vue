@@ -27900,7 +27900,10 @@ __webpack_require__.r(__webpack_exports__);
       extensions: [_tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_0__["default"], _tiptap_extension_underline__WEBPACK_IMPORTED_MODULE_2__["default"], _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_1__["default"].configure({
         openOnClick: false
       })],
-      content: this.modelValue,
+      content: {
+        "type": "doc",
+        content: this.modelValue
+      },
       onUpdate: function onUpdate() {
         // HTML
         _this.$emit('update:modelValue', _this.editor.getHTML()); // JSON
@@ -28109,7 +28112,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         tabState: 0,
         cssClass: '',
         data: {
-          content: '<p>Sample text</p>'
+          content: [{
+            "type": "paragraph",
+            "content": [{
+              "type": "text",
+              "text": "Wow, this editor instance exports its content as JSON."
+            }]
+          }]
         }
       }, {
         name: 'Phone',
@@ -28384,7 +28393,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (response) {
         console.log(response);
 
-        if (response != 0 || response != false) {
+        if (response !== 0 && response !== false) {
           var toast = (0,vue_toastification__WEBPACK_IMPORTED_MODULE_5__.useToast)();
           toast("Form Saved!");
         }
@@ -28412,7 +28421,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (response) {
         console.log(response);
 
-        if (response !== false) {
+        if (response !== false && response !== null) {
           _this2.emptyInputs = response;
         }
       })["catch"](function (err) {

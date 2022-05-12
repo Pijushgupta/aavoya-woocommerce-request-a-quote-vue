@@ -504,7 +504,15 @@ export default {
 					},
 					{name:'Content',type:'content',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
-								content:'<p>Sample text</p>'
+								content:[{
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wow, this editor instance exports its content as JSON."
+        }
+      ]
+    }]
 							},
 							
 					},
@@ -677,8 +685,8 @@ export default {
 			data.append('id',this.row.ID);
 			
 			data.append('title',this.localRow.post_title);
-			data.append('formdata',JSON.stringify(this.emptyInputs));
-	
+			data.append('formdata', JSON.stringify(this.emptyInputs));
+			
 			fetch(awraq_ajax_path,{
 				method:"POST",
 				credentials: 'same-origin',
@@ -688,7 +696,7 @@ export default {
 			.then(response => {
 				console.log(response);
 
-				if(response != 0 || response != false){
+				if(response !== 0 && response !== false){
 					const toast = useToast();
 					toast("Form Saved!");
 				}
@@ -712,7 +720,7 @@ export default {
 			.then(response => response.json())
 			.then(response => {
 				console.log(response);
-				if(response !== false){
+				if(response !== false && response !== null){
 					
 					this.emptyInputs = response;
 				}

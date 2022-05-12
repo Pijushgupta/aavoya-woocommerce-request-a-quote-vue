@@ -58,15 +58,9 @@ class Forms
 		/* Converting json string of form filed to array and Sanitizing Form fields -  from backend */
 		$data = Officer::jsonToArray($_POST['formdata']);
 
-
-		/*TODO: FIX Officer::formInputSanitize*/
 		$dataSanitized = Officer::formInputSanitize($data);
 
-
-
-
 		echo json_encode(Meta::updateForm($postId, $dataSanitized));
-
 
 		wp_die();
 	}
