@@ -184,28 +184,8 @@ class Officer
 	 */
 	public static function contentDataSanitization(&$data)
 	{
-
-		$allowed_tags = array(
-
-			'br' 						=> array(),
-			'hr' 						=> array(),
-			'strong' 				=> array(),
-			'p' 						=> array(),
-			'h1' 						=> array(),
-			'h2' 						=> array(),
-			'h3' 						=> array(),
-			'h4' 						=> array(),
-			'h5' 						=> array(),
-			'h6' 						=> array(),
-			'ul' 						=> array(),
-			'ol' 						=> array(),
-			'li' 						=> array(),
-			'div' 					=> array(),
-			'a'						=> array('href' => array(), 'target' => array(), 'rel' => array()),
-			'blockquote' 		=> array(),
-		);
-
-		$data['content'] = wp_kses_post($data['content'], $allowed_tags);
+		//Not sanitizing the content, since there is not proper way to sanitize the content(JSON)
+		//may be i should convert this to array then sanitize it based on type key. 
 	}
 
 

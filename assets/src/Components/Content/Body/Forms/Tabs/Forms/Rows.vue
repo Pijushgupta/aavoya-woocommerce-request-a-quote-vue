@@ -380,7 +380,7 @@
 										</div> 
 										<div v-if="element.type == 'content'">
 											<div class="p-4">
-												<QuillVanila :id="element.uniqueName" :options="{theme:'snow'}" v-model:content="element.data.content"/>
+												<Editor v-model="element.data.content" />	
 											</div>
 										</div>
 										<!-- Basic Ends -->
@@ -426,7 +426,7 @@
 <script>
 import draggable from "vuedraggable";
 import Svg from './Svg/Svg.vue';
-import QuillVanila from './Quill-vanila/Quill.vue';
+import Editor  from "./Editor/Editor.vue";
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { useToast } from 'vue-toastification'
@@ -435,7 +435,7 @@ export default {
 	components:{
 		draggable,
 		Datepicker,
-		QuillVanila,
+		Editor,
 		Svg
 	},
 	props:{
@@ -504,7 +504,7 @@ export default {
 					},
 					{name:'Content',type:'content',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
-								content:[{ insert: 'Hello ' }],
+								content:'',
 							},
 							
 					},
@@ -672,6 +672,8 @@ export default {
 			if(this.localRow.post_title == '' || this.localRow.title == 'Untitled Form'){ alert('Please enter a title for the form'); return;}
 
 			const data = new FormData();
+			console.log(this.emptyInputs);
+			
 			data.append('awraq_nonce',awraq_nonce);
 			data.append('action','awraqSaveFormData');
 			data.append('id',this.row.ID);
