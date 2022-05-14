@@ -380,7 +380,7 @@
 										</div> 
 										<div v-if="element.type == 'content'">
 											<div class="p-4">
-												<editor v-model="element.data.content" />
+												<QuillVanila :id="element.uniqueName" :options="{theme:'snow'}" v-model:content="element.data.content"/>
 											</div>
 										</div>
 										<!-- Basic Ends -->
@@ -426,7 +426,7 @@
 <script>
 import draggable from "vuedraggable";
 import Svg from './Svg/Svg.vue';
-import Editor from './Editor/Editor.vue'
+import QuillVanila from './Quill-vanila/Quill.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { useToast } from 'vue-toastification'
@@ -435,7 +435,7 @@ export default {
 	components:{
 		draggable,
 		Datepicker,
-		Editor,
+		QuillVanila,
 		Svg
 	},
 	props:{
@@ -504,15 +504,7 @@ export default {
 					},
 					{name:'Content',type:'content',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
-								content:[{
-      "type": "paragraph",
-      "content": [
-        {
-          "type": "text",
-          "text": "Wow, this editor instance exports its content as JSON."
-        }
-      ]
-    }]
+								content:[{ insert: 'Hello ' }],
 							},
 							
 					},
@@ -719,7 +711,7 @@ export default {
 			})
 			.then(response => response.json())
 			.then(response => {
-				console.log(response);
+				
 				if(response !== false && response !== null){
 					
 					this.emptyInputs = response;
