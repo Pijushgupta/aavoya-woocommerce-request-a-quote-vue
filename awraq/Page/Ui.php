@@ -32,10 +32,20 @@ final class Ui
 
 	public static function render()
 	{	
-		$url = admin_url('admin-ajax.php');
-		$awraq = wp_create_nonce('awraq_nonce');
-		$hasWoo = class_exists('WooCommerce') ? 1 : 0;
-		printf('<script> var awraq_ajax_path = "%1$s"; var awraq_nonce = "%2$s"; var has_woo = "%3$b";</script><div id="%4$s"></div>',$url,$awraq,$hasWoo, AWRAQ_VUE_ROOT_ID);
+		$url 		= admin_url('admin-ajax.php');
+		$awraq 		= wp_create_nonce('awraq_nonce');
+		$hasWoo 	= class_exists('WooCommerce') ? 1 : 0;
+		$assetPath 	= AWRAQ_REL .'/assets/dist/';
+		printf(
+			'<script> 
+			var awraq_ajax_path = "%1$s"; 
+			var awraq_nonce = "%2$s"; 
+			var has_woo = "%3$b";
+			var assetPath = "%4$s";
+			</script>
+			<div id="%5$s"></div>',
+			$url,$awraq,$hasWoo,$assetPath, AWRAQ_VUE_ROOT_ID
+		);
 	}
 
 	

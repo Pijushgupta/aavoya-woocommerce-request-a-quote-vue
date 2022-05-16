@@ -51,7 +51,7 @@
 						<template #item="{element,index}">
 
 							<li class=" lg:w-1/2 md:w-full p-2 mb-0 " v-on:click.prevent="onClickCopyInput(index)">
-								<div class="flex flex-col items-center px-2 py-4 border  shadow-sm cursor-move  rounded  font-semibold bg-white">
+								<div class="flex flex-col items-center px-2 py-4 border  shadow-sm cursor-move  rounded  font-medium bg-white">
 									<Svg :type="element.type" />
 									<span class="text-gray-500 lowercase">{{element.name}}</span>				
 								</div>
