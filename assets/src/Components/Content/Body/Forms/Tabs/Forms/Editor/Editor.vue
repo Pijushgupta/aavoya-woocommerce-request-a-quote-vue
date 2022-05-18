@@ -93,7 +93,7 @@ export default {
   },
 
   props: {
-    modelValue: Object,
+    modelValue: [String,Object],
   },
 
   data() {
@@ -104,11 +104,11 @@ export default {
 
   watch: {
     modelValue(value) {
-      // HTML
-     // const isSame = this.editor.getHTML() === value
+      // HTML -- Setting the value(HTML) to the editor
+      const isSame = this.editor.getHTML() === value
 
       // JSON
-      const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+      //const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
 
       if (isSame) {
         return
@@ -133,7 +133,7 @@ export default {
         // HTML
         //this.$emit('update:modelValue', this.editor.getHTML())
 
-        // JSON
+        // JSON - saving the value as JSON 
         this.$emit('update:modelValue', this.editor.getJSON())
       },
     })

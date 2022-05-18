@@ -59,6 +59,7 @@ export default {
 		row:Object,
 		
 	},
+	
 	components:{
 		Drawer
 	},

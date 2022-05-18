@@ -16,6 +16,7 @@
 		}
 	},
 	"require": {
-		"symfony/var-dumper": "5.4.2"
+		"symfony/var-dumper": "5.4.2",
+		"ueberdosis/tiptap-php": "^1.1"
 	}
 }

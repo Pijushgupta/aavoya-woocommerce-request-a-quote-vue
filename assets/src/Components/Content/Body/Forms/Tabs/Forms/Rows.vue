@@ -504,7 +504,7 @@ export default {
 					},
 					{name:'Content',type:'content',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
-								content:'',
+								content:'<i>Write your content here</i>',
 							},
 							
 					},

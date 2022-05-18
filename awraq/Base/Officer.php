@@ -2,6 +2,8 @@
 
 namespace Awraq\Base;
 
+use Tiptap\Editor as TC;
+
 if (!defined('ABSPATH')) exit;
 class Officer
 {
@@ -184,8 +186,9 @@ class Officer
 	 */
 	public static function contentDataSanitization(&$data)
 	{
-		//Not sanitizing the content, since there is not proper way to sanitize the content(JSON)
-		//may be i should convert this to array then sanitize it based on type key. 
+		$tcObject	= new TC();
+		$tcObject->setContent($data['content']);
+		$data['content'] = $tcObject->getDocument();
 	}
 
 
