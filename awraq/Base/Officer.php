@@ -3,6 +3,8 @@
 namespace Awraq\Base;
 
 use Tiptap\Editor as TC;
+use Tiptap\Extensions\StarterKit as StarterKit;
+use Tiptap\Marks\Link as Link;
 
 if (!defined('ABSPATH')) exit;
 class Officer
@@ -179,16 +181,24 @@ class Officer
 
 
 	/**
-	 * contentDataSanitization : This to Sanitize the content(html) input
+	 * contentDataSanitization : This to Sanitize the content(json) and convert it into html
+	 * then again sanitize/allow only allowed html tags
 	 * blueprint from the backend of the form
 	 * @param  mixed $data(called by reference)
 	 * @return void
 	 */
 	public static function contentDataSanitization(&$data)
 	{
-		$tcObject	= new TC();
-		$tcObject->setContent($data['content']);
-		$data['content'] = $tcObject->getDocument();
+		$tcObject	= new TC([
+
+			'extensions' => [
+				new StarterKit,
+				new Link
+			],
+
+		]);
+		$tcObject->sanitize($data['content']);
+		$data['content'] = $tcObject->getHTML();
 	}
 
 
