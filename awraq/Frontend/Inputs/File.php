@@ -8,7 +8,7 @@ class File
 {
 	public static function create($formInput, $key, $id)
 	{
-		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="file">';
+		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="file mt-2">';
 		$acceptType = array();
 		foreach ($formInput['data']['selectedFileType'] as $type) {
 			switch ($type) {

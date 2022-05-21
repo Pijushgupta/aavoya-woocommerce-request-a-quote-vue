@@ -8,7 +8,7 @@ class Textarea
 {
 	public static function create($formInput, $key, $id)
 	{
-		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="textarea">';
+		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="textarea mt-2">';
 
 		$form .= $formInput['data']['label'] ? '<label>' . $formInput['data']['label'] . '</label>' : '';
 

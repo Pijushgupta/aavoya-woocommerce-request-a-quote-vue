@@ -8,7 +8,7 @@ class Submit
 {
 	public static function create()
 	{
-		$form = '<div class="submit">';
+		$form = '<div class="submit mt-2">';
 		$form .= '<input type="submit" name="submit" value="Submit"/>';
 		$form .= '</div>';
 		return $form;

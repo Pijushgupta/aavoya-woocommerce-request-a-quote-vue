@@ -8,7 +8,7 @@ class Email
 {
 	public static function create($formInput, $key, $id)
 	{
-		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="email">';
+		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="email mt-2">';
 
 		$form .= $formInput['data']['label'] ? '<label for="' . $id . $formInput['name'] . $key . '">' . $formInput['data']['label'] . '</label>' : '';
 

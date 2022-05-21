@@ -14,6 +14,7 @@ use Awraq\Frontend\Essentials\Submit;
 use Awraq\Frontend\Inputs\Radio;
 use Awraq\Frontend\Inputs\Checkbox;
 use Awraq\Frontend\Inputs\Text;
+use Awraq\Frontend\Inputs\Address;
 use Awraq\Frontend\Inputs\Name;
 use Awraq\Frontend\Inputs\Html;
 use Awraq\Frontend\Inputs\Textarea;
@@ -60,7 +61,9 @@ class Form
 				case 'date':
 					$form .= Date::create($formInput, $key, $id);
 					break;
-
+				case 'address':
+					$form .= Address::create($formInput, $key, $id);
+					break;
 				default:
 					break;
 			}
