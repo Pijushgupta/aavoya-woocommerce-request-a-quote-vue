@@ -23,7 +23,7 @@ export default{
 	data: function() {
 		return {
 
-			loadTab:1
+			loadTab:3
 		}
 	},
 	methods:{

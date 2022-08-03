@@ -833,11 +833,11 @@
 		<!-- Save and Delete Button -->
 		<div class="w-full  flex flex-row justify-end mt-5 ">
 			<div class="flex flex-row justify-between">
-				<button class="border px-4 py-2  rounded-full font-semibold capitalize mr-2 flex items-center text-gray-500" v-on:click="$emit('delete-row',drawerId)">
+				<button class="border px-4 py-2  rounded font-semibold capitalize mr-2 flex items-center text-gray-500" v-on:click="$emit('delete-row',drawerId)">
 					<svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 h-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
 					Delete
 				</button>
-				<button class="border  px-4 py-2  rounded-full font-semibold capitalize flex items-center text-gray-500" v-on:click="sendData">
+				<button class="border  px-4 py-2  rounded font-semibold capitalize flex items-center text-gray-500" v-on:click="sendData">
 					<svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 h-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" /></svg>
 					Save
 				</button>
