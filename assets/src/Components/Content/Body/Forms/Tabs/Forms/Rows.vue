@@ -198,6 +198,23 @@
 										</div>
 										<div v-if="element.type === 'date'">
 											<div class="w-full flex flex-col">
+												<div class="border-b flex flex-row items-center p-2">
+													<div class="w-1/4 flex justify-end pr-4">
+														Label
+													</div>
+													<div class="w-2/4 ">
+														<input class="w-full" type="text" v-model="element.data.label" />
+													</div>
+												</div>
+												<div class="border-b flex flex-row items-center p-2">
+													<div class="w-1/4 flex justify-end pr-4">
+														Required
+													</div>
+													<div class="w-2/4 flex justify-end">
+														<input type="checkbox" v-model="element.data.required" />
+													</div>
+												</div>
+												
 												<div class="border-b flex items-center flex-row py-2 px-2">
 													<div class="w-1/4 flex justify-end pr-4">
 														Date Type
@@ -210,6 +227,7 @@
 													</div>
 
 												</div>
+												
 											</div>
 											<div class="w-full p-4 flex justify-center items-center">
 												
@@ -220,10 +238,7 @@
 												<div v-show="element.data.dateType == 1" class="w-4/6">
 													<Datepicker  v-model="element.data.dateData[1].range" range />
 												</div>
-
 											</div>
-
-
 										</div>
 										<div v-if="element.type === 'file'">
 											<div class="w-full flex flex-col">

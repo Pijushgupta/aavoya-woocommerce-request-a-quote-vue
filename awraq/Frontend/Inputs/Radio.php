@@ -2,11 +2,10 @@
 
 namespace Awraq\Frontend\Inputs;
 
-class Radio
-{
+if (!defined('ABSPATH')) exit;
+class Radio {
 
-	public static function create($formInput, $key, $id)
-	{
+	public static function create($formInput, $key, $id): string {
 		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="radio mt-2">';
 		$form .= '<label>' . $formInput['data']['label'] . '</label>';
 		foreach ($formInput['data']['Options'] as $k => $v) {

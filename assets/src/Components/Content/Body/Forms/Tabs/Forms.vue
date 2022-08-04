@@ -57,7 +57,6 @@ export default {
 			})
 			.catch((err) => console.log(err));
 		},
-
 		createForm: function(){
 			const data = new FormData();
 			data.append('action','awraqCreateForms');

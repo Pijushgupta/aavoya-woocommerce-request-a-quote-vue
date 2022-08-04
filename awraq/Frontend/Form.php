@@ -17,15 +17,14 @@ use Awraq\Frontend\Inputs\Text;
 use Awraq\Frontend\Inputs\Address;
 use Awraq\Frontend\Inputs\Name;
 use Awraq\Frontend\Inputs\Html;
+use Awraq\Frontend\Inputs\Phone;
 use Awraq\Frontend\Inputs\Textarea;
 use Awraq\Frontend\Inputs\Email;
 use Awraq\Frontend\Inputs\File;
 use Awraq\Frontend\Inputs\Date;
 
-class Form
-{
-	public static function create($formInputs, $id)
-	{
+class Form {
+	public static function create($formInputs, $id) {
 		$form = '<div><form id="awraq-form-' . $id . '" class="awraq-form" action="' . admin_url('admin-post.php') . '" method="post">';
 		$form .= Action::create();
 		$form .= Csrfp::create();
@@ -51,6 +50,9 @@ class Form
 					break;
 				case 'email':
 					$form .= Email::create($formInput, $key, $id);
+					break;
+				case 'phone':
+					$form .= Phone::create($formInput, $key, $id);
 					break;
 				case 'file':
 					$form .= File::create($formInput, $key, $id);
