@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 class File {
 	public static function create($formInput, $key, $id): string {
-		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="file mt-2">';
+		$form = '<div class="' . sanitize_html_class($formInput['data']['cssClass']) . '"><div class="file mt-2">';
 
 		/**
 		 * declaring accept type variable to hold accept types
@@ -50,7 +50,7 @@ class File {
 		/**
 		 * Adding the input label if not empty
 		 */
-		$form .= $formInput['data']['label'] ? '<label for="' . $id . $formInput['type'] . $key . '">' . $formInput['data']['label'] . '</label>' : '';
+		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($id . $formInput['type'] . $key) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>' : '';
 
 		/**
 		 * Adding "required" to input if not empty 
@@ -60,7 +60,7 @@ class File {
 		/**
 		 * Adding the actual input , input type of form
 		 */
-		$form .= '<input type="file" id="' . $id . $formInput['type'] . $key . '" name="' . $id . $formInput['type'] . $key . '" ' . $required . ' ' . $acceptType . ' />';
+		$form .= '<input type="file" id="' . esc_attr($id . $formInput['type'] . $key) . '" name="' . esc_attr($id . $formInput['type'] . $key) . '" ' . esc_attr($required) . ' ' . sanitize_text_field($acceptType) . ' />';
 
 		/**
 		 * Closing the tags

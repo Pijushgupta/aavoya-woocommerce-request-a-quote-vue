@@ -4,12 +4,12 @@ namespace Awraq\Frontend\Inputs;
 
 if (!defined('ABSPATH')) exit;
 
-class Address
-{
-	public static function create($formInput, $key, $id)
-	{
+class Address {
+	public static function create($formInput, $key, $id) {
 		/*
-		 * Counting number of active/enabled fields
+		 * Counting number of active/enabled fields: $numberOfEnabledFields
+		 * storing enabled fields : $options
+		 * This is needed to create proper html grid.
 		 */
 		$numberOfEnabledFields = 0;
 		$options = array();
@@ -20,9 +20,7 @@ class Address
 			}
 		}
 		unset($o);
-		/**
-		 * end
-		 */
+
 
 		/**
 		 *  Checking if total number of active fields is an Odd number or not
@@ -32,13 +30,7 @@ class Address
 			$odd = true;
 		}
 
-		/**
-		 * end
-		 */
-
-		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="flex flex-row flex-wrap address mt-2">';
-
-
+		$form = '<div class="' . sanitize_html_class($formInput['data']['cssClass']) . '"><div class="flex flex-row flex-wrap address mt-2">';
 
 		/**
 		 * Counting number of array elements
@@ -50,7 +42,7 @@ class Address
 		 */
 		for ($i = 0; $i < $numberOfFiled; $i++) {
 
-			if ($odd == true && $i == 0) {
+			if ($odd == true && $i == 0) { // making the first field full width in case total number of fields is and odd number
 				$class = 'w-full';
 			} else {
 				$class = 'w-1/2 pr-2';
@@ -58,13 +50,11 @@ class Address
 			$required = $options[$i]['required'] == true ? 'required' : '';
 			$placeholder = $options[$i]['placeholder'] ? 'placeholder="' . $options[$i]['placeholder'] . '"' : '';
 			$form .= '<div class="' . $class . '">';
-			$form .= '<label for="' . $id . preg_replace('/\s+/', '', $options[$i]['name']) . $key . '" class="block">' . $options[$i]['label'] . '</label>';
-			$form .= '<input type="text" id="' . $id . preg_replace('/\s+/', '', $options[$i]['name']) . $key . '" name="' . $id . preg_replace('/\s+/', '', $options[$i]['name']) . $key . '" class="block w-full"' . $required . ' ' . $placeholder . '>';
+			$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" class="block">' . __(sanitize_text_field($options[$i]['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
+			$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" name="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" class="block w-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . '>';
 			$form .= '</div>';
 		}
-		/**
-		 * end of for loop
-		 */
+
 
 		$form .= '</div></div>';
 		return $form;

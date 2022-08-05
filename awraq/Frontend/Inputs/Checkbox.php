@@ -4,16 +4,14 @@ namespace Awraq\Frontend\Inputs;
 
 if (!defined('ABSPATH')) exit;
 
-class Checkbox
-{
+class Checkbox {
 
-	public static function create($formInput, $key, $id)
-	{
+	public static function create($formInput, $key, $id) {
 
-		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="checkbox mt-2">';
-		$form .= '<label style="display:block;">' . $formInput['data']['label'] . '</label>';
+		$form = '<div class="' . sanitize_html_class($formInput['data']['cssClass']) . '"><div class="checkbox mt-2">';
+		$form .= '<label style="display:block;">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
 		foreach ($formInput['data']['Options'] as $k => $v) {
-			$form .= '<input type="checkbox" id="' . $id . $formInput['name'] . $k . '" name="' . $id . $formInput['name'] . $k . '" value="' . $v['value'] . '" style="margin-right:10px;"/>' . '<label for="' . $id . $formInput['name'] . $k . '">' . $v['name'] . '</label><br>';
+			$form .= '<div class="' . sanitize_html_class($id . $formInput['name'] . $k) . '"><input type="checkbox" id="' . esc_attr($id . $formInput['name'] . $k) . '" name="' . esc_attr($id . $formInput['name'] . $k) . '" value="' . sanitize_text_field($v['value']) . '" style="margin-right:10px;"/>' . '<label for="' . esc_attr($id . $formInput['name'] . $k) . '">' . __(sanitize_text_field($v['name']), AWRAQ_TEXT_DOMAIN) . '</label></div>';
 		}
 		$form .= '</div></div>';
 		return $form;

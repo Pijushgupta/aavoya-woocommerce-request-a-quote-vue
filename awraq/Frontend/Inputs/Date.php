@@ -35,14 +35,14 @@ class Date {
 
 
 		$datepickerOptions = self::datepicker_options($dateRange);
-		$formId = $id . $formInput['type'] . $key;
+		$formId = sanitize_text_field($id . $formInput['type'] . $key);
 		self::$footerScript = '<script>jQuery(\'input[name="' . $formId . '"]\').daterangepicker(' . $datepickerOptions . ')</script>';
 		add_action('wp_footer', array(self::$globalScopeName, 'set_footer_script'), 9999);
 
-		$form = '<div class="' . $formInput['data']['cssClass'] . '"><div class="date mt-2">';
-		$form .= $formInput['data']['label'] ? '<label for="' . $formId . '">' . $formInput['data']['label'] . '</label>' : '';
+		$form = '<div class="' . sanitize_html_class($formInput['data']['cssClass']) . '"><div class="date mt-2">';
+		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($formId) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>' : '';
 		$required = ($formInput['data']['required'] == true) ? 'required' : '';
-		$form .= '<input type="text" id="' . $formId . '" name="' . $formId . '" ' . $required . '/>';
+		$form .= '<input type="text" id="' . esc_attr($formId) . '" name="' . esc_attr($formId) . '" ' . $required . '/>';
 		$form .= '</div></div>';
 
 		/**
@@ -98,6 +98,12 @@ class Date {
 		}
 	}
 
+	/**
+	 * datepicker_options
+	 * Creating options required for datepicker client-side code 
+	 * @param  mixed $dateRange
+	 * @return string
+	 */
 	public static function datepicker_options($dateRange): string {
 		$singleDatePicker = '';
 		$minDate = '';
@@ -147,6 +153,6 @@ class Date {
 	}
 
 	public static function set_footer_script(): void {
-		echo self::$footerScript;
+		echo self::$footerScript; // do not sanitize it. Output is javaScript 
 	}
 }
