@@ -5,29 +5,31 @@ namespace Awraq\Frontend;
 if (!defined('ABSPATH')) exit;
 
 
-use Awraq\Frontend\Essentials\Action;
-use Awraq\Frontend\Essentials\Csrfp;
-use Awraq\Frontend\Essentials\Id;
-use Awraq\Frontend\Essentials\Css;
-use Awraq\Frontend\Essentials\Submit;
+use Awraq\Frontend\Form\Essentials\Action;
+use Awraq\Frontend\Form\Essentials\Csrfp;
+use Awraq\Frontend\Form\Essentials\Token;
+use Awraq\Frontend\Form\Essentials\Id;
+use Awraq\Frontend\Form\Essentials\Css;
+use Awraq\Frontend\Form\Essentials\Submit;
 
-use Awraq\Frontend\Inputs\Radio;
-use Awraq\Frontend\Inputs\Checkbox;
-use Awraq\Frontend\Inputs\Text;
-use Awraq\Frontend\Inputs\Address;
-use Awraq\Frontend\Inputs\Name;
-use Awraq\Frontend\Inputs\Html;
-use Awraq\Frontend\Inputs\Phone;
-use Awraq\Frontend\Inputs\Textarea;
-use Awraq\Frontend\Inputs\Email;
-use Awraq\Frontend\Inputs\File;
-use Awraq\Frontend\Inputs\Date;
+use Awraq\Frontend\Form\Inputs\Radio;
+use Awraq\Frontend\Form\Inputs\Checkbox;
+use Awraq\Frontend\Form\Inputs\Text;
+use Awraq\Frontend\Form\Inputs\Address;
+use Awraq\Frontend\Form\Inputs\Name;
+use Awraq\Frontend\Form\Inputs\Html;
+use Awraq\Frontend\Form\Inputs\Phone;
+use Awraq\Frontend\Form\Inputs\Textarea;
+use Awraq\Frontend\Form\Inputs\Email;
+use Awraq\Frontend\Form\Inputs\File;
+use Awraq\Frontend\Form\Inputs\Date;
 
 class Form {
 	public static function create($formInputs, $id) {
 		$form = '<div><form id="awraq-form-' . $id . '" class="awraq-form" action="' . admin_url('admin-post.php') . '" method="post">';
 		$form .= Action::create();
 		$form .= Csrfp::create();
+		$form .= Token::create($id);
 		$form .= Id::create($id);
 		$form .= Css::create();
 		foreach ($formInputs as $key => $formInput) {

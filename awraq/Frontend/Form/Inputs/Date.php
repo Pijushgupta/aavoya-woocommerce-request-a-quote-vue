@@ -1,13 +1,13 @@
 <?php
 
-namespace Awraq\Frontend\Inputs;
+namespace Awraq\Frontend\Form\Inputs;
 
 if (!defined('ABSPATH')) exit;
 
 class Date {
 
 	public static $footerScript = '';
-	public static $globalScopeName = 'Awraq\Frontend\Inputs\Date';
+	public static $globalScopeName = 'Awraq\Frontend\Form\Inputs\Date';
 
 	/**
 	 * create

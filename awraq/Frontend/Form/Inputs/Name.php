@@ -1,6 +1,6 @@
 <?php
 
-namespace Awraq\Frontend\Inputs;
+namespace Awraq\Frontend\Form\Inputs;
 
 if (!defined('ABSPATH')) exit;
 
