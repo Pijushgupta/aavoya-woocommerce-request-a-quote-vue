@@ -35,7 +35,7 @@ class Name {
 				$placeholder = $o['placeholder'] ? 'placeholder="' . __(sanitize_text_field($o['placeholder']), AWRAQ_TEXT_DOMAIN) . '"' : '';
 				$form .= '<div class="' . $class . '">';
 				$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $o['name']) . $key) . '" class="block">' . __(sanitize_text_field($o['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
-				$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $o['name']) . $key) . '" name="' . esc_attr($id . preg_replace('/\s+/', '', $o['name']) . $key) . '" ' . $placeholder . ' ' . $required . ' class="block w-full">';
+				$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $o['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $k) . '" ' . $placeholder . ' ' . $required . ' class="block w-full">';
 				$form .= '</div>';
 			}
 		}

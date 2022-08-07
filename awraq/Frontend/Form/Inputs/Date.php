@@ -35,7 +35,7 @@ class Date {
 
 
 		$datepickerOptions = self::datepicker_options($dateRange);
-		$formId = sanitize_text_field($id . $formInput['type'] . $key);
+		$formId = sanitize_text_field($formInput['uniqueName']);
 		self::$footerScript = '<script>jQuery(\'input[name="' . $formId . '"]\').daterangepicker(' . $datepickerOptions . ')</script>';
 		add_action('wp_footer', array(self::$globalScopeName, 'set_footer_script'), 9999);
 

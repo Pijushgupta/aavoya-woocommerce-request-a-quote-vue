@@ -60,7 +60,7 @@ class File {
 		/**
 		 * Adding the actual input , input type of form
 		 */
-		$form .= '<input type="file" id="' . esc_attr($id . $formInput['type'] . $key) . '" name="' . esc_attr($id . $formInput['type'] . $key) . '" ' . esc_attr($required) . ' ' . sanitize_text_field($acceptType) . ' />';
+		$form .= '<input type="file" id="' . esc_attr($id . $formInput['type'] . $key) . '" name="' . esc_attr($formInput['uniqueName']) . '" ' . esc_attr($required) . ' ' . sanitize_text_field($acceptType) . ' />';
 
 		/**
 		 * Closing the tags

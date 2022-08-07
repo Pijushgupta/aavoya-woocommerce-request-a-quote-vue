@@ -507,7 +507,7 @@ export default {
 							data:{
 							tabState:0,
 								Options:[
-									{name:'address', label:'Address',enabled:true, required:false, placeholder:''},
+									{name:'street', label:'Street',enabled:true, required:false, placeholder:''},
 									{name:'apartment', label:'Apartment',enabled:true, required:false, placeholder:''},
 									{name:'city',label:'City',enabled:true, required:false, placeholder:''},
 									{name:'state',label:'State',enabled:true, required:false, placeholder:''},

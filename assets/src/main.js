@@ -6,7 +6,7 @@ import "vue-toastification/dist/index.css";
 const toastOption = {
 	transition: "Vue-Toastification__fade",
 	maxToasts: 20,
-	timeout: false,
+	timeout: 2000,
 	hideProgressBar: false,
 	newestOnTop: true,
 	position: 'top-center',

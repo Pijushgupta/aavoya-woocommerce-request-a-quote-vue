@@ -42,6 +42,7 @@ class Address {
 		 */
 		for ($i = 0; $i < $numberOfFiled; $i++) {
 
+
 			if ($odd == true && $i == 0) { // making the first field full width in case total number of fields is and odd number
 				$class = 'w-full';
 			} else {
@@ -51,7 +52,7 @@ class Address {
 			$placeholder = $options[$i]['placeholder'] ? 'placeholder="' . $options[$i]['placeholder'] . '"' : '';
 			$form .= '<div class="' . $class . '">';
 			$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" class="block">' . __(sanitize_text_field($options[$i]['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
-			$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" name="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" class="block w-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . '>';
+			$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $i) . '" class="block w-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . '>';
 			$form .= '</div>';
 		}
 

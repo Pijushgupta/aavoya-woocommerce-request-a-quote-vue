@@ -27680,7 +27680,7 @@ __webpack_require__.r(__webpack_exports__);
 var toastOption = {
   transition: "Vue-Toastification__fade",
   maxToasts: 20,
-  timeout: false,
+  timeout: 2000,
   hideProgressBar: false,
   newestOnTop: true,
   position: 'top-center',
@@ -28150,8 +28150,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         data: {
           tabState: 0,
           Options: [{
-            name: 'address',
-            label: 'Address',
+            name: 'street',
+            label: 'Street',
             enabled: true,
             required: false,
             placeholder: ''
