@@ -1,5 +1,5 @@
 <template>
-  <li class="border-b last:border-b-0   mb-0">
+  <li class="border-b    mb-0 ">
 	  <div class="form-row flex flex-row justify-between items-center px-4 py-2">
 			<div class="w-2/12">
 			
@@ -80,8 +80,8 @@
 							<li class=" border cursor-move mb-2 rounded last:mb-0">
 								<ul class="border-b flex flex-row items-center justify-between ">
 									<li class="mb-0">
-										<ul class="flex flex-row">
-											<li class="px-2 py-2 mb-0 font-semibold">
+										<ul class="flex flex-row items-center">
+											<li class="px-2 py-4 mb-0 font-semibold">
 												<Svg :type="element.type" />
 												{{element.name}}
 											</li>
@@ -484,7 +484,7 @@ export default {
 			inputs:[
 					{name:'Text',type:'text',uniqueName:'',dataType:'string',tabState:0, cssClass:'',
 							data:{
-								label:'',
+								label:'Text',
 								placeholder:'',
 								required:false
 								
@@ -532,7 +532,7 @@ export default {
 					},			
 					{name:'Textbox',type:'textarea',uniqueName:'',dataType:'string',tabState:0,cssClass:'',
 							data:{
-								label:'',
+								label:'Text box',
 								placeholder:'',
 								required:false
 							}
@@ -570,7 +570,7 @@ export default {
 							data:{
 								label:'File',
 								required:false,
-								selectedFileType:[],
+								selectedFileType:['document'],
 								maxFileSize:3,
 								supportedFileTypes:[
 									{key:0,name:'Image(.jpg,.png,.gif)',type:'image'},

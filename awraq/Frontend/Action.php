@@ -5,9 +5,12 @@ namespace Awraq\Frontend;
 if (!defined('ABSPATH')) exit;
 
 use Awraq\Base\Officer;
+use Awraq\Frontend\Form\Action\Ip;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Awraq\Frontend\Form\Action\Map;
+use Awraq\Frontend\Form\Action\Validation;
+
 
 class Action {
 
@@ -24,17 +27,43 @@ class Action {
 	 * @return void
 	 */
 	public static function onSubmit() {
+		/**
+		 * Redirecting Page if origin URL is not set(removed)
+		 */
+		if (!$_POST['origin']) {
+			wp_redirect('/');
+			exit();
+		}
+
+		/**
+		 * Sanitizing Origin Url , to be used in redirect(s)
+		 */
+		$originUrl = esc_url_raw($_POST['origin'], wp_allowed_protocols());
+
+		/**
+		 * checking if Ip blocked or not
+		 */
+		if (Ip::is_blocked((string)$_SERVER['REMOTE_ADDR']) == true) {
+			wp_redirect($originUrl);
+			exit();
+		}
 
 		/**
 		 *  Verifying Nonce for CSFR 
 		 */
-		if (wp_verify_nonce($_POST['awraqf_nonce'], 'awraqf_nonce') == false) return;
+		if (wp_verify_nonce($_POST['awraqf_nonce'], 'awraqf_nonce') == false) {
+			wp_redirect($originUrl);
+			exit();
+		}
 
 		/**
 		 * checking if JWT got tampered or not
 		 */
 		$tokenId = self::decode_jwt(Officer::sanitize($_POST['jwt'], 'text'));
-		if ($tokenId == false) return;
+		if ($tokenId == false) {
+			wp_redirect($originUrl);
+			exit();
+		};
 
 		/**
 		 * validating and sanitizing form id field 
@@ -45,19 +74,54 @@ class Action {
 		 * checking token ID against form ID, it should same 
 		 * if not terminate
 		 */
-		if ($tokenId != $formID) return;
+		if ($tokenId != $formID) {
+			wp_redirect($originUrl);
+			exit();
+		};
 
 
 		/* Terminating in case no form id or bad formID */
-		if ($formID == 0 || get_post($formID) == null) return;
+		if ($formID == 0 || get_post($formID) == null) {
+			wp_redirect($originUrl);
+			exit();
+		};
 
-
-		$itemsToRemove = array('action', 'awraqf_nonce', 'formPostId', 'jwt', 'submit');
-		foreach ($itemsToRemove as $itemToRemove) {
-			unset($_POST[$itemToRemove]);
+		/**
+		 * Removing supporting data from Post var
+		 */
+		$inputsToRemove = array('action', 'awraqf_nonce', 'formPostId', 'origin', 'jwt', 'submit');
+		foreach ($inputsToRemove as $inputToRemove) {
+			unset($_POST[$inputToRemove]);
 		}
 
-		Map::check($formID, $_POST);
+		/**
+		 * Mapping the 'flat' array of post data to proper nested data
+		 * And doing doing Sanitization
+		 */
+		$mappedPostData = Map::check($formID, $_POST);
+
+		/**
+		 * In case its Map::check returns false for violation
+		 * redirecting to same origin Page 
+		 */
+		if ($mappedPostData === false) {
+			wp_redirect($originUrl);
+			exit();
+		}
+
+		$validatedPostData = Validation::do($formID, $mappedPostData);
+
+		if ($validatedPostData === false) {
+			wp_redirect($originUrl);
+			exit();
+		}
+
+		print_r($mappedPostData);
+
+
+
+
+
 
 
 

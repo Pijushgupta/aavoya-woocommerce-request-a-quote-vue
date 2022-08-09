@@ -1105,20 +1105,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .fill-gray-400 {
   fill: #9ca3af;
 }
-.fill-gray-300 {
-  fill: #d1d5db;
+.fill-gray-800 {
+  fill: #1f2937;
 }
 .fill-pink-700 {
   fill: #be185d;
 }
 .fill-cyan-500 {
   fill: #06b6d4;
-}
-.fill-blue-500 {
-  fill: #3b82f6;
-}
-.fill-gray-800 {
-  fill: #1f2937;
 }
 .stroke-blue-500 {
   stroke: #3b82f6;
@@ -1181,6 +1175,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-0 {
   padding-top: 0px;
   padding-bottom: 0px;
+}
+.pb-8 {
+  padding-bottom: 2rem;
 }
 .pr-4 {
   padding-right: 1rem;
@@ -1702,9 +1699,6 @@ a:hover {
 }
 .last\:border-0:last-child {
   border-width: 0px;
-}
-.last\:border-b-0:last-child {
-  border-bottom-width: 0px;
 }
 .last\:border-l-0:last-child {
   border-left-width: 0px;

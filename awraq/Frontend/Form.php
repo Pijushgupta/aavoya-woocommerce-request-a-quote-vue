@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use Awraq\Frontend\Form\Essentials\Action;
 use Awraq\Frontend\Form\Essentials\Csrfp;
 use Awraq\Frontend\Form\Essentials\Token;
+use Awraq\Frontend\Form\Essentials\Origin;
 use Awraq\Frontend\Form\Essentials\Id;
 use Awraq\Frontend\Form\Essentials\Css;
 use Awraq\Frontend\Form\Essentials\Submit;
@@ -30,6 +31,7 @@ class Form {
 		$form .= Action::create();
 		$form .= Csrfp::create();
 		$form .= Token::create($id);
+		$form .= Origin::create();
 		$form .= Id::create($id);
 		$form .= Css::create();
 		foreach ($formInputs as $key => $formInput) {

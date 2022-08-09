@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This class is responsible for mapping and sanitizing form data with blueprint(form meta)
+ */
+
 namespace Awraq\Frontend\Form\Action;
 
 if (!defined('ABSPATH')) exit;
@@ -18,7 +22,7 @@ class Map {
 		/**
 		 * Declaring empty variable of array type store post data 
 		 */
-		$sanitizedPostData = array();
+		$mappedPostData = array();
 
 		/**
 		 * Looping through posted data
@@ -33,52 +37,154 @@ class Map {
 			 */
 			$inputArray = explode('_', $key);
 
+			/**
+			 * Looping through form meta.
+			 * Form meta used as verification blueprint 
+			 */
 			foreach ($formMeta as $inputMeta) {
+
 				if ($inputMeta['uniqueName'] == $inputArray[0]) {
+					/**
+					 * checking inputArray index,
+					 * if its more than 1, its a nested html element 
+					 */
 					if (count($inputArray) > 1) {
-						if ($inputMeta['type'] == 'name') { //name type element 
+						/**
+						 * elements that can only have nested html data
+						 */
+						if ($inputMeta['type'] == 'name' || $inputMeta['type'] == 'address' || $inputMeta['type'] == 'checkbox') { //name type element 
 
-							//Terminate everything - Possible hacking attempt 
-							if (!$inputMeta['data']['Options'][$inputArray[1]]) return false;
-							if ($inputMeta['data']['Options'][$inputArray[1]]['enabled'] != 1) return false;
-
-							if ($inputMeta['data']['Options'][$inputArray[1]]['required'] == 1) { //checking if the field is required 
-								if (empty($input) and $input != 0) return false; //if field is is required but with no data
-							}
-							$sanitizedPostData[$inputMeta['uniqueName']][$inputArray[1]]['name'] = $inputMeta['data']['Options'][$inputArray[1]]['name'];
-							$sanitizedPostData[$inputMeta['uniqueName']][$inputArray[1]]['data'] = sanitize_text_field($input);
-						}
-
-						if ($inputMeta['type'] == 'checkbox') { // checkbox type element 
-
-							//Terminate everything - Possible hacking attempt 
+							/**
+							 * Terminate everything - Possible hacking attempt 
+							 * since its a indication of new field that is not generated form server 
+							 */
 							if (!$inputMeta['data']['Options'][$inputArray[1]]) return false;
 
-							if ($inputMeta['data']['Options'][$inputArray[1]]['required'] == 1) { //checking if the field is required 
-								if (empty($input) and $input != 0) return false; //if field is is required but with no data
+							/**
+							 * creating exception for checkbox, it will not have enable/disable option 
+							 */
+							if ($inputMeta['type'] != 'checkbox') {
+								if ($inputMeta['data']['Options'][$inputArray[1]]['enabled'] != 1) return false;
 							}
-							$sanitizedPostData[$inputMeta['uniqueName']][$inputArray[1]]['name'] = $inputMeta['data']['Options'][$inputArray[1]]['name'];
-							$sanitizedPostData[$inputMeta['uniqueName']][$inputArray[1]]['data'] = sanitize_text_field($input);
-						}
 
-						if ($inputMeta['type'] == 'address') { // address type element 
-							//Terminate everything - Possible hacking attempt 
-							if (!$inputMeta['data']['Options'][$inputArray[1]]) return false;
-							if ($inputMeta['data']['Options'][$inputArray[1]]['enabled'] != 1) return false; //Terminate everything - Possible hacking attempt 
+							/**
+							 * setting array index to store the data 
+							 */
+							$mappedPostData[$inputMeta['uniqueName']][$inputArray[1]]['name'] = $inputMeta['data']['Options'][$inputArray[1]]['name'];
 
-							if ($inputMeta['data']['Options'][$inputArray[1]]['required'] == 1) { //checking if the field is required 
-								if (empty($input) and $input != 0) return false; //if field is is required but with no data
-							}
-							$sanitizedPostData[$inputMeta['uniqueName']][$inputArray[1]]['name'] = $inputMeta['data']['Options'][$inputArray[1]]['name'];
-							$sanitizedPostData[$inputMeta['uniqueName']][$inputArray[1]]['data'] = sanitize_text_field($input);
+							/**
+							 * saving the data after basic sanitization 
+							 */
+							$mappedPostData[$inputMeta['uniqueName']][$inputArray[1]]['data'] = $input;
 						}
 					} else {
-						$sanitizedPostData[$inputMeta['uniqueName']][0]['name'] = $inputMeta['name'];
-						$sanitizedPostData[$inputMeta['uniqueName']][0]['data'] = sanitize_text_field($input);
+						/**
+						 * Saving data for non nested html inputs 
+						 */
+
+						$mappedPostData[$inputMeta['uniqueName']][0]['name'] = $inputMeta['name'];
+						$mappedPostData[$inputMeta['uniqueName']][0]['data'] = $input;
 					}
 				}
 			}
 		}
-		var_dump($sanitizedPostData);
+
+		return self::sanitizedPostData($mappedPostData, $formMeta);
+	}
+
+	public static function sanitizedPostData($postdata = null, $formMeta = null) {
+		/**
+		 * return if no argument provided 
+		 */
+		if ($postdata == null || $formMeta == null) return false;
+
+		/**
+		 * looping through submitted data after nesting
+		 */
+		foreach ($postdata as $key => &$inputs) {
+			/**
+			 * exploding key(name-0, textarea-1)
+			 * after exploding it will be array('0'=>'name','1'=>'0')
+			 * so we can use the index 0 to determine the type of data  
+			 * and apply appropriate sanitization
+			 */
+			$type = explode('-', $key);
+
+			/**
+			 * Again looping through the input. Since, inputs are now nested. 
+			 * Even inputs with a singular data are also nested with index 0
+			 */
+			foreach ($inputs as &$input) {
+
+				/**
+				 * Sanitizing input name 
+				 */
+				$input['name'] = sanitize_text_field($input['name']);
+
+				/**
+				 * If input type is text 
+				 * Sanitizing with wordpress's sanitization method 
+				 */
+				if (in_array($type[0], array('text', 'name', 'address', 'textarea', 'checkbox', 'radio', 'date'))) {
+					$input['data'] = sanitize_text_field($input['data']);
+				}
+
+				/**
+				 * if input type is email
+				 * Sanitizing with Wordpress's sanitization method
+				 */
+				if (in_array($type[0], array('email'))) {
+					$input['data'] = sanitize_email($input['data']);
+				}
+
+				/**
+				 * if input type is file
+				 * sanitizing file name with wordpress's sanitization method 
+				 * And checking allowed file type with file extension  with uploaded file
+				 */
+				if (in_array($type[0], array('file'))) {
+					$input['data'] = sanitize_file_name($input['data']);
+					foreach ($formMeta as $inputMeta) {
+						if ($inputMeta['uniqueName'] == $key) {
+							$selectedFileTypes = $inputMeta['data']['selectedFileType'];
+							$extensionList = array();
+							if (in_array('all', $selectedFileTypes)) {
+								array_push($extensionList, '.jpg', '.png', '.gif', '.mp4', '.avi', '.mov', '.mp3', '.wav', '.ogg', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.zip', '.rar', '.7z', '.tar', '.gz');
+							} else {
+								if (in_array('image', $selectedFileTypes)) {
+									array_push($extensionList, '.jpg', '.png', '.gif');
+								}
+								if (in_array('video', $selectedFileTypes)) {
+									array_push($extensionList, '.mp4', '.avi', '.mov');
+								}
+								if (in_array('audio', $selectedFileTypes)) {
+									array_push($extensionList, '.mp3', '.wav', '.ogg');
+								}
+								if (in_array('document', $selectedFileTypes)) {
+									array_push($extensionList, '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx');
+								}
+								if (in_array('archive', $selectedFileTypes)) {
+									array_push($extensionList, '.zip', '.rar', '.7z', '.tar', '.gz');
+								}
+							}
+							$fileExtension = explode('.', $input['data']);
+							$fileExtension = $fileExtension[count($fileExtension) - 1];
+							$fileExtension = '.' . $fileExtension;
+
+							if (!in_array($fileExtension, $extensionList)) {
+								return false;
+							}
+							break;
+						}
+					}
+				}
+				if (in_array($type[0], array('phone'))) {
+					$input['data'] = sanitize_text_field(preg_replace('/[^0-9]/', '', $input['data']));
+				}
+			}
+			unset($input);
+		}
+		unset($inputs);
+		return $postdata;
 	}
 }
