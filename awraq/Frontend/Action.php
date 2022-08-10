@@ -23,10 +23,13 @@ class Action {
 
 	/**
 	 * onSubmit
-	 * This to trigger first after form submission
+	 * This method to trigger first after form submission
 	 * @return void
 	 */
 	public static function onSubmit() {
+		if (!$_POST) return;
+
+
 		/**
 		 * Redirecting Page if origin URL is not set(removed)
 		 */
@@ -116,7 +119,33 @@ class Action {
 			exit();
 		}
 
-		print_r($mappedPostData);
+
+		// TODO: check wordpress Max file size then try to upload, if failure return to origin. In case success upload other data  
+
+		if (!empty($_FILES)) {
+			$allowedPostSize =  (string)ini_get('upload_max_filesize');
+			$sizeSuffix =  strtolower(substr($allowedPostSize, -1));
+			if (in_array($sizeSuffix, array('g', 'm', 'k'))) {
+
+				switch ($sizeSuffix) {
+					case 'g':
+						(int)$allowedPostSize *= 1024 * 1024 * 1024;
+						break;
+					case 'm':
+						(int)$allowedPostSize *= 1024 * 1024;
+						break;
+					case 'k':
+						(int)$allowedPostSize *= 1024;
+						break;
+				}
+			}
+			Map::file($_FILES, $formID); //if false PANIC and block the IP immediately, un-authorized payload 
+		}
+		var_dump($_FILES);
+
+
+
+
 
 
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This validation checks if required html inputs are submitted or not 
+ */
+
 namespace Awraq\Frontend\Form\Action;
 
 if (!defined('ABSPATH')) exit;
@@ -31,6 +35,17 @@ class Validation {
 					}
 				}
 				if ($inputMeta['type'] == 'content') { /* Do nothing, its a read only */
+				}
+				if ($inputMeta['type'] == 'file') { // This validation happening before file sanitization 
+					if ($inputMeta['data']['required'] == 1) {
+						$counter = 0;
+						foreach ($_FILES as $key => $file) {
+							if ($inputMeta['uniqueName'] == $key) {
+								$counter++;
+							}
+						}
+						if ($counter == 0) return false;
+					}
 				}
 			}
 		}

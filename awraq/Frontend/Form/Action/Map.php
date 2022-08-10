@@ -11,6 +11,14 @@ if (!defined('ABSPATH')) exit;
 use Awraq\Base\Meta;
 
 class Map {
+
+	/**
+	 * check
+	 *
+	 * @param  mixed $formID
+	 * @param  mixed $post
+	 * @return void
+	 */
 	public static function check($formID, $post) {
 		if (!$formID || !$post) return;
 
@@ -92,6 +100,13 @@ class Map {
 		return self::sanitizedPostData($mappedPostData, $formMeta);
 	}
 
+	/**
+	 * sanitizedPostData
+	 *
+	 * @param  mixed $postdata
+	 * @param  mixed $formMeta
+	 * @return mixed
+	 */
 	public static function sanitizedPostData($postdata = null, $formMeta = null) {
 		/**
 		 * return if no argument provided 
@@ -137,47 +152,8 @@ class Map {
 					$input['data'] = sanitize_email($input['data']);
 				}
 
-				/**
-				 * if input type is file
-				 * sanitizing file name with wordpress's sanitization method 
-				 * And checking allowed file type with file extension  with uploaded file
-				 */
-				if (in_array($type[0], array('file'))) {
-					$input['data'] = sanitize_file_name($input['data']);
-					foreach ($formMeta as $inputMeta) {
-						if ($inputMeta['uniqueName'] == $key) {
-							$selectedFileTypes = $inputMeta['data']['selectedFileType'];
-							$extensionList = array();
-							if (in_array('all', $selectedFileTypes)) {
-								array_push($extensionList, '.jpg', '.png', '.gif', '.mp4', '.avi', '.mov', '.mp3', '.wav', '.ogg', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.zip', '.rar', '.7z', '.tar', '.gz');
-							} else {
-								if (in_array('image', $selectedFileTypes)) {
-									array_push($extensionList, '.jpg', '.png', '.gif');
-								}
-								if (in_array('video', $selectedFileTypes)) {
-									array_push($extensionList, '.mp4', '.avi', '.mov');
-								}
-								if (in_array('audio', $selectedFileTypes)) {
-									array_push($extensionList, '.mp3', '.wav', '.ogg');
-								}
-								if (in_array('document', $selectedFileTypes)) {
-									array_push($extensionList, '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx');
-								}
-								if (in_array('archive', $selectedFileTypes)) {
-									array_push($extensionList, '.zip', '.rar', '.7z', '.tar', '.gz');
-								}
-							}
-							$fileExtension = explode('.', $input['data']);
-							$fileExtension = $fileExtension[count($fileExtension) - 1];
-							$fileExtension = '.' . $fileExtension;
 
-							if (!in_array($fileExtension, $extensionList)) {
-								return false;
-							}
-							break;
-						}
-					}
-				}
+
 				if (in_array($type[0], array('phone'))) {
 					$input['data'] = sanitize_text_field(preg_replace('/[^0-9]/', '', $input['data']));
 				}
@@ -186,5 +162,73 @@ class Map {
 		}
 		unset($inputs);
 		return $postdata;
+	}
+
+	public static function file($filesArray = null, $formID = null) {
+		/**
+		 * Basic argument check
+		 */
+		if ($filesArray == null || $formID == null) return false;
+
+		/**
+		 * getting form meta
+		 */
+		$formMeta = Meta::getForm($formID);
+		if (!$formMeta) return false;
+		echo '<pre>';
+		print_r($formMeta);
+		echo '</pre>';
+		foreach ($filesArray as $key => $fileArray) {
+			$counter = 0;
+			foreach ($formMeta as $inputMeta) {
+				if ($inputMeta['uniqueName'] == $key) {
+					$counter++;
+					// if (self::sanitizeFile($inputMeta, $fileArray) == false) {
+					// 	return false;
+					// }
+				}
+			}
+			if ($counter == 0) return false;
+		}
+	}
+	public static function sanitizeFile($inputMeta = null, $fileArray = null) {
+		if ($inputMeta == null || $fileArray == null) return false;
+
+		//get allowed filetype
+		$selectedFileTypes = $inputMeta['data']['selectedFileType'];
+		$fileTypeArray = array();
+		foreach ($selectedFileTypes as $key => $selectedFileType) {
+			if ($selectedFileType['type'] == 'all') {
+				array_push($fileTypeArray, '.jpg', '.png', '.gif', '.mp4', '.avi', '.mov', '.mp3', '.wav', '.ogg', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.zip', '.rar', '.7z', '.tar', '.gz');
+				break;
+			} else {
+				if ($selectedFileType['type'] == 'image') {
+					array_push($fileTypeArray, '.jpg', '.png', '.gif');
+				}
+				if ($selectedFileType['type'] == 'video') {
+					array_push($fileTypeArray, '.mp4', '.avi', '.mov');
+				}
+				if ($selectedFileType['type'] == 'audio') {
+					array_push($fileTypeArray, '.mp3', '.wav', '.ogg');
+				}
+				if ($selectedFileType['type'] == 'document') {
+					array_push($fileTypeArray, '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx');
+				}
+				if ($selectedFileType['type'] == 'archive') {
+					array_push($fileTypeArray, '.zip', '.rar', '.7z', '.tar', '.gz');
+				}
+			}
+		}
+		$fileTypeArray = array_unique($fileTypeArray);
+		//create mime types
+
+		//check filetype 
+
+		//upload the file 
+
+		//check return of uploaded for error 
+		//on success add the url with file unique name in post array
+		//
+
 	}
 }
