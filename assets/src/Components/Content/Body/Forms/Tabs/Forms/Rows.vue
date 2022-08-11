@@ -573,7 +573,7 @@ export default {
 								selectedFileType:['document'],
 								maxFileSize:3,
 								supportedFileTypes:[
-									{key:0,name:'Image(.jpg,.png,.gif)',type:'image'},
+									{key:0,name:'Image(.jpg,.jpeg,.png,.gif)',type:'image'},
 									{key:1,name:'Video(.mp4,.avi,.mov)',type:'video'},
 									{key:2,name:'Audio(.mp3,.wav,.ogg)',type:'audio'},
 									{key:3,name:'Document(.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx)',type:'document'},

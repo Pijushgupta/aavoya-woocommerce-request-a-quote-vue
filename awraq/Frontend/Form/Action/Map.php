@@ -164,71 +164,148 @@ class Map {
 		return $postdata;
 	}
 
-	public static function file($filesArray = null, $formID = null) {
+	public static function file($filesArray = null, $formID = null, $allowedPostSize = null) {
 		/**
 		 * Basic argument check
 		 */
-		if ($filesArray == null || $formID == null) return false;
+		if ($filesArray == null || $formID == null || $allowedPostSize == null) return false;
 
 		/**
 		 * getting form meta
 		 */
 		$formMeta = Meta::getForm($formID);
 		if (!$formMeta) return false;
-		echo '<pre>';
-		print_r($formMeta);
-		echo '</pre>';
+
 		foreach ($filesArray as $key => $fileArray) {
+			/**
+			 * this counter become positive in case uploaded file input name 
+			 * matches with form meta. 
+			 * Otherwise someone trying to upload a file to input field that is not 
+			 * defined in backend form 
+			 */
 			$counter = 0;
+
+			$fileArrayAfterUpload = array();
 			foreach ($formMeta as $inputMeta) {
 				if ($inputMeta['uniqueName'] == $key) {
+					/**
+					 * Cehcking uploaded file size is bigger than the allowed size
+					 */
+					if ($allowedPostSize < $fileArray['size']) return false;
+
 					$counter++;
-					// if (self::sanitizeFile($inputMeta, $fileArray) == false) {
-					// 	return false;
-					// }
+					/**
+					 * Sending the file for sanitization and upload  
+					 */
+					$fileStatus = self::sanitizeFileAndUpload($inputMeta, $fileArray);
+
+					/**
+					 * if sanitization or upload fail return false  
+					 */
+					if ($fileStatus == false) return false;
+
+					/**
+					 * Storing file URL and Name after upload 
+					 */
+					$fileArrayAfterUpload[$key] = $fileStatus;
 				}
 			}
 			if ($counter == 0) return false;
+			return $fileArrayAfterUpload;
 		}
 	}
-	public static function sanitizeFile($inputMeta = null, $fileArray = null) {
+	/**
+	 * sanitizeFileAndUpload
+	 *
+	 * @param  array $inputMeta
+	 * @param  array $fileArray
+	 * @return array
+	 */
+	public static function sanitizeFileAndUpload($inputMeta = null, $fileArray = null) {
 		if ($inputMeta == null || $fileArray == null) return false;
 
 		//get allowed filetype
 		$selectedFileTypes = $inputMeta['data']['selectedFileType'];
 		$fileTypeArray = array();
 		foreach ($selectedFileTypes as $key => $selectedFileType) {
-			if ($selectedFileType['type'] == 'all') {
+			if ($selectedFileType == 'all') {
 				array_push($fileTypeArray, '.jpg', '.png', '.gif', '.mp4', '.avi', '.mov', '.mp3', '.wav', '.ogg', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.zip', '.rar', '.7z', '.tar', '.gz');
 				break;
 			} else {
-				if ($selectedFileType['type'] == 'image') {
+				if ($selectedFileType == 'image') {
 					array_push($fileTypeArray, '.jpg', '.png', '.gif');
 				}
-				if ($selectedFileType['type'] == 'video') {
+				if ($selectedFileType == 'video') {
 					array_push($fileTypeArray, '.mp4', '.avi', '.mov');
 				}
-				if ($selectedFileType['type'] == 'audio') {
+				if ($selectedFileType == 'audio') {
 					array_push($fileTypeArray, '.mp3', '.wav', '.ogg');
 				}
-				if ($selectedFileType['type'] == 'document') {
+				if ($selectedFileType == 'document') {
 					array_push($fileTypeArray, '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx');
 				}
-				if ($selectedFileType['type'] == 'archive') {
+				if ($selectedFileType == 'archive') {
 					array_push($fileTypeArray, '.zip', '.rar', '.7z', '.tar', '.gz');
 				}
 			}
 		}
 		$fileTypeArray = array_unique($fileTypeArray);
-		//create mime types
 
-		//check filetype 
+		//create mime types
+		$mimeTypeAssocArray = array(
+			'.jpg' => 'image/jpeg',
+			'.jpeg' => 'image/jpeg',
+			'.png' => 'image/png',
+			'.gif' => 'image/gif',
+			'.mp4' => 'video/mp4',
+			'.avi' => 'video/x-msvideo',
+			'.mov' => 'video/quicktime',
+			'.mp3' => 'audio/mpeg',
+			'.wav' => 'audio/wav',
+			'.ogg' => 'audio/ogg',
+			'.pdf' => 'application/pdf',
+			'.doc' => 'application/msword',
+			'.docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			'.xls' => 'application/vnd.ms-excel',
+			'.xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'.ppt' => 'application/vnd.ms-powerpoint',
+			'.pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+			'.zip' => 'application/zip',
+			'.rar' => 'application/vnd.rar',
+			'.7z' => 'application/x-7z-compressed',
+			'.tar' => 'application/x-tar',
+			'.gz' => 'application/gzip'
+		);
+		$supportedMimeTypes = array();
+		foreach ($fileTypeArray as $fileType) {
+			$supportedMimeTypes[substr($fileType, 1, strlen($fileType))] =   $mimeTypeAssocArray[$fileType];
+		}
+
+
+		/**
+		 * check filetype/name  
+		 * wp_check_filetype() , it returns file extension and type in case of mached mime type 
+		 * else, array('ext' => false , 'type' => false) 
+		 */
+		$fileInfo = wp_check_filetype(basename($fileArray['name']), $supportedMimeTypes);
+		if ($fileInfo['ext'] == false) return false;
 
 		//upload the file 
+		$uploadMime = array($fileInfo['ext'] => $fileInfo['type']);
+		$fileResult = wp_handle_upload($fileArray, array(
+			'test_form' => false,
+			'mimes' => $uploadMime
+		), null);
 
-		//check return of uploaded for error 
+		//check file error 
+		if (array_key_exists('error', $fileResult)) {
+			return false;
+		}
+
 		//on success add the url with file unique name in post array
-		//
-
+		return array(
+			'name' =>  basename($fileResult['file']),
+			'data' => $fileResult['url']
+		);
 	}
 }

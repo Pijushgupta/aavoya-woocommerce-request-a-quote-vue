@@ -112,16 +112,21 @@ class Action {
 			exit();
 		}
 
+		/**
+		 * checking if required filed are submitted or not, if not return to main form 
+		 */
 		$validatedPostData = Validation::do($formID, $mappedPostData);
-
 		if ($validatedPostData === false) {
 			wp_redirect($originUrl);
 			exit();
 		}
 
 
-		// TODO: check wordpress Max file size then try to upload, if failure return to origin. In case success upload other data  
 
+		/**
+		 * checking if file(s) uploaded with the form 
+		 * if uploaded sanitize and upload and add url and name to post array
+		 */
 		if (!empty($_FILES)) {
 			$allowedPostSize =  (string)ini_get('upload_max_filesize');
 			$sizeSuffix =  strtolower(substr($allowedPostSize, -1));
@@ -139,9 +144,20 @@ class Action {
 						break;
 				}
 			}
-			Map::file($_FILES, $formID); //if false PANIC and block the IP immediately, un-authorized payload 
+			$fileArrayAfterUpload = Map::file($_FILES, $formID, $allowedPostSize);
+			if ($fileArrayAfterUploa == false) {
+				//if false PANIC and block the IP immediately, un-authorized payload 
+			}
+			$counter = 0;
+			foreach ($fileArrayAfterUpload as $k => $f) {
+				$mappedPostData[$k][$counter] = $f;
+				$counter++;
+			}
 		}
-		var_dump($_FILES);
+
+		apply_filters('raqba_form_before_saving', $mappedPostData);
+		apply_filters("'raqba_form_before_saving'.$dsd.'", $mappedPostData);
+		var_dump($mappedPostData);
 
 
 

@@ -28287,7 +28287,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           maxFileSize: 3,
           supportedFileTypes: [{
             key: 0,
-            name: 'Image(.jpg,.png,.gif)',
+            name: 'Image(.jpg,.jpeg,.png,.gif)',
             type: 'image'
           }, {
             key: 1,

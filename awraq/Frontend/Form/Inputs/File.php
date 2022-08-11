@@ -16,7 +16,7 @@ class File {
 		foreach ($formInput['data']['selectedFileType'] as $type) {
 			switch ($type) {
 				case 'image':
-					array_push($acceptType, '.jpg', '.png', '.gif');
+					array_push($acceptType, '.jpg', '.jpeg', '.png', '.gif');
 					break;
 				case 'video':
 					array_push($acceptType, '.mp4', '.avi', '.mov');
@@ -31,7 +31,7 @@ class File {
 					array_push($acceptType, '.zip', '.rar', '.tar', '.gz', '.7z');
 					break;
 				case 'all':
-					array_push($acceptType, '.jpg', '.png', '.gif', '.mp4', '.avi', '.mov', '.mp3', '.wav', '.ogg', '.pdf', '.doc', '.docx', '.xls', '.xlsx' . '.ppt', '.pptx', '.zip', '.rar', '.tar', '.gz', '.7z');
+					array_push($acceptType, '.jpg', '.jpeg', '.png', '.gif', '.mp4', '.avi', '.mov', '.mp3', '.wav', '.ogg', '.pdf', '.doc', '.docx', '.xls', '.xlsx' . '.ppt', '.pptx', '.zip', '.rar', '.tar', '.gz', '.7z');
 					break;
 				default:
 					break;
