@@ -10,6 +10,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Awraq\Frontend\Form\Action\Map;
 use Awraq\Frontend\Form\Action\Validation;
+use Awraq\Frontend\Entry\Entry;
 
 
 class Action {
@@ -155,8 +156,40 @@ class Action {
 			}
 		}
 
-		apply_filters('raqba_form_before_saving', $mappedPostData);
-		apply_filters("'raqba_form_before_saving'.$dsd.'", $mappedPostData);
+		/**
+		 * local filter
+		 * to target data of form #10 with this filter : add_filter('raqba_form_before_saving_10','my_custom_funtion');
+		 */
+		$entryData = apply_filters('raqba_form_before_saving_{$formID}', $mappedPostData);
+
+		/**
+		 * global filter 
+		 * to target data of forms with this filter : add_filter('raqba_form_before_saving','my_custom_funtion');
+		 */
+		$entryData = apply_filters('raqba_form_before_saving', $mappedPostData);
+
+		/**
+		 * If adding post data to database was not successful, then redirect user to origin page
+		 */
+		if (Entry::add($formID, $entryData) == false) {
+			wp_redirect($originUrl);
+			exit();
+		}
+
+
+		$emialData = apply_filters('raqba_form_before_email_{$formID}', $mappedPostData);
+		$emialData = apply_filters('raqba_form_before_email', $mappedPostData);
+
+		//Send email 
+
+		//redirect if any redirect url provided
+
+
+
+
+
+
+
 		var_dump($mappedPostData);
 
 

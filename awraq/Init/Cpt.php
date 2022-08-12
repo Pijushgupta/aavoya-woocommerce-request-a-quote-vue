@@ -7,18 +7,15 @@ if (!defined('ABSPATH')) exit;
 
 
 
-final class Cpt
-{
+final class Cpt {
 
-	public static function create()
-	{
+	public static function create() {
 		self::createShortcodePostType();
 		self::createFormPostType();
 		self::createFormEntryPostType();
 	}
 
-	public static function createShortcodePostType()
-	{
+	public static function createShortcodePostType() {
 		if (!post_type_exists('aavoya_wraq')) {
 			register_post_type('aavoya_wraq', array(
 				'labels' => array(
@@ -48,8 +45,7 @@ final class Cpt
 		}
 	}
 
-	public static function createFormPostType()
-	{
+	public static function createFormPostType() {
 		if (!post_type_exists('aavoya_wraq_form')) {
 			register_post_type('aavoya_wraq_form', array(
 				'labels' => array(
@@ -79,12 +75,11 @@ final class Cpt
 		}
 	}
 
-	public static function createFormEntryPostType()
-	{
-		if (!post_type_exists('aavoya_wraq_form_entry')) {
-			register_post_type('aavoya_wraq_form_entry', array(
+	public static function createFormEntryPostType() {
+		if (!post_type_exists('aavoya_wraq_fe')) {
+			register_post_type('aavoya_wraq_fe', array(
 				'labels' => array(
-					'name' => __('Aavoya RAQ Form Entries', 'aavoya-woocommerce-request-a-quote'),
+					'name' => __('Aavoya RAQ Form Entry', 'aavoya-woocommerce-request-a-quote'),
 					'singular_name' => __('Aavoya RAQ Form Entry', 'aavoya-woocommerce-request-a-quote'),
 					'add_new' => __('Add New', 'aavoya-woocommerce-request-a-quote'),
 					'add_new_item' => __('Add New Item', 'aavoya-woocommerce-request-a-quote'),
