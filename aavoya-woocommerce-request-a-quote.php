@@ -26,9 +26,10 @@ use Awraq\Init\Init;
 use Awraq\Base\Notice;
 use Awraq\Page\Ui;
 use Awraq\Base\Enqueue;
-use Awraq\Base\Ajax;
+use Awraq\Base\Button;
 use Awraq\Thirdparty\Woho;
 use Awraq\Base\Forms;
+use Awraq\Base\Entries;
 use Awraq\Frontend\Shortcode;
 
 
@@ -41,11 +42,12 @@ function awraq_init_plugin() {
 	Init::activate();
 	Ui::activate();
 	Enqueue::do();
-	Ajax::enable();
+	Button::enable();
 	if (class_exists('WooCommerce')) {
 		Woho::enable();
 	}
 	Forms::activate();
+	Entries::enable();
 	Shortcode::activate();
 }
 add_action('plugins_loaded', 'awraq_init_plugin');
