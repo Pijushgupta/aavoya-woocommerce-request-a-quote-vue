@@ -57,7 +57,8 @@ export default{
 				})
 			.then((response) => response.json())
 			.then(response => {
-				this.rows.unshift(response[0])
+
+				this.rows.unshift(response[0]);
 				const toast = useToast();
 				toast("Button Added");
 				

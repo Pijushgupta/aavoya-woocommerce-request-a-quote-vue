@@ -2,54 +2,81 @@
 
 namespace Awraq\Base;
 
-use Awraq\Base\Officer;
-use Awraq\Base\Post;
-use Awraq\Base\Meta;
-
-
-
 if (!defined('ABSPATH')) exit;
 
+use Awraq\Base\Officer;
+use Awraq\Base\Meta;
+
 class Button {
-	private static $globalScopeName = 'Awraq\Base\Ajax';
+	public  static $globalScopeName = 'Awraq\Base\Button';
 
 	public static function enable() {
-		add_action('wp_ajax_awraqCreatePost', array(self::$globalScopeName, 'awraqCreatePost'));
-		add_action('wp_ajax_awraqLoadPost', array(self::$globalScopeName, 'awraqLoadPost'));
-		add_action('wp_ajax_awraqDeletePost', array(self::$globalScopeName, 'awraqDeletePost'));
-		add_action('wp_ajax_awraqSavePost', array(self::$globalScopeName, 'awraqSavePost'));
+		add_action('wp_ajax_awraqCreatePost', array(self::$globalScopeName, 'awraqCreateButton'));
+		add_action('wp_ajax_awraqLoadPost', array(self::$globalScopeName, 'awraqLoadButtons'));
+		add_action('wp_ajax_awraqDeletePost', array(self::$globalScopeName, 'awraqDeleteButton'));
+		add_action('wp_ajax_awraqSavePost', array(self::$globalScopeName, 'awraqSaveButton'));
 	}
 
-	public static function awraqCreatePost() {
+	/**
+	 * Creating Button
+	 * @param void
+	 * @return void
+	 */
+	public static function awraqCreateButton(): void {
 		if (Officer::check($_POST) == false) wp_die();
 
-		$post_id 	= Post::create();
+		$post_id    =    wp_insert_post(array(
+			'ID' => '',
+			'post_type' => 'aavoya_wraq',
+			'post_status' => 'publish'
+		));
 		Meta::addDefault($post_id);
 
-		echo json_encode(Meta::get(Post::read(1)));
+		/*
+        * get_post by default will return the lastest post if 'posts_per_page' => 1
+        */
+		echo json_encode(Meta::get(get_posts(array(
+			'post_type' => 'aavoya_wraq',
+			'post_status' => 'publish',
+			'posts_per_page' => 1
+		))));
 		wp_die();
 	}
 
-	public static function awraqLoadPost() {
+	/**
+	 * Sending buttons data
+	 * @param void
+	 * @return void
+	 */
+	public static function awraqLoadButtons() {
 		if (Officer::check($_POST) == false) wp_die();
-		$posts = Post::read();
+		$posts = get_posts(array(
+			'post_type' => 'aavoya_wraq',
+			'post_status' => 'publish',
+			'posts_per_page' => -1
+		));
 		$row_bundle = Meta::get($posts);
 		echo json_encode($row_bundle);
 
 		wp_die();
 	}
 
-	public static function awraqDeletePost() {
+	/**
+	 * This method for deleting a button
+	 * @param void
+	 * @return void
+	 */
+	public static function awraqDeleteButton() {
 		if (Officer::check($_POST) == false) wp_die();
 
 		Meta::delete(intval($_POST['post_id']));
-		Post::delete(intval($_POST['post_id']));
+		wp_delete_post(intval($_POST['post_id']), true);
 
 		echo json_encode(true);
 		wp_die();
 	}
 
-	public static function awraqSavePost() {
+	public static function awraqSaveButton() {
 		if (Officer::check($_POST) == false) wp_die();
 
 		$drawerId	= (int)Officer::sanitize($_POST['drawerId'], 'int');
@@ -116,7 +143,8 @@ class Button {
 			'svgStroke'			=> Officer::sanitize($formDrawer['svgStroke'], 'color')
 		);
 
-		Post::update($drawerId, array('title' => $title, 'status' => 'publish'));
+
+		wp_update_post(array('ID' => $drawerId, 'post_title' => $title, 'post_status' => 'publish'));
 		Meta::update($drawerId, $title, $sc, $fs, $drawer, $formDrawer);
 		echo json_encode(true);
 

@@ -7,8 +7,7 @@ use Tiptap\Extensions\StarterKit as StarterKit;
 use Tiptap\Marks\Link as Link;
 
 if (!defined('ABSPATH')) exit;
-class Officer
-{
+class Officer {
 
 	/**
 	 * check
@@ -16,8 +15,7 @@ class Officer
 	 * @param  mixed $postdata
 	 * @return boolean
 	 */
-	public static function check($postdata = false)
-	{
+	public static function check($postdata = false) {
 
 		if ($postdata == false) return false;
 
@@ -38,8 +36,7 @@ class Officer
 	 * @param  mixed $json
 	 * @return array
 	 */
-	public static function jsonToArray($json = null)
-	{
+	public static function jsonToArray($json = null) {
 		if ($json == null) return false;
 
 		$array = (array)json_decode(str_replace('\\', '', $json), true);
@@ -55,8 +52,7 @@ class Officer
 	 * @param  string $type
 	 * @return mixed
 	 */
-	public static function sanitize($element = null, $type = null)
-	{
+	public static function sanitize($element = null, $type = null) {
 		if ($element == null or $type == null) return false;
 
 		switch ($type) {
@@ -93,8 +89,7 @@ class Officer
 	 * @param  mixed $element
 	 * @return mixed
 	 */
-	public static function formInputSanitize($element)
-	{
+	public static function formInputSanitize($element) {
 		if (gettype($element) == 'array') {
 			foreach ($element as  &$value) {
 
@@ -152,8 +147,7 @@ class Officer
 	 * @param  mixed $data (called by reference)
 	 * @return void 
 	 */
-	public static function textDataSanitize(&$data)
-	{
+	public static function textDataSanitize(&$data) {
 		$data['placeholder']	= self::sanitize($data['placeholder'], 'text')  == false ? '' : self::sanitize($data['placeholder'], 'text');
 		$data['label']				= self::sanitize($data['label'], 'text') == false ? '' : self::sanitize($data['label'], 'text');
 		$data['required']			= self::sanitize($data['required'], 'bool');
@@ -165,8 +159,7 @@ class Officer
 	 * @param  mixed $data( called by reference)
 	 * @return void 
 	 */
-	public static function nameAddressDataSanitize(&$data)
-	{
+	public static function nameAddressDataSanitize(&$data) {
 		$data['tabState']	= (int)self::sanitize($data['tabState'], 'int');
 
 		foreach ($data['Options'] as &$o) {
@@ -187,8 +180,7 @@ class Officer
 	 * @param  mixed $data(called by reference)
 	 * @return void
 	 */
-	public static function contentDataSanitization(&$data)
-	{
+	public static function contentDataSanitization(&$data) {
 		$tcObject	= new TC([
 
 			'extensions' => [
@@ -208,8 +200,7 @@ class Officer
 	 * @param  mixed $data (called by reference)
 	 * @return void
 	 */
-	public static function checkboxRadioDataSanitize(&$data)
-	{
+	public static function checkboxRadioDataSanitize(&$data) {
 		$data['label']		= self::sanitize($data['label'], 'text') == false ? '' : self::sanitize($data['label'], 'text');
 		$data['required']	= self::sanitize($data['required'], 'bool');
 
@@ -228,8 +219,7 @@ class Officer
 	 * @param  mixed $data (called by reference)
 	 * @return void
 	 */
-	public static function fileDataSanitize(&$data)
-	{
+	public static function fileDataSanitize(&$data) {
 
 		$data['label']		= self::sanitize($data['label'], 'text') == false ? '' : self::sanitize($data['label'], 'text');
 		$data['required']	= self::sanitize($data['required'], 'bool');
@@ -265,8 +255,7 @@ class Officer
 	 * @param  mixed $data (called by reference)
 	 * @return void
 	 */
-	public static function dateDataSanitize(&$data)
-	{
+	public static function dateDataSanitize(&$data) {
 		$data['label']			= self::sanitize($data['label'], 'text') == false ? '' : self::sanitize($data['label'], 'text');
 		$data['required']		= self::sanitize($data['required'], 'bool');
 		$data['dateType'] 	= (int)self::sanitize($data['dateType'], 'int');
@@ -276,10 +265,10 @@ class Officer
 			$d['key'] 	= (int)self::sanitize($d['key'], 'int');
 			$d['name'] 	= self::sanitize($d['name'], 'text') == false ? '' : self::sanitize($d['name'], 'text');
 
-			foreach ($d['range'] as &$r) {
+			foreach ($d['range'] as  &$r) {
 
-				$r['startDate'] 	= self::sanitize($r['startDate'], 'text') == false ? '' : self::sanitize($r['startDate'], 'text');
-				$r['endDate'] 		= self::sanitize($r['endDate'], 'text') == false ? '' : self::sanitize($r['endDate'], 'text');
+				$r 	= self::sanitize($r, 'text') == false ? '' : self::sanitize($r, 'text');
+				//$r['endDate'] 		= self::sanitize($r['endDate'], 'text') == false ? '' : self::sanitize($r['endDate'], 'text');
 			}
 			unset($r);
 		}
