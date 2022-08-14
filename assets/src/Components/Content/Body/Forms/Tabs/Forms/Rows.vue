@@ -445,6 +445,7 @@ import Editor  from "./Editor/Editor.vue";
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { useToast } from 'vue-toastification'
+import { assertParenthesizedExpression } from "@babel/types";
 export default {
 	name:'Rows',
 	components:{
@@ -456,8 +457,10 @@ export default {
 	props:{
 		row:Object
 	},
+
 	data: function(){
 		return {
+			
 			localRow : this.row,
 			drawerIconPosition: false,
 			drawerOpen: false,

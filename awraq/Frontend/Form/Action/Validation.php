@@ -12,44 +12,73 @@ use Awraq\Base\Meta;
 
 
 class Validation {
-	public static function do($formID = null, $postData = null): bool {
+	public static function do($formID = null, $postData = null) {
 		if ($formID == null or $postData == null) return false;
 		$formMeta = Meta::getForm($formID);
+		echo '<pre>';
+		print_r($formMeta);
+		echo '</pre>';
+		echo '<pre>';
+		var_dump($postData);
+		echo '</pre>';
+		$validation_error =  array();
 		foreach ($formMeta as $inputMeta) {
-			if (!array_key_exists($inputMeta['uniqueName'], $postData)) {
-				if (in_array($inputMeta['type'], array('text', 'phone', 'textarea', 'email', 'checkbox', 'radio', 'file', 'date'))) {
-					if ($inputMeta['data']['required'] == 1) return false;
-				}
-				if ($inputMeta['type'] == 'name') {
-					if ($inputMeta['data']['Options'][0]['required'] == 1 || $inputMeta['data']['Options'][1]['required'] == 1 || $inputMeta['data']['Options'][2]['required'] == 1) return false;
-				}
-				if ($inputMeta['type'] == 'address') {
-					if (
-						$inputMeta['data']['Options'][0]['required'] == 1 ||
-						$inputMeta['data']['Options'][1]['required'] == 1 ||
-						$inputMeta['data']['Options'][3]['required'] == 1 ||
-						$inputMeta['data']['Options'][4]['required'] == 1 ||
-						$inputMeta['data']['Options'][5]['required'] == 1
-					) {
-						return false;
-					}
-				}
-				if ($inputMeta['type'] == 'content') { /* Do nothing, its a read only */
-				}
-				if ($inputMeta['type'] == 'file') { // This validation happening before file sanitization 
-					if ($inputMeta['data']['required'] == 1) {
-						$counter = 0;
-						foreach ($_FILES as $key => $file) {
-							if ($inputMeta['uniqueName'] == $key) {
-								$counter++;
+			if (in_array($inputMeta['type'], array('text', 'phone', 'textarea', 'email', 'checkbox', 'radio',  'date'))) {
+
+				if ($inputMeta['data']['required'] == 1) {
+					if (!array_key_exists($inputMeta['uniqueName'], $postData)) {
+						array_push($validation_error, $inputMeta['uniqueName']);
+					} else {
+						// incase of checkbox, if nothing is selected, there will be no uniqueNamed array in $postData
+						if ($inputMeta['type'] != 'checkbox') {
+							if (strlen($postData[$inputMeta['uniqueName']][0]['data']) == 0) {
+								array_push($validation_error, $inputMeta['uniqueName']);
 							}
 						}
-						if ($counter == 0) return false;
+					}
+				}
+			}
+			if ($inputMeta['type'] == 'name' || $inputMeta['type'] == 'address') {
+				$isRequired = 0;
+				foreach ($inputMeta['data']['Options'] as  $d) {
+					if ($d['required'] == 1) {
+						$isRequired = 1;
+					}
+				}
+				if ($isRequired == 1) {
+					if (!array_key_exists($inputMeta['uniqueName'], $postData)) {
+						array_push($validation_error, $inputMeta['uniqueName']);
+					} else {
+						foreach ($inputMeta['data']['Options'] as $k => $e) {
+							if ($e['required'] == 1 && empty($postData[$inputMeta['uniqueName']][$k]['data'])) {
+								array_push($validation_error, $inputMeta['uniqueName'] . '_' . $k);
+							}
+						}
+					}
+				}
+			}
+			if ($inputMeta['type'] == 'content') { /* Do nothing, its a read only */
+			}
+			if ($inputMeta['type'] == 'file') { // This validation happening before file sanitization 
+				if ($inputMeta['data']['required'] == 1) {
+					$counter = 0;
+					foreach ($_FILES as $key => $file) {
+						if ($inputMeta['uniqueName'] == $key) {
+							$counter++;
+						}
+					}
+					if ($counter == 0) {
+						array_push($validation_error, $inputMeta['uniqueName']);
 					}
 				}
 			}
 		}
 
-		return true;
+
+		if (!empty($validation_error)) {
+			return $validation_error;
+		} else {
+			return true;
+		}
 	}
 }

@@ -27,6 +27,9 @@ use Awraq\Frontend\Form\Inputs\Date;
 
 class Form {
 	public static function create($formInputs, $id) {
+		if ($_SESSION['error']) {
+			print_r($_SESSION['error']);
+		}
 		$form = '<div><form id="awraq-form-' . $id . '" class="awraq-form" action="' . admin_url('admin-post.php') . '" method="post" enctype="multipart/form-data">';
 		$form .= Action::create();
 		$form .= Csrfp::create();

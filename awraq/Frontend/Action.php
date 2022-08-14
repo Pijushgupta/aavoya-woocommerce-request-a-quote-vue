@@ -116,8 +116,13 @@ class Action {
 		/**
 		 * checking if required filed are submitted or not, if not return to main form 
 		 */
-		$validatedPostData = Validation::do($formID, $mappedPostData);
-		if ($validatedPostData === false) {
+		$validatedStatus = Validation::do($formID, $mappedPostData);
+		var_dump($validatedStatus);
+		die;
+		if ($validatedStatus !== true) {
+			//Set session regarding validation error
+			session_start();
+			$_SESSION['error'] = $validatedStatus;
 			wp_redirect($originUrl);
 			exit();
 		}
@@ -146,8 +151,9 @@ class Action {
 				}
 			}
 			$fileArrayAfterUpload = Map::file($_FILES, $formID, $allowedPostSize);
-			if ($fileArrayAfterUploa == false) {
+			if ($fileArrayAfterUpload == false) {
 				//if false PANIC and block the IP immediately, un-authorized payload 
+				//TODO:Block the IP 
 			}
 			$counter = 0;
 			foreach ($fileArrayAfterUpload as $k => $f) {
@@ -190,7 +196,7 @@ class Action {
 
 
 
-		var_dump($mappedPostData);
+		//var_dump($mappedPostData);
 
 
 
