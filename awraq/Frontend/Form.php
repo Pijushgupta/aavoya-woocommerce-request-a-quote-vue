@@ -12,6 +12,7 @@ use Awraq\Frontend\Form\Essentials\Origin;
 use Awraq\Frontend\Form\Essentials\Id;
 use Awraq\Frontend\Form\Essentials\Css;
 use Awraq\Frontend\Form\Essentials\Submit;
+use Awraq\Frontend\Form\Essentials\Error;
 
 use Awraq\Frontend\Form\Inputs\Radio;
 use Awraq\Frontend\Form\Inputs\Checkbox;
@@ -30,7 +31,8 @@ class Form {
 		if ($_SESSION['error']) {
 			print_r($_SESSION['error']);
 		}
-		$form = '<div><form id="awraq-form-' . $id . '" class="awraq-form" action="' . admin_url('admin-post.php') . '" method="post" enctype="multipart/form-data">';
+		$form = Error::show();
+		$form .= '<div><form id="awraq-form-' . $id . '" class="awraq-form" action="' . admin_url('admin-post.php') . '" method="post" enctype="multipart/form-data">';
 		$form .= Action::create();
 		$form .= Csrfp::create();
 		$form .= Token::create($id);

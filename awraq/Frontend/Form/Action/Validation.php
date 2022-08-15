@@ -15,12 +15,12 @@ class Validation {
 	public static function do($formID = null, $postData = null) {
 		if ($formID == null or $postData == null) return false;
 		$formMeta = Meta::getForm($formID);
-		echo '<pre>';
-		print_r($formMeta);
-		echo '</pre>';
-		echo '<pre>';
-		var_dump($postData);
-		echo '</pre>';
+		// echo '<pre>';
+		// print_r($formMeta);
+		// echo '</pre>';
+		// echo '<pre>';
+		// var_dump($postData);
+		// echo '</pre>';
 		$validation_error =  array();
 		foreach ($formMeta as $inputMeta) {
 			if (in_array($inputMeta['type'], array('text', 'phone', 'textarea', 'email', 'checkbox', 'radio',  'date'))) {
@@ -29,7 +29,7 @@ class Validation {
 					if (!array_key_exists($inputMeta['uniqueName'], $postData)) {
 						array_push($validation_error, $inputMeta['uniqueName']);
 					} else {
-						// incase of checkbox, if nothing is selected, there will be no uniqueNamed array in $postData
+						// incase of checkbox, if nothing is selected, there will be no uniqueNamed array in $postData, Thus it will trigger above if statement.
 						if ($inputMeta['type'] != 'checkbox') {
 							if (strlen($postData[$inputMeta['uniqueName']][0]['data']) == 0) {
 								array_push($validation_error, $inputMeta['uniqueName']);

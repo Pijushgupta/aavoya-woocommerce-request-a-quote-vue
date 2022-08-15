@@ -117,8 +117,7 @@ class Action {
 		 * checking if required filed are submitted or not, if not return to main form 
 		 */
 		$validatedStatus = Validation::do($formID, $mappedPostData);
-		var_dump($validatedStatus);
-		die;
+
 		if ($validatedStatus !== true) {
 			//Set session regarding validation error
 			session_start();
