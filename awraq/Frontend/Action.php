@@ -69,6 +69,9 @@ class Action {
 			exit();
 		};
 
+
+
+
 		/**
 		 * validating and sanitizing form id field 
 		 */
@@ -89,6 +92,9 @@ class Action {
 			wp_redirect($originUrl);
 			exit();
 		};
+
+
+
 
 		/**
 		 * Removing supporting data from Post var
@@ -119,14 +125,11 @@ class Action {
 		$validatedStatus = Validation::do($formID, $mappedPostData);
 
 		if ($validatedStatus !== true) {
-			//Set session regarding validation error
-			session_start();
-			$_SESSION['error'] = $validatedStatus;
+			set_transient((string)($formID . '-' . 'values-' . $_SERVER['REMOTE_ADDR']), serialize($mappedPostData), 3600);
+			set_transient((string)($formID . '-' . 'errors-' . $_SERVER['REMOTE_ADDR']), serialize($validatedStatus), 3600);
 			wp_redirect($originUrl);
 			exit();
 		}
-
-
 
 		/**
 		 * checking if file(s) uploaded with the form 
@@ -188,27 +191,8 @@ class Action {
 		//Send email 
 
 		//redirect if any redirect url provided
-
-
-
-
-
-
-
-		//var_dump($mappedPostData);
-
-
-
-
-
-
-
-
-
-
-
-
-		die;
+		wp_redirect($originUrl);
+		exit();
 	}
 
 	public static function decode_jwt($jwt) {

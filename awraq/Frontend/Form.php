@@ -27,61 +27,72 @@ use Awraq\Frontend\Form\Inputs\File;
 use Awraq\Frontend\Form\Inputs\Date;
 
 class Form {
-	public static function create($formInputs, $id) {
-		if ($_SESSION['error']) {
-			print_r($_SESSION['error']);
-		}
-		$form = Error::show();
-		$form .= '<div><form id="awraq-form-' . $id . '" class="awraq-form" action="' . admin_url('admin-post.php') . '" method="post" enctype="multipart/form-data">';
+	public static function create($formMeta, $id) {
+		$oldValues = self::oldValues($id);
+
+		$form = '<div>' . Error::show($id);
+		$form .= '<form id="awraq-form-' . $id . '" class="awraq-form" action="' . admin_url('admin-post.php') . '" method="post" enctype="multipart/form-data">';
 		$form .= Action::create();
 		$form .= Csrfp::create();
 		$form .= Token::create($id);
 		$form .= Origin::create();
 		$form .= Id::create($id);
 		$form .= Css::create();
-		foreach ($formInputs as $key => $formInput) {
-
-			switch ($formInput['type']) {
+		foreach ($formMeta as $key => $inputMeta) {
+			if ($oldValues != false) {
+				foreach ($oldValues as $k => $oldvalue) {
+					explode('_', $k);
+				}
+			}
+			switch ($inputMeta['type']) {
 				case 'radio':
-					$form .= Radio::create($formInput, $key, $id);
+					$form .= Radio::create($inputMeta, $key, $id);
 					break;
 				case 'checkbox':
-					$form .= Checkbox::create($formInput, $key, $id);
+					$form .= Checkbox::create($inputMeta, $key, $id);
 					break;
 				case 'text':
-					$form .= Text::create($formInput, $key, $id);
+					$form .= Text::create($inputMeta, $key, $id);
 					break;
 				case 'name':
-					$form .= Name::create($formInput, $key, $id);
+					$form .= Name::create($inputMeta, $key, $id);
 					break;
 				case 'textarea':
-					$form .= Textarea::create($formInput, $key, $id);
+					$form .= Textarea::create($inputMeta, $key, $id);
 					break;
 				case 'email':
-					$form .= Email::create($formInput, $key, $id);
+					$form .= Email::create($inputMeta, $key, $id);
 					break;
 				case 'phone':
-					$form .= Phone::create($formInput, $key, $id);
+					$form .= Phone::create($inputMeta, $key, $id);
 					break;
 				case 'file':
-					$form .= File::create($formInput, $key, $id);
+					$form .= File::create($inputMeta, $key, $id);
 					break;
 				case 'content':
-					$form .= Html::create($formInput, $key, $id);
+					$form .= Html::create($inputMeta, $key, $id);
 					break;
 				case 'date':
-					$form .= Date::create($formInput, $key, $id);
+					$form .= Date::create($inputMeta, $key, $id);
 					break;
 				case 'address':
-					$form .= Address::create($formInput, $key, $id);
+					$form .= Address::create($inputMeta, $key, $id);
 					break;
 				default:
 					break;
 			}
 		}
-		$form .= count($formInputs) > 0 ? Submit::create() : '';
+		$form .= count($formMeta) > 0 ? Submit::create() : '';
 		$form .= '</form> </div>';
-
 		return $form;
+	}
+
+	public static function oldValues($id) {
+		$formOldValues = get_transient((string)($id . '-' . 'values-' . $_SERVER['REMOTE_ADDR']));
+		if ($formOldValues != false) {
+			delete_transient((string)($id . '-' . 'values-' . $_SERVER['REMOTE_ADDR']));
+			return unserialize($formOldValues);
+		}
+		return false;
 	}
 }
