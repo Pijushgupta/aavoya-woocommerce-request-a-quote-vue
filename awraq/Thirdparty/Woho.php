@@ -48,7 +48,9 @@ class Woho {
 			$filteredProducts[$key]['selected'] = (int)Officer::sanitize($product_meta['selected'], 'int');
 			$filteredProducts[$key]['switch'] = Officer::sanitize($product_meta['switch'], 'bool');
 		}
-
+		if (count($filteredProducts) <= 0) {
+			$filteredProducts = null;
+		}
 		echo json_encode($filteredProducts);
 		wp_die();
 	}

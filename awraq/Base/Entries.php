@@ -9,10 +9,10 @@ use Awraq\Base\Officer;
 class Entries {
 	private static $globalScopeName = 'Awraq\Base\Entries';
 	public static function enable() {
-		add_action('wp_ajax_aqraqEntriesGet', array(self::$globalScopeName, 'aqraqEntriesGet'));
+		add_action('wp_ajax_awraqEntriesGet', array(self::$globalScopeName, 'awraqEntriesGet'));
 	}
 
-	public static function aqraqEntriesGet() {
+	public static function awraqEntriesGet() {
 		if (!Officer::check($_POST)) wp_die();
 		$entries = get_posts(array(
 			'post_type' => 'aavoya_wraq_fe',
@@ -21,8 +21,9 @@ class Entries {
 
 		$e = array();
 		foreach ($entries as $key => $entry) {
+			$e[$key]['id'] = $entry->ID;
 			$e[$key]['entry'] = unserialize($entry->post_content);
-			$e[$key]['form_name'] = esc_html((string)$entry->post_title);
+			$e[$key]['form_name'] = get_the_title(esc_html((int)$entry->post_title));
 			$e[$key]['date'] = $entry->post_date;
 		}
 

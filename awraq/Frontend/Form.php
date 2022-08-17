@@ -40,31 +40,37 @@ class Form {
 		$form .= Css::create();
 		foreach ($formMeta as $key => $inputMeta) {
 			if ($oldValues != false) {
+				$oldValueAsParam = false;
 				foreach ($oldValues as $k => $oldvalue) {
-					explode('_', $k);
+					$uniqueKey = explode('_', $k);
+
+					if ($inputMeta['uniqueName'] == $uniqueKey[0]) {
+						$oldValueAsParam[$k] = $oldvalue;
+						break;
+					}
 				}
 			}
 			switch ($inputMeta['type']) {
 				case 'radio':
-					$form .= Radio::create($inputMeta, $key, $id);
+					$form .= Radio::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'checkbox':
-					$form .= Checkbox::create($inputMeta, $key, $id);
+					$form .= Checkbox::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'text':
-					$form .= Text::create($inputMeta, $key, $id);
+					$form .= Text::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'name':
-					$form .= Name::create($inputMeta, $key, $id);
+					$form .= Name::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'textarea':
-					$form .= Textarea::create($inputMeta, $key, $id);
+					$form .= Textarea::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'email':
-					$form .= Email::create($inputMeta, $key, $id);
+					$form .= Email::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'phone':
-					$form .= Phone::create($inputMeta, $key, $id);
+					$form .= Phone::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'file':
 					$form .= File::create($inputMeta, $key, $id);
@@ -73,10 +79,10 @@ class Form {
 					$form .= Html::create($inputMeta, $key, $id);
 					break;
 				case 'date':
-					$form .= Date::create($inputMeta, $key, $id);
+					$form .= Date::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				case 'address':
-					$form .= Address::create($inputMeta, $key, $id);
+					$form .= Address::create($inputMeta, $key, $id, $oldValueAsParam);
 					break;
 				default:
 					break;

@@ -155,7 +155,7 @@ class Action {
 			$fileArrayAfterUpload = Map::file($_FILES, $formID, $allowedPostSize);
 			if ($fileArrayAfterUpload == false) {
 				//if false PANIC and block the IP immediately, un-authorized payload 
-				//TODO:Block the IP 
+				Ip::block((string)$_SERVER['REMOTE_ADDR']);
 			}
 			$counter = 0;
 			foreach ($fileArrayAfterUpload as $k => $f) {
@@ -163,18 +163,27 @@ class Action {
 				$counter++;
 			}
 		}
+		
+
+
+
+		$entryData = array(
+			'originUrl' =>  $originUrl,
+			'originPageTitle' => url_to_postid($originUrl) != 0 ? get_the_title(url_to_postid($originUrl)) : null
+		);
+		array_push($entryData,$mappedPostData);
 
 		/**
 		 * local filter
 		 * to target data of form #10 with this filter : add_filter('raqba_form_before_saving_10','my_custom_funtion');
 		 */
-		$entryData = apply_filters('raqba_form_before_saving_{$formID}', $mappedPostData);
+		$entryData = apply_filters('raqba_form_before_saving_{$formID}', $entryData);
 
 		/**
 		 * global filter 
 		 * to target data of forms with this filter : add_filter('raqba_form_before_saving','my_custom_funtion');
 		 */
-		$entryData = apply_filters('raqba_form_before_saving', $mappedPostData);
+		$entryData = apply_filters('raqba_form_before_saving', $entryData);
 
 		/**
 		 * If adding post data to database was not successful, then redirect user to origin page
@@ -186,7 +195,7 @@ class Action {
 
 
 		$emialData = apply_filters('raqba_form_before_email_{$formID}', $mappedPostData);
-		$emialData = apply_filters('raqba_form_before_email', $mappedPostData);
+		$emialData = apply_filters('raqba_form_before_email', $emialData);
 
 		//Send email 
 
@@ -195,6 +204,13 @@ class Action {
 		exit();
 	}
 
+	/**
+	 * decode_jwt
+	 * This to Decode the JWT token and extract the Form ID.
+	 * In case of Modified payload. It will hit exception and return false
+	 * @param string $jwt
+	 * @return bool|int
+	 */
 	public static function decode_jwt($jwt) {
 		if ($jwt == '') return false;
 

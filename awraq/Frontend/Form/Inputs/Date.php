@@ -17,7 +17,7 @@ class Date {
 	 * @param  mixed $id
 	 * @return string
 	 */
-	public static function create($formInput, $key, $id): string {
+	public static function create($formInput, $key, $id, $oldValueAsParam): string {
 		/**
 		 *  $formInput['data']['dateType'] is either 1 or 0
 		 *  $formInput['data']['dateData'] having two indexes, 0 or 1

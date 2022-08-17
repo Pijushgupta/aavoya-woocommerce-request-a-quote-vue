@@ -5,7 +5,7 @@ namespace Awraq\Frontend\Form\Inputs;
 if (!defined('ABSPATH')) exit;
 
 class Address {
-	public static function create($formInput, $key, $id) {
+	public static function create($formInput, $key, $id, $oldValueAsParam) {
 		/*
 		 * Counting number of active/enabled fields: $numberOfEnabledFields
 		 * storing enabled fields : $options
@@ -48,11 +48,12 @@ class Address {
 			} else {
 				$class = 'w-1/2 pr-2';
 			}
-			$required = $options[$i]['required'] == true ? 'required' : '';
+			$required = $options[$i]['required'] ? 'required' : '';
 			$placeholder = $options[$i]['placeholder'] ? 'placeholder="' . $options[$i]['placeholder'] . '"' : '';
+			$value = strlen($oldValueAsParam[$formInput['uniqueName']][$i]['data']) > 0 ? $oldValueAsParam[$formInput['uniqueName']][$i]['data'] : '';
 			$form .= '<div class="' . $class . '">';
 			$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" class="block">' . __(sanitize_text_field($options[$i]['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
-			$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $i) . '" class="block w-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . '>';
+			$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $i) . '" class="block w-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . ' value="' . $value . '">';
 			$form .= '</div>';
 		}
 
