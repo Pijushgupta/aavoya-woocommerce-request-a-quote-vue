@@ -10,16 +10,23 @@ class Entries {
 	private static $globalScopeName = 'Awraq\Base\Entries';
 	public static function enable() {
 		add_action('wp_ajax_awraqEntriesGet', array(self::$globalScopeName, 'awraqEntriesGet'));
+		add_action('wp_ajax_awraqEntryDelete', array(self::$globalScopeName, 'awraqEntryDelete'));
 	}
 
+	/**
+	 *
+	 * @return void
+	 */
 	public static function awraqEntriesGet() {
 		if (!Officer::check($_POST)) wp_die();
 		$entries = get_posts(array(
 			'post_type' => 'aavoya_wraq_fe',
+			'post_status' => 'publish',
 			'post_per_page' => -1
 		));
 
 		$e = array();
+
 		foreach ($entries as $key => $entry) {
 			$e[$key]['id'] = $entry->ID;
 			$e[$key]['entry'] = unserialize($entry->post_content);
@@ -27,11 +34,21 @@ class Entries {
 			$e[$key]['date'] = $entry->post_date;
 		}
 
-
 		if ($entries) {
 			echo json_encode($e);
 		} else {
-			echo json_decode(0);
+			echo json_encode(0);
+		}
+		wp_die();
+	}
+	public static function awraqEntryDelete() {
+		if (!Officer::check($_POST)) wp_die();
+		$postId = (int)Officer::sanitize($_POST['entryId'], 'int');
+		$status = wp_delete_post($postId, true);
+		if($status != false || $status != null){
+			echo json_encode(true);
+		}else{
+			echo json_encode(false);
 		}
 		wp_die();
 	}

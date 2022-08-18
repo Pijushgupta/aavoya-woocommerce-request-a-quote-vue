@@ -44108,16 +44108,32 @@ __webpack_require__.r(__webpack_exports__);
      */
 
 
-    function deleteEntry() {}
+    function deleteEntry() {
+      if (confirm('Entry will get deleted permanently?')) {
+        var data = new FormData();
+        data.append('awraq_nonce', awraq_nonce);
+        data.append('action', 'awraqEntryDelete');
+        data.append('entryId', props.row.id);
+        fetch(awraq_ajax_path, {
+          method: 'POST',
+          credentials: 'same-origin',
+          body: data
+        }).then(function (res) {
+          return res.json();
+        }).then(function (res) {
+          if (res == true) {}
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      }
+    }
 
     var __returned__ = {
       props: props,
       entryToggle: entryToggle,
       toggleDrawer: toggleDrawer,
       deleteEntry: deleteEntry,
-      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
-      onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
-      onUnmounted: vue__WEBPACK_IMPORTED_MODULE_0__.onUnmounted
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -46986,34 +47002,35 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "form-row flex flex-row justify-between items-center px-4 py-2"
 };
-var _hoisted_3 = {
-  "class": "rounded border cursor-pointer flex flex-row items-center px-4 py-2 hover:text-blue-500"
-};
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "inline w-4 h-4 cursor-pointer mr-1",
+  viewBox: "0 0 20 20",
+  fill: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "fill-rule": "evenodd",
   d: "M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z",
   "clip-rule": "evenodd"
-}, null, -1
+})], -1
 /* HOISTED */
 );
 
-var _hoisted_5 = [_hoisted_4];
-
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-semibold"
 }, "Delete Entry", -1
 /* HOISTED */
 );
 
-var _hoisted_7 = {
+var _hoisted_5 = [_hoisted_3, _hoisted_4];
+var _hoisted_6 = {
   "class": "w-6/12"
 };
-var _hoisted_8 = {
+var _hoisted_7 = {
   "class": "w-4/12 flex flex-row justify-end"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   "class": "hover:cursor-pointer w-4 h-4",
   viewBox: "0 0 20 20",
@@ -47026,27 +47043,25 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_10 = [_hoisted_9];
+var _hoisted_9 = [_hoisted_8];
+var _hoisted_10 = {
+  "class": "form-row-opened border-t flex flex-row"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.deleteEntry();
     }),
-    "class": "inline w-4 h-4 cursor-pointer mr-1",
-    viewBox: "0 0 20 20",
-    fill: "currentColor"
-  }, _hoisted_5)), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.row.form_name), 1
+    "class": "rounded border cursor-pointer flex flex-row items-center px-4 py-2 hover:text-blue-500"
+  }, _hoisted_5), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.row.form_name), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "rounded-full border cursor-pointer px-1 py-1",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.toggleDrawer();
     })
-  }, _hoisted_10)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "form-row-opened border-t flex flex-row"
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.row.address - 0), 513
-  /* TEXT, NEED_PATCH */
+  }, _hoisted_9)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, null, 512
+  /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.entryToggle]])]);
 }
 

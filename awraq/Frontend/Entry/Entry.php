@@ -23,4 +23,6 @@ class Entry {
 		), true);
 		return !is_wp_error($status) ? true : false;
 	}
+
+
 }
