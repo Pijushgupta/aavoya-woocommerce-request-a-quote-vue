@@ -41,13 +41,14 @@ class Entries {
 		}
 		wp_die();
 	}
+
 	public static function awraqEntryDelete() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['entryId'], 'int');
 		$status = wp_delete_post($postId, true);
-		if($status != false || $status != null){
+		if ($status != false || $status != null) {
 			echo json_encode(true);
-		}else{
+		} else {
 			echo json_encode(false);
 		}
 		wp_die();

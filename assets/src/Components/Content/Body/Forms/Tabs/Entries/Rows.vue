@@ -22,23 +22,28 @@
           </span>
         </div>
 
-        <div v-bind:id="'div' + props.row.id">
-          <template v-for="e in row.entry[0]" v-bind:key="e"  >
+        <div v-bind:id="'div' + props.row.id" >
+					<div class="flex flex-row flex-wrap">
+          <template v-for="e in entry" v-bind:key="e"  >
             <template v-for="(i,index) in e" v-bind:key="index">
-              <div class="w-full py-1 px-4 first:pt-4 last:pb-4 ">
-                <div class="flex flex-col" >
+              <div v-bind:class="i.css" class=" py-1 px-4 first:pt-4 last:pb-4 ">
+                <div  class="flex flex-col">
                   <span class="my-1 capitalize font-semibold">{{i.name}}</span>
                   <span class="border rounded p-2 ">{{i.data}}</span>
                 </div>
               </div>
             </template>
           </template>
+					</div>
         </div>
-        <div class="border-t flex justify-end items-center py-4 px-4">
-          <button @click="printEntry" class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase mr-2">
+        <div class="border-t flex justify-between items-center py-4 px-4">
+					<button class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /> </svg>
+						Block Sender 
+					</button>
+          <button @click="printEntry" class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" /></svg>Print</button>
-          <button class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd" /><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" /></svg>Export</button>
+          
         </div>
       </div>
 
@@ -52,11 +57,45 @@ const props = defineProps({
 	row:Object
 });
 
+
 const emits = defineEmits({
   removeEntry:String
 });
 
 const entryToggle = ref(false);
+/**
+ * This method adding css class to entry data object
+ * To format the rows decently 
+ */
+function formatEntryData(){
+	let fields = props.row.entry[0]
+	for (let key in fields) {
+		if (fields.hasOwnProperty(key)) {
+			if (fields[key].length === 1) {
+				fields[key][0]['css'] = 'w-full';
+			} else {
+				if (fields[key].length % 2 === 0) {
+					for (let k in fields[key]) {
+						fields[key][k]['css'] = 'w-1/2';
+					}
+				} else {
+					for (let j in fields[key]) {
+						if (j === 0) {
+							fields[key][j]['css'] = 'w-full';
+						} else {
+							fields[key][j]['css'] = 'w-1/2';
+						}
+						
+					}
+				}
+			}
+			
+
+		}
+	}
+	return fields;
+}
+const entry = formatEntryData();
 
 
 /**
@@ -65,6 +104,7 @@ const entryToggle = ref(false);
 function toggleDrawer(){
   entryToggle.value = !entryToggle.value;
 }
+
 
 /**
  * Delete Entry from Database
@@ -93,6 +133,9 @@ function deleteEntry(){
 
 }
 
+/**
+ * This method to print the entry
+ */
 function printEntry(){
   let head = document.querySelector('head').innerHTML;
   let actualPrintableContent = document.querySelector('#div'+props.row.id).innerHTML;
@@ -104,7 +147,10 @@ function printEntry(){
 
 }
 
+function exportEntryasCsv() {
+	
+}
+
 onMounted(()=>{
-  console.log(props.row)
 });
 </script>
