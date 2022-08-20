@@ -3,7 +3,12 @@
 	 <div class="bg-white border border-t-0 rounded-b-lg min-h-4">
 		<div v-if="entries !== 0" >
 			 <ul class="pb-8">
-			 <Rows v-for="entry in entries" v-bind:row="entry" v-bind:key="entry"/>
+			 <Rows
+           v-for="entry in entries"
+           v-bind:row="entry"
+           v-bind:key="entry"
+           @removeEntry = "removeEntry"
+       />
 			 </ul>
 		 </div>
 		<div v-if="entries === 0" class="container mx-auto md:w-7/12 py-10 flex flex-col items-center">
@@ -25,11 +30,14 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-import Rows from './Entrys/Rows.vue'; 
+import Rows from './Entries/Rows.vue';
 
 const entries = ref(false);
-const imagePath = ref(''); 
+const imagePath = ref('');
 
+/**
+ * This Method getting all the entries from server
+ */
 function getEntries() {
 	let data = new FormData();
 	data.append('awraq_nonce', awraq_nonce);
@@ -41,17 +49,32 @@ function getEntries() {
 	})
 		.then(response => response.json())
 		.then(response => {
-			
 				entries.value = response;
-			
-			
-			console.log(response);
+
 		})
 		.catch(err => console.log(err));
 }
+
+/**
+ * This function to remove Entry from row after successful
+ * deletion from server by other method from click component
+ * @param id
+ */
+function removeEntry(id){
+  if(typeof entries.value == 'object'){
+    entries.value = entries.value.filter(e => {
+      if(e.id != id){
+        return e;
+      }
+    })
+    if(entries.value.length < 1){
+      entries.value = 0;
+    }
+  }
+}
+
 onMounted(function () {
 	imagePath.value = assetPath; 
 	getEntries();
-	
 })
 </script>

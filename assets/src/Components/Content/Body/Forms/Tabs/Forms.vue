@@ -8,6 +8,7 @@
 			 v-bind:key="row.ID" 
 			 v-bind:row="row"
 			 v-on:removeRow="removeRow"
+
 			 />
 			 </ul>
 		 </div>
