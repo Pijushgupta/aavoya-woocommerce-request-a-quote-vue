@@ -38,8 +38,7 @@
         </div>
         <div class="border-t flex justify-between items-center py-4 px-4">
 					<button class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /> </svg>
-						Block Sender 
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" /></svg>						Block Sender
 					</button>
           <button @click="printEntry" class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" /></svg>Print</button>
@@ -71,16 +70,16 @@ function formatEntryData(){
 	let fields = props.row.entry[0]
 	for (let key in fields) {
 		if (fields.hasOwnProperty(key)) {
-			if (fields[key].length === 1) {
+			if (Number(fields[key].length) === 1) {
 				fields[key][0]['css'] = 'w-full';
 			} else {
-				if (fields[key].length % 2 === 0) {
+				if (Number(fields[key].length % 2) === 0) {
 					for (let k in fields[key]) {
 						fields[key][k]['css'] = 'w-1/2';
 					}
 				} else {
 					for (let j in fields[key]) {
-						if (j === 0) {
+						if (Number(j) === 0) {
 							fields[key][j]['css'] = 'w-full';
 						} else {
 							fields[key][j]['css'] = 'w-1/2';

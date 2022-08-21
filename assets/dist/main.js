@@ -44135,16 +44135,16 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var key in fields) {
         if (fields.hasOwnProperty(key)) {
-          if (fields[key].length === 1) {
+          if (Number(fields[key].length) === 1) {
             fields[key][0]['css'] = 'w-full';
           } else {
-            if (fields[key].length % 2 === 0) {
+            if (Number(fields[key].length % 2) === 0) {
               for (var k in fields[key]) {
                 fields[key][k]['css'] = 'w-1/2';
               }
             } else {
               for (var j in fields[key]) {
-                if (j === 0) {
+                if (Number(j) === 0) {
                   fields[key][j]['css'] = 'w-full';
                 } else {
                   fields[key][j]['css'] = 'w-1/2';
@@ -47188,7 +47188,7 @@ var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   fill: "currentColor"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "fill-rule": "evenodd",
-  d: "M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z",
+  d: "M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z",
   "clip-rule": "evenodd"
 })]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Block Sender ")], -1
 /* HOISTED */
