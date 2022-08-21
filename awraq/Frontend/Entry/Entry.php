@@ -21,8 +21,10 @@ class Entry {
 			'post_content' => serialize($postData),
 			'post_status' => 'publish'
 		), true);
+		if (!is_wp_error($status)) {
+			add_post_meta($status, 'aavoya_wraq_fe_is_opened', false);
+		}
+
 		return !is_wp_error($status) ? true : false;
 	}
-
-
 }
