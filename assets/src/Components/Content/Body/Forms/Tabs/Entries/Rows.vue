@@ -8,20 +8,33 @@
         {{row.form_name}}
       </div>
       <div class="w-4/12 flex flex-row justify-end ">
-        <div class="rounded-full border cursor-pointer px-1 py-1" @click="toggleDrawer()"><svg xmlns="http://www.w3.org/2000/svg" class="hover:cursor-pointer w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></div>
+        <div class="rounded-full border cursor-pointer px-1 py-1" @click="toggleDrawer()"><svg xmlns="http://www.w3.org/2000/svg" class="hover:cursor-pointer w-4 h-4" v-bind:class="entryToggle == true ?'transform rotate-90':''" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></div>
       </div>
 		</div>
     <div class=" border-t flex flex-row justify-center bg-gray-50" v-show="entryToggle">
-      <div v-if="row.entry" class=" m-4 border rounded w-full md:w-6/12 bg-white relative">
-        <div v-if="row.entry['originUrl']" class="flex flex-row justify-between border-b items-center py-2 px-4 lowercase">
-          <span>{{row.entry['originPageTitle'] ? row.entry['originPageTitle'] : ''}}</span>
-          <span class="border ">
-            <a v-bind:href="row.entry['originUrl']"  target="_blank" class="p-2 flex justify-between items-center font-semibold rounded">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5  mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" /><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" /></svg>
+      <div v-if="row.entry" class=" m-4 border rounded-lg w-full md:w-6/12 bg-white relative">
+        <!--header area-->
+        <div v-if="row.entry['originUrl']" class="flex flex-row justify-between border-b items-center py-2 px-4 lowercase relative">
+          <div class="">{{row.entry['originPageTitle'] ? row.entry['originPageTitle'] : ''}}</div>
+          <div class=" flex justify-between items-center">
+            <div>
+              <a v-bind:href="row.entry['originUrl']"  target="_blank" class="border p-2 mr-2 flex justify-between items-center font-semibold rounded"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5  mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" /><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" /></svg>
             View Page</a>
-          </span>
-        </div>
+            </div>
+            <div>
+              <svg @click="toogleSubMenu" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" /></svg>
+              <div v-show="subMenu == true" class="absolute w-48 border  right-1 top-12 bg-white rounded z-10 shadow">
 
+                <ul>
+                  <li @click="blockIp" class="cursor-pointer mb-0 font-semibold flex flex-row items-center py-2 px-4 lowercase border-b"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" /></svg>Block Sender</li>
+                  <li @click="printEntry" class="cursor-pointer mb-0 font-semibold flex flex-row items-center py-2 px-4 lowercase "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" /></svg>Print</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Entry header area ends -->
+        <!--  Entry Content area-->
         <div v-bind:id="'div' + props.row.id" >
 					<div class="flex flex-row flex-wrap">
           <template v-for="e in entry" v-bind:key="e"  >
@@ -36,14 +49,10 @@
           </template>
 					</div>
         </div>
-        <div class="border-t flex justify-between items-center py-4 px-4">
-					<button class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" /></svg>						Block Sender
-					</button>
-          <button @click="printEntry" class="font-semibold flex flex-row items-center border rounded  py-2 px-4 lowercase">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" /></svg>Print</button>
-          
-        </div>
+        <!--  Entry content Ends-->
+        <!-- Footer area-->
+
+        <!-- Footer area ends -->
       </div>
 
     </div>
@@ -56,12 +65,13 @@ const props = defineProps({
 	row:Object
 });
 
-
 const emits = defineEmits({
   removeEntry:String
 });
 
 const entryToggle = ref(false);
+const subMenu = ref(false);
+
 /**
  * This method adding css class to entry data object
  * To format the rows decently 
@@ -102,6 +112,10 @@ const entry = formatEntryData();
  */
 function toggleDrawer(){
   entryToggle.value = !entryToggle.value;
+}
+
+function toogleSubMenu(){
+  subMenu.value  = !subMenu.value;
 }
 
 
@@ -145,11 +159,30 @@ function printEntry(){
   WinPrint.print();
 
 }
+/**
+ * Blocks the form submitters IP
+ */
+function blockIp(){
+  if(confirm('Block IP: '+props.row.entry['senderIp'])){
+    const data =  new FormData();
+    data.append('awraq_nonce', awraq_nonce);
+		data.append('action', 'awraqBlockIp');
+		data.append('ip', props.row.entry['senderIp']);
+		fetch(awraq_ajax_path, {
+			method: 'POST',
+			credentials: 'same-origin',
+			body:data
+		})
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+			})
+		.catch(err => console.log(err))
 
-function exportEntryasCsv() {
-	
+  }
 }
 
 onMounted(()=>{
+  console.log(props.row);
 });
 </script>
