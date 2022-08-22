@@ -31,6 +31,7 @@ use Awraq\Thirdparty\Woho;
 use Awraq\Base\Forms;
 use Awraq\Base\Entries;
 use Awraq\Base\Ip;
+use Awraq\Base\Gcaptcha;
 use Awraq\Frontend\Shortcode;
 
 
@@ -50,6 +51,7 @@ function awraq_init_plugin() {
 	Forms::activate();
 	Entries::enable();
 	Ip::enable();
+	Gcaptcha::enable();
 	Shortcode::activate();
 }
 add_action('plugins_loaded', 'awraq_init_plugin');

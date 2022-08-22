@@ -183,6 +183,9 @@ function blockIp(){
   }
 }
 
+/**
+ * changing seen msg from blue color to normal color
+ */
 function informTheServer() {
 	if (isOpened.value == false) {
 		const data = new FormData();

@@ -12,6 +12,10 @@
 				<a><svg xmlns="http://www.w3.org/2000/svg" class="svg-class fill-current" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>
 				Entries</a>
 			</li>
+      <li @click="changeTab(4)" v-bind:class="activeTab === 4 ? 'sub-tab sub-tab-active ':'sub-tab sub-tab-inactive'">
+        <a><svg xmlns="http://www.w3.org/2000/svg" class="svg-class fill-current" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
+          Settins</a>
+      </li>
 			
 		</ul>
 		
@@ -25,6 +29,9 @@
 	<div v-if="activeTab === 3">
 		<Entries/>
 	</div>
+  <div v-if="activeTab === 4">
+    <Settings/>
+  </div>
 </div>
 </template>
 
@@ -32,12 +39,14 @@
 import Forms from './Tabs/Forms.vue';
 import Entries from './Tabs/Entries.vue';
 import Emails from './Tabs/Emails.vue';
+import Settings from './Tabs/Settings.vue';
 export default {
 	name:'Tabs',
 	components:{
 		Forms,
 		Emails,
-		Entries
+		Entries,
+    Settings
 	},
 	data: function(){
 		return {

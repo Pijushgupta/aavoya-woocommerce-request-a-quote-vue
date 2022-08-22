@@ -196,3 +196,14 @@ a:hover{
 .list-leave-active {
   position: absolute;
 }
+.input-group{
+	@apply mb-2 flex flex-col w-full ;
+}
+
+
+.input-group input{
+@apply py-2 px-4 border rounded;
+}
+.input-group label{
+	@apply mb-1;
+}
