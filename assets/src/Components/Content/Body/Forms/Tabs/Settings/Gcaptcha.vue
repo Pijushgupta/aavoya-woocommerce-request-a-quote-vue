@@ -12,7 +12,7 @@
       <input id="gsitekey" v-model="keys.siteKey"/>
     </div>
     <div class=" pb-2 px-4 flex flex-row justify-end">
-      <button class="rounded px-4 py-2 border mr-2 font-medium flex flex-row items-center justify-center" @click="test"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" /></svg>Check</button>
+      <button v-bind:disabled="verificationLock" class="disabled:opacity-30 rounded px-4 py-2 border mr-2 font-medium flex flex-row items-center justify-center" @click="check"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" /></svg>Check</button>
       <button class="rounded px-4 py-2 border  font-medium flex flex-row items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" /></svg>Save</button>
     </div>
   </div>
@@ -20,125 +20,154 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from "vue";
-import _ from 'lodash';
-    
+	import { ref, watch } from "vue";
+	import _ from 'lodash';
+	import { useToast } from 'vue-toastification';
 
-const keys = ref({
-	secretKey:'',
-	siteKey:''
-})
-const verificationLock = ref(true);
-const intervalId = ref(null);
-const recapchaLoaded = ref(false);
-const googleToken = ref(false);
+	const keys = ref({ secretKey: '', siteKey: '' });
+	const verificationLock = ref(true);
+	const intervalId = ref(null);
+	const recapchaLoaded = ref(false);
+	const googleToken = ref(false);
 
-watch(()=>_.cloneDeep(keys.value), (currentValue, oldValue)=>{
-	if(oldValue.secretKey == '' || oldValue.siteKey==''){
-		return;
-	}
-	if (verificationLock.value == false) {
-		verificationLock.value == true;
-	}
-});
-watch(recapchaLoaded, (newVal, oldval)=>{
-	clearInterval(intervalId.value);
-});
+	watch(()=>_.cloneDeep(keys.value), (currentValue, oldValue)=>{
+		if(oldValue.secretKey == '' || oldValue.siteKey==''){
+			return;
+		}
 
-function checkCaptchaKeys() {
-	if(googleToken.value === false) return;
-	const data = new FormData();
-	data.append('awraq_nonce',awraq_nonce);
-	data.append('action','awraqCheckCaptcha');
-	data.append('secret',keys.value.secretKey);
-	data.append('token',googleToken.value);
+		if (verificationLock.value == true) {
+			verificationLock.value = false;
+		}
+		
+	});
+	watch(recapchaLoaded,(newVal, oldval)=>{
+		clearInterval(intervalId.value);
+	});
 
-	fetch(awraq_ajax_path,{
-		method:'POST',
-		credentials:'same-origin',
-		body:data
-	})
-		.then(res => res.json())
-			//TODO: add verfication lock
-			.then(res => console.log(res))
+	/**
+	 * Sending AJAX request to server to validate client side token generated from site key
+	 * with Secret key.
+	 */
+	function checkCaptchaKeys() {
+		if(googleToken.value === false) return;
+		const data = new FormData();
+		data.append('awraq_nonce',awraq_nonce);
+		data.append('action','awraqCheckCaptcha');
+		data.append('secret',keys.value.secretKey);
+		data.append('token',googleToken.value);
+
+		fetch(awraq_ajax_path,{
+			method:'POST',
+			credentials:'same-origin',
+			body:data
+		})
+			.then(res => res.json())
+			.then(res => { 
+				verificationLock.value = true;
+				res = JSON.parse(res);
+				const toast = useToast();
+				if (res.success === true) {
+					toast("Keys are Valid");
+				}
+				if (res.success === false) {
+					toast("Invalid Key(s)");
+				}
+				verificationLock.value = true;
+			})
 			.catch(err => console.log(err));
-}
-  
-function test() {
-	appendScript();
-	intervalId.value = setInterval(function () { 
-		if (window.grecaptcha) {
-			recapchaLoaded.value = true; 
-			setToken();
-		}
-	}, 500);
-}
-
-function setToken() {
-		grecaptcha.ready(function () {
+	}
+	
+	/**
+	 * Setting the token from google via client side script
+	 * to local variable. 
+	 * if site key is invalid it output error in the console/notification
+	 * And then calling the method checkCaptchaKeys for server-side verification.
+	 */
+	function setToken() {
+			grecaptcha.ready(function () {
+				try {
+					grecaptcha.execute(keys.value.siteKey, {action: 'submit'}).then(function(token) {
+					if(token){
+						googleToken.value = token;
+						checkCaptchaKeys();
+					}
+				});
+				}
+				catch (err) {
+					const toast = useToast();
+					toast("Invalid Site key");
+					
+				}
+				
+			});
+	}
+	
+	/**
+	 * This append google recaptcha client side script 
+	 * to the current DOM
+	 * Note: It will not output any errors regarding site key error
+	 */
+	function appendScript(){
+		if (keys.value.siteKey) {
 			try {
-				grecaptcha.execute(keys.value.siteKey, {action: 'submit'}).then(function(token) {
-        if(token){
-          googleToken.value = token;
-          checkCaptchaKeys();
-        }
-      });
+				document.querySelector('#awraqCaptchaScript').remove;
 			}
-			catch(err) {
-				console.log(err);
+			catch (err) {
+				//don't do anything 
 			}
-      
-    });
-}
-function appendScript(){
-	if (keys.value.siteKey) {
-		try {
-			document.querySelector('#awraqCaptchaScript').remove;
-		}
-		catch (err) {
+			let captcha = document.createElement('script');
+			captcha.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=' + keys.value.siteKey);
+			captcha.setAttribute('id', 'awraqCaptchaScript');
+			document.head.appendChild(captcha);
 			
 		}
-		let captcha = document.createElement('script');
-		captcha.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=' + keys.value.siteKey);
-		captcha.setAttribute('id', 'awraqCaptchaScript');
-		document.head.appendChild(captcha);
-		return true;
-	} else {
-		return false;
 	}
-}
-
-  /**
-   * getting site key and secret key
+	
+	/**
+	 * This method Appending google recaptcha client side script 
+	 * Waiting for google script to load. (setInterval and vue's watch for same).
+	 * After loading (confirmed by window.grecaptcha) calling 
+	 * setToken(may output error if site key is invalid) method 
+	 * to set the googles client side token. 
+	 */
+function check() {
+	if (verificationLock.value == true) return;
+		appendScript();
+		intervalId.value = setInterval(function () { 
+			if (window.grecaptcha) {
+				recapchaLoaded.value = !recapchaLoaded.value; 
+				setToken();
+			}
+		}, 500);
+	}
+	
+	/**
+	 * getting site key and secret key
 	 * Firing on Load, automatically 
 	 * Not invoking other method 
-   */
-const getKeys = (function () {
-	const data = new FormData();
-	data.append('awraq_nonce', awraq_nonce);
-	data.append('action', 'awraqGetCaptchaKeys');
-	fetch(awraq_ajax_path, {
-		method: 'POST',
-		credentials: 'same-origin',
-		body: data
-	})
-		.then(res => res.json())
-		.then(res => {
-			if (res !== false) {
-				keys.value.secretKey = res.secretKey;
-				keys.value.siteKey = res.siteKey;
-			} else {
-				keys.value.secretKey = false;
-				keys.value.siteKey = false;
-			}
+	 */
+	const getKeys = (function () {
+		const data = new FormData();
+		data.append('awraq_nonce', awraq_nonce);
+		data.append('action', 'awraqGetCaptchaKeys');
+		fetch(awraq_ajax_path, {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: data
 		})
-		.catch(err => console.log(err));
+			.then(res => res.json())
+			.then(res => {
+				if (res !== false) {
+					keys.value.secretKey = res.secretKey;
+					keys.value.siteKey = res.siteKey;
+				} else {
+					keys.value.secretKey = false;
+					keys.value.siteKey = false;
+				}
+			})
+			.catch(err => console.log(err));
 
-}());
+	}());
 
-
-  onMounted(()=>{
-
-  })
 
 </script>
