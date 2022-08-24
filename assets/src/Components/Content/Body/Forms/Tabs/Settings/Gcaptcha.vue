@@ -13,7 +13,7 @@
     </div>
     <div class=" pb-2 px-4 flex flex-row justify-end">
       <button v-bind:disabled="verificationLock" class="disabled:opacity-30 rounded px-4 py-2 border mr-2 font-medium flex flex-row items-center justify-center" @click="check"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" /></svg>Check</button>
-      <button class="rounded px-4 py-2 border  font-medium flex flex-row items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" /></svg>Save</button>
+      <button v-bind:disabled="statusOk === false" class="disabled:opacity-30 rounded px-4 py-2 border  font-medium flex flex-row items-center justify-center" @click="saveKeys"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" /></svg>Save</button>
     </div>
   </div>
   <!-- google Capcha keys ends -->
@@ -29,8 +29,9 @@
 	const intervalId = ref(null);
 	const recapchaLoaded = ref(false);
 	const googleToken = ref(false);
-
-	watch(()=>_.cloneDeep(keys.value), (currentValue, oldValue)=>{
+  const statusOk = ref(false);
+//()=>_.cloneDeep(keys.value)
+	watch(keys, (currentValue, oldValue)=>{
 		if(oldValue.secretKey == '' || oldValue.siteKey==''){
 			return;
 		}
@@ -38,11 +39,43 @@
 		if (verificationLock.value == true) {
 			verificationLock.value = false;
 		}
+    statusOk.value = false;
 		
-	});
+	},{deep:true});
 	watch(recapchaLoaded,(newVal, oldval)=>{
 		clearInterval(intervalId.value);
 	});
+
+  /**
+   * This method to save site key and secrect key to the Database
+   */
+  function saveKeys(){
+
+
+    if(googleToken.value === false) return;
+    if(statusOk.value === false) return;
+
+    const data = new FormData();
+    data.append('awraq_nonce',awraq_nonce);
+    data.append('action','awraqSetCaptchaKeys');
+    data.append('secretKey',keys.value.secretKey);
+    data.append('siteKey',keys.value.siteKey);
+
+    fetch(awraq_ajax_path,{
+      method:'POST',
+      credentials:'same-origin',
+      body:data
+    })
+        .then(res=> res.json())
+        .then(res => {
+          if(res === true){
+            const toast = useToast();
+            toast("Saved");
+
+          }
+        })
+        .catch(err => console.log(err))
+  }
 
 	/**
 	 * Sending AJAX request to server to validate client side token generated from site key
@@ -73,6 +106,7 @@
 					toast("Invalid Key(s)");
 				}
 				verificationLock.value = true;
+        statusOk.value = true;
 			})
 			.catch(err => console.log(err));
 	}
@@ -130,7 +164,7 @@
 	 * setToken(may output error if site key is invalid) method 
 	 * to set the googles client side token. 
 	 */
-function check() {
+	function check() {
 	if (verificationLock.value == true) return;
 		appendScript();
 		intervalId.value = setInterval(function () { 
@@ -168,6 +202,5 @@ function check() {
 			.catch(err => console.log(err));
 
 	}());
-
 
 </script>

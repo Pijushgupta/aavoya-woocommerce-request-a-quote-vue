@@ -1761,9 +1761,6 @@ a:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
-.disabled\:opacity-75:disabled {
-  opacity: 0.75;
-}
 .disabled\:opacity-30:disabled {
   opacity: 0.3;
 }
