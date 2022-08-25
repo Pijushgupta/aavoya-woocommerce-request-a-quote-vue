@@ -1,36 +1,37 @@
 <template>
   <li class="border-b    mb-0 ">
+		<!-- Row -->
 	  <div class="form-row flex flex-row justify-between items-center px-4 py-2">
+			<!-- Delete Form Button -->
 			<div class="w-2/12">
-			
 				<button class="rounded border cursor-pointer flex flex-row items-center px-4 py-2 hover:text-blue-500" v-on:click="deleteForm" >
 					<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 cursor-pointer mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
 					<span class="font-semibold">Delete Form</span>
-					
 					</button>
-
-			
 			</div>	
+			<!-- Delete Form Button ends -->
+			<!-- Form name  -->
 		  <div class="w-6/12">
 			  <span  class="w-full font-semibold">{{localRow.post_title ? localRow.post_title : 'Untitled Form'}}</span>
 		  </div>
+			<!-- Form name ends -->
+			<!-- Form shortcode to copy -->
 		  <div class="w-4/12 flex flex-row justify-end items-center ">
 		  	<div class="border rounded inline px-1 py-1 mr-4">
-				<div class="flex flex-row justify-center items-center ">
-			  		<span class="px-6 font-semibold">[awraqf id="{{localRow.ID}}"]</span>
-					<span class="bg-gray-100 px-1 rounded shadow "><svg xmlns="http://www.w3.org/2000/svg" class="inline  w-5 h-6 cursor-pointer " v-on:click="copyToClipBoard" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg></span>
+					<div class="flex flex-row justify-center items-center ">
+							<span class="px-6 font-semibold">[awraqf id="{{localRow.ID}}"]</span>
+						<span class="bg-gray-100 px-1 rounded shadow "><svg xmlns="http://www.w3.org/2000/svg" class="inline  w-5 h-6 cursor-pointer " v-on:click="copyToClipBoard" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg></span>
+					</div>
 				</div>
-
+				<div class="flex flex-row justify-center items-center">
+					<div class="rounded-full border  cursor-pointer  px-1 py-1 ">
+					<svg xmlns="http://www.w3.org/2000/svg" v-bind:class="drawerIconPosition !== false ? 'hover:cursor-pointer transform rotate-90   w-4 h-4':'hover:cursor-pointer w-4 h-4'"  v-on:click="openDrawer(); rotateIcon();" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+					</div>
+				</div>
 			</div>
-			<div class="flex flex-row justify-center items-center">
-			  <div class="rounded-full border  cursor-pointer  px-1 py-1 ">
-				<svg xmlns="http://www.w3.org/2000/svg" v-bind:class="drawerIconPosition !== false ? 'hover:cursor-pointer transform rotate-90   w-4 h-4':'hover:cursor-pointer w-4 h-4'"  v-on:click="openDrawer(); rotateIcon();" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
-			</div>
-		  </div>
-		</div>
-
-
+			<!-- Form shortcode ends  -->
 	  </div>
+		<!-- row ends -->
 	  <div class="form-row-opened border-t   flex flex-row" v-show="drawerOpen">
 		  <div class="w-full flex flex-row">
 				<!-- Left Bar -->
@@ -68,7 +69,7 @@
 				<!-- Right Bar -->
 			  <div class="rightbar w-10/12 flex flex-col items-center m-4 rounded border items-center relative">
 
-				  	<div class="px-4 py-4 border-b bg-gray-50 w-full">
+				  <div class="px-4 py-4 border-b bg-gray-50 w-full">
 						<input class="w-full border rounded" type="text" v-model='localRow.post_title' placeholder="Form Title"/>
 					</div>
 
@@ -281,12 +282,7 @@
 												</ul>
 												<TransitionGroup  name="list" tag="ul" class="flex flex-row justify-center mb-4">
 													
-													<li 
-													v-for="(o,e) in element.data.Options" 
-													v-bind:key="e" 
-													class="border rounded-lg  flex-col w-11/12" 
-													v-show="element.data.tabState == e" 
-													>
+													<li v-for="(o,e) in element.data.Options" v-bind:key="e" class="border rounded-lg  flex-col w-11/12" v-show="element.data.tabState == e" >
 														<div class="border-b flex flex-row px-4 py-2 items-center">
 															<div class="w-1/4 flex justify-end pr-4">
 																Label
@@ -321,11 +317,8 @@
 														</div>
 													</li>
 													
-												</TransitionGroup >
+												</TransitionGroup>
 											</div>
-											
-													
-												
 										</div> 
 										<div v-if="element.type === 'address'">
 											<div class="w-full flex flex-col relative">
@@ -386,12 +379,8 @@
 															</div>
 														</div>
 													</li>
-													
 												</TransitionGroup >
 											</div>
-											
-													
-												
 										</div> 
 										<div v-if="element.type == 'content'">
 											<div class="p-4">
@@ -424,9 +413,12 @@
 					</draggable>
 					<!-- DROP AREA ENDS -->
 					</div>
-					<div v-if="emptyInputs.length != 0 " class="px-4 py-4 flex flex-row justify-end bg-gray-50 w-full ">
-						<a
-						class="border bg-white px-4 py-2 rounded-full text-gray-500 font-semibold capitalize cursor-pointer flex items-center"
+					<div v-if="emptyInputs.length != 0 " class="px-4 py-4 flex flex-row justify-between items-center bg-gray-50 w-full ">
+						<div>
+						<input type="checkbox" v-bind:id="'gcaptcha-'+localRow.ID" v-model="googleCaptcha" @click="updateGCaptchaMeta"> 
+						<label v-bind:for="'gcaptcha-'+localRow.ID" class="ml-2">Enable Google Captcha</label>
+						</div>
+						<a class="border bg-white px-4 py-2 rounded-full text-gray-500 font-semibold capitalize cursor-pointer flex items-center"
 						@click="saveFormData"
 						><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-5 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /> </svg>Save</a>
 					</div>
@@ -445,7 +437,7 @@ import Editor  from "./Editor/Editor.vue";
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { useToast } from 'vue-toastification'
-import { assertParenthesizedExpression } from "@babel/types";
+
 export default {
 	name:'Rows',
 	components:{
@@ -464,6 +456,7 @@ export default {
 			localRow : this.row,
 			drawerIconPosition: false,
 			drawerOpen: false,
+			googleCaptcha: false,
 			draggableGroup:{
 				name:'drag',
 				pull:'clone',
@@ -614,8 +607,42 @@ export default {
 			}
 		},
 	},
-	created: function(){},
-	methods:{
+
+	methods: {
+		getGCaptchaMeta: function () {
+			const data = new FormData();
+			data.append('awraq_nonce', awraq_nonce);
+			data.append('action', 'awraqGetCaptchaMeta');
+			data.append('formId',this.localRow.ID);
+			fetch(awraq_ajax_path, {
+				method: 'POST',
+				credentials: 'same-origin',
+				body: data
+			})
+				.then(res => res.json())
+				.then(res => {
+					this.googleCaptcha = res;
+				})
+				.catch(err => console.log(err));
+		},
+		updateGCaptchaMeta: function () {
+			const data = new FormData();
+			data.append('awraq_nonce', awraq_nonce);
+			data.append('action', 'awraqUpdateCaptchaMeta');
+			data.append('formId', this.localRow.ID);
+
+			fetch(awraq_ajax_path, {
+				method: 'POST',
+				credentials: 'same-origin',
+				body: data
+			})
+				.then(res => res.json())
+				.then(res => {
+					console.log(res);
+				})
+				.catch(err => console.log(err));
+
+		},
 		setUniqueName: function(){
 			this.emptyInputs.forEach(function(item){
 				if(item.uniqueName == ''){
@@ -1062,6 +1089,7 @@ export default {
 	},
 	created: function(){
 		this.getFormMeta();
+		this.getGCaptchaMeta();
 	}
 }
 </script>

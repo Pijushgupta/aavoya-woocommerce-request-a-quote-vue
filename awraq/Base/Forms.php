@@ -2,7 +2,6 @@
 
 namespace Awraq\Base;
 
-
 use Awraq\Base\Officer;
 use Awraq\Base\Meta;
 
@@ -18,6 +17,9 @@ class Forms {
 		add_action('wp_ajax_awraqSaveFormData', array(self::$globalScopeName, 'awraqSaveFormData'));
 		add_action('wp_ajax_awraqGetFormMeta', array(self::$globalScopeName, 'awraqGetFormMeta'));
 		add_action('wp_ajax_awraqDeleteForm', array(self::$globalScopeName, 'awraqDeleteForm'));
+		add_action('wp_ajax_awraqGetCaptchMeta', array(self::$globalScopeName, 'awraqGetCaptchMeta'));
+		add_action('wp_ajax_awraqGetCaptchaMeta', array(self::$globalScopeName, 'awraqGetCaptchaMeta'));
+		add_action('wp_ajax_awraqUpdateCaptchaMeta', array(self::$globalScopeName, 'awraqUpdateCaptchaMeta'));
 	}
 
 	public static function awraqGetForms() {
@@ -78,6 +80,33 @@ class Forms {
 		wp_delete_post($postId, true);
 
 		echo json_encode(true);
+		wp_die();
+	}
+
+	public static function awraqGetCaptchaMeta() {
+		if (!Officer::check($_POST)) wp_die();
+		$postId = $_POST['formId'];
+		if (!$postId) wp_die();
+
+		$postId = (int)Officer::sanitize($postId, 'int');
+		$isCaptch = get_post_meta($postId, 'googleCaptchaMeta', true);
+		if ($isCaptch == true) {
+			echo json_encode(true);
+		} else {
+			echo json_encode(false);
+		}
+		wp_die();
+	}
+
+	public static function awraqUpdateCaptchaMeta() {
+		if (!Officer::check($_POST)) wp_die();
+		$postId = $_POST['formId'];
+		if (!$postId) wp_die();
+
+		$postId = (int)Officer::sanitize($postId, 'int');
+		$isCaptch = get_post_meta($postId, 'googleCaptchaMeta', true);
+
+		echo json_encode(update_post_meta($postId, 'googleCaptchaMeta', !$isCaptch));
 		wp_die();
 	}
 }

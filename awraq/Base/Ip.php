@@ -11,6 +11,7 @@ class Ip {
 	public static function enable() {
 		add_action('wp_ajax_awraqBlockIp', array(self::$globalScopeName, 'block'));
 		add_action('wp_ajax_awraqGetBlockedIps', array(self::$globalScopeName, 'getBlockedIps'));
+		add_action('wp_ajax_awraqUpdateBlockedIps', array(self::$globalScopeName, 'updateBlockedIps'));
 	}
 	public static function block() {
 		if (!Officer::check($_POST)) wp_die();
@@ -38,7 +39,14 @@ class Ip {
 		} else {
 			echo json_encode(array('192.167.1.2', '123.25.36.1'));
 		}
-
+		wp_die();
+	}
+	public static function updateBlockedIps() {
+		if (!Officer::check($_POST)) wp_die();
+		$ipList = $_POST['ipList'];
+		$ipList = Officer::sanitize($_POST['ipList'], 'text');
+		$ipList = Officer::jsonToArray($ipList);
+		echo json_encode(update_option('awraq_blocked_ips', serialize($ipList)));
 		wp_die();
 	}
 }
