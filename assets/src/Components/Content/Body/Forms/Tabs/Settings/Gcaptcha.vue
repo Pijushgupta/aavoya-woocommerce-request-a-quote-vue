@@ -123,6 +123,7 @@
 					grecaptcha.execute(keys.value.siteKey, {action: 'submit'}).then(function(token) {
 					if(token){
 						googleToken.value = token;
+
 						checkCaptchaKeys();
 					}
 				});

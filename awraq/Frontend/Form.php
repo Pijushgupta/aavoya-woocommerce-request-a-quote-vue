@@ -13,6 +13,7 @@ use Awraq\Frontend\Form\Essentials\Id;
 use Awraq\Frontend\Form\Essentials\Css;
 use Awraq\Frontend\Form\Essentials\Submit;
 use Awraq\Frontend\Form\Essentials\Error;
+use Awraq\Frontend\Form\Essentials\Gcaptcha;
 
 use Awraq\Frontend\Form\Inputs\Radio;
 use Awraq\Frontend\Form\Inputs\Checkbox;
@@ -28,6 +29,7 @@ use Awraq\Frontend\Form\Inputs\Date;
 
 class Form {
 	public static function create($formMeta, $id) {
+
 		$oldValues = self::oldValues($id);
 
 		$form = '<div>' . Error::show($id);
@@ -38,9 +40,12 @@ class Form {
 		$form .= Origin::create();
 		$form .= Id::create($id);
 		$form .= Css::create();
+		$form .= Gcaptcha::create($id);
 		foreach ($formMeta as $key => $inputMeta) {
+
+			$oldValueAsParam = false;
 			if ($oldValues != false) {
-				$oldValueAsParam = false;
+
 				foreach ($oldValues as $k => $oldvalue) {
 					$uniqueKey = explode('_', $k);
 
@@ -50,6 +55,7 @@ class Form {
 					}
 				}
 			}
+
 			switch ($inputMeta['type']) {
 				case 'radio':
 					$form .= Radio::create($inputMeta, $key, $id, $oldValueAsParam);

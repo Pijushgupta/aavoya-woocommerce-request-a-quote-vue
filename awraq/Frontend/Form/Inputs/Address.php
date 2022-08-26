@@ -30,7 +30,12 @@ class Address {
 			$odd = true;
 		}
 
-		$form = '<div class="' . sanitize_html_class($formInput['data']['cssClass']) . '"><div class="flex flex-row flex-wrap address mt-2">';
+		if(array_key_exists('cssClass',$formInput['data'])){
+			$css = sanitize_html_class($formInput['data']['cssClass']);
+		}else{
+			$css = '';
+		}
+		$form = '<div class="' . $css . '"><div class="flex flex-row flex-wrap address mt-2">';
 
 		/**
 		 * Counting number of array elements
@@ -50,7 +55,12 @@ class Address {
 			}
 			$required = $options[$i]['required'] ? 'required' : '';
 			$placeholder = $options[$i]['placeholder'] ? 'placeholder="' . $options[$i]['placeholder'] . '"' : '';
-			$value = strlen($oldValueAsParam[$formInput['uniqueName']][$i]['data']) > 0 ? $oldValueAsParam[$formInput['uniqueName']][$i]['data'] : '';
+			if($oldValueAsParam != false){
+				$value = strlen($oldValueAsParam[$formInput['uniqueName']][$i]['data']) > 0 ? $oldValueAsParam[$formInput['uniqueName']][$i]['data'] : '';
+			}else{
+				$value = '';
+			}
+
 			$form .= '<div class="' . $class . '">';
 			$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" class="block">' . __(sanitize_text_field($options[$i]['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
 			$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $options[$i]['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $i) . '" class="block w-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . ' value="' . $value . '">';

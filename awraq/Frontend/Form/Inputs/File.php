@@ -6,7 +6,16 @@ if (!defined('ABSPATH')) exit;
 
 class File {
 	public static function create($formInput, $key, $id): string {
-		$form = '<div class="' . sanitize_html_class($formInput['data']['cssClass']) . '"><div class="file mt-2">';
+		/**
+		 * Checking if custom css class Provided or not
+		 */
+		if(array_key_exists('cssClass',$formInput['data'])){
+			$css = sanitize_html_class($formInput['data']['cssClass']);
+		}else{
+			$css = '';
+		}
+
+		$form = '<div class="' . $css . '"><div class="file mt-2">';
 
 		/**
 		 * declaring accept type variable to hold accept types
