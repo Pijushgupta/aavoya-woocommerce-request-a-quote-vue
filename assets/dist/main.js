@@ -32259,7 +32259,7 @@ var _hoisted_25 = {
   "class": "text-gray-500 lowercase"
 };
 var _hoisted_26 = {
-  "class": "rightbar w-10/12 flex flex-col items-center m-4 rounded border items-center relative"
+  "class": "rightbar w-10/12 flex flex-col items-center m-4 rounded border items-center relative justify-between"
 };
 var _hoisted_27 = {
   "class": "px-4 py-4 border-b bg-gray-50 w-full"
@@ -32754,13 +32754,13 @@ var _hoisted_168 = {
 };
 var _hoisted_169 = ["onUpdate:modelValue"];
 var _hoisted_170 = {
-  key: 0,
   "class": "px-4 py-4 flex flex-row justify-between items-center bg-gray-50 w-full"
 };
-var _hoisted_171 = ["id"];
+var _hoisted_171 = ["disabled", "id"];
 var _hoisted_172 = ["for"];
+var _hoisted_173 = ["disabled"];
 
-var _hoisted_173 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_174 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   "class": "h-4 w-5 inline mr-1",
   fill: "none",
@@ -32775,9 +32775,9 @@ var _hoisted_173 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElemen
 /* HOISTED */
 );
 
-var _hoisted_174 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Save");
+var _hoisted_175 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Save");
 
-var _hoisted_175 = [_hoisted_173, _hoisted_174];
+var _hoisted_176 = [_hoisted_174, _hoisted_175];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Svg = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Svg");
 
@@ -33252,7 +33252,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["modelValue", "group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" DROP AREA ENDS ")], 2
   /* CLASS */
-  ), _ctx.emptyInputs.length != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_170, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_170, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    disabled: _ctx.emptyInputs.length == 0,
     type: "checkbox",
     id: 'gcaptcha-' + _ctx.localRow.ID,
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
@@ -33260,7 +33261,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     onClick: _cache[6] || (_cache[6] = function () {
       return $options.updateGCaptchaMeta && $options.updateGCaptchaMeta.apply($options, arguments);
-    })
+    }),
+    "class": "disabled:opacity-30"
   }, null, 8
   /* PROPS */
   , _hoisted_171), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, _ctx.googleCaptcha]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -33268,12 +33270,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "ml-2"
   }, "Enable Google Captcha", 8
   /* PROPS */
-  , _hoisted_172)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "border bg-white px-4 py-2 rounded-full text-gray-500 font-semibold capitalize cursor-pointer flex items-center",
+  , _hoisted_172)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    disabled: _ctx.emptyInputs.length == 0,
+    "class": "disabled:opacity-30 border bg-white px-4 py-2 rounded-full text-gray-500 font-semibold capitalize cursor-pointer flex items-center",
     onClick: _cache[7] || (_cache[7] = function () {
       return $options.saveFormData && $options.saveFormData.apply($options, arguments);
     })
-  }, _hoisted_175)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Right Bar Ends ")])], 512
+  }, _hoisted_176, 8
+  /* PROPS */
+  , _hoisted_173)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Right Bar Ends ")])], 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.drawerOpen]])]);
 }

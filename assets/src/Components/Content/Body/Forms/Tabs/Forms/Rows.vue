@@ -67,7 +67,7 @@
 				<!-- Left Bar Ends -->
 
 				<!-- Right Bar -->
-			  <div class="rightbar w-10/12 flex flex-col items-center m-4 rounded border items-center relative">
+			  <div class="rightbar w-10/12 flex flex-col items-center m-4 rounded border items-center relative justify-between">
 
 				  <div class="px-4 py-4 border-b bg-gray-50 w-full">
 						<input class="w-full border rounded" type="text" v-model='localRow.post_title' placeholder="Form Title"/>
@@ -413,14 +413,14 @@
 					</draggable>
 					<!-- DROP AREA ENDS -->
 					</div>
-					<div v-if="emptyInputs.length != 0 " class="px-4 py-4 flex flex-row justify-between items-center bg-gray-50 w-full ">
+					<div  class="px-4 py-4 flex flex-row justify-between items-center bg-gray-50 w-full ">
 						<div>
-						<input type="checkbox" v-bind:id="'gcaptcha-'+localRow.ID" v-model="googleCaptcha" @click="updateGCaptchaMeta"> 
+						<input v-bind:disabled="emptyInputs.length == 0" type="checkbox" v-bind:id="'gcaptcha-'+localRow.ID" v-model="googleCaptcha" @click="updateGCaptchaMeta" class="disabled:opacity-30">
 						<label v-bind:for="'gcaptcha-'+localRow.ID" class="ml-2">Enable Google Captcha</label>
 						</div>
-						<a class="border bg-white px-4 py-2 rounded-full text-gray-500 font-semibold capitalize cursor-pointer flex items-center"
+						<button v-bind:disabled="emptyInputs.length == 0" class="disabled:opacity-30 border bg-white px-4 py-2 rounded-full text-gray-500 font-semibold capitalize cursor-pointer flex items-center"
 						@click="saveFormData"
-						><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-5 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /> </svg>Save</a>
+						><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-5 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /> </svg>Save</button>
 					</div>
 
 			  </div>

@@ -39,8 +39,9 @@ class Form {
 		$form .= Token::create($id);
 		$form .= Origin::create();
 		$form .= Id::create($id);
-		$form .= Css::create();
 		$form .= Gcaptcha::create($id);
+		$form .= Css::create();
+
 		foreach ($formMeta as $key => $inputMeta) {
 
 			$oldValueAsParam = false;
