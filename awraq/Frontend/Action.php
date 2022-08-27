@@ -6,8 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 use Awraq\Base\Officer;
 use Awraq\Frontend\Form\Action\Ip;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+use Awraq\Frontend\Form\Action\Token;
 use Awraq\Frontend\Form\Action\Gcaptcha;
 use Awraq\Frontend\Form\Action\Map;
 use Awraq\Frontend\Form\Action\Validation;
@@ -64,7 +63,7 @@ class Action {
 		/**
 		 * checking if JWT got tampered or not
 		 */
-		$tokenId = self::decode_jwt(Officer::sanitize($_POST['jwt'], 'text'));
+		$tokenId = Token::decode(Officer::sanitize($_POST['jwt'], 'text'));
 		if ($tokenId == false) {
 			wp_redirect($originUrl);
 			exit();
@@ -220,27 +219,5 @@ class Action {
 		//redirect if any redirect url provided
 		wp_redirect($originUrl);
 		exit();
-	}
-
-	/**
-	 * decode_jwt
-	 * This to Decode the JWT token and extract the Form ID.
-	 * In case of Modified payload. It will hit exception and return false
-	 * @param string $jwt
-	 * @return bool|int
-	 */
-	public static function decode_jwt($jwt) {
-		if ($jwt == '') return false;
-
-		if (get_option('aavoya_wraq_random_key', null) == null) return false;
-		$key = get_option('aavoya_wraq_random_key');
-
-
-		try {
-			$decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-		} catch (\Exception $e) {
-			return false;
-		}
-		return (int)$decoded->data->ID;
 	}
 }
