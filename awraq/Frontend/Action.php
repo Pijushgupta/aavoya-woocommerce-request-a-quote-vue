@@ -8,6 +8,7 @@ use Awraq\Base\Officer;
 use Awraq\Frontend\Form\Action\Ip;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Awraq\Frontend\Form\Action\Gcaptcha;
 use Awraq\Frontend\Form\Action\Map;
 use Awraq\Frontend\Form\Action\Validation;
 use Awraq\Frontend\Entry\Entry;
@@ -93,6 +94,21 @@ class Action {
 			exit();
 		};
 
+		/**
+		 * Google captcha verification
+		 */
+		if(get_post_meta($formID, 'googleCaptchaMeta', true) == true){
+			if(!$_POST['google-captcha-'.$formID]){
+				wp_redirect($originUrl);
+				exit();
+			}
+			$token = sanitize_text_field($_POST['google-captcha-'.$formID]);
+			unset($_POST['google-captcha-'.$formID]);
+			if(Gcaptcha::verify($token) != true){
+				wp_redirect($originUrl);
+				exit();
+			}
+		}
 
 
 		/**
