@@ -869,6 +869,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -1202,6 +1206,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-0 {
   padding-top: 0px;
   padding-bottom: 0px;
+}
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 .pb-8 {
   padding-bottom: 2rem;
@@ -1742,6 +1750,9 @@ a:hover {
 .first\:pt-4:first-child {
   padding-top: 1rem;
 }
+.first\:pt-2:first-child {
+  padding-top: 0.5rem;
+}
 .last\:mb-0:last-child {
   margin-bottom: 0px;
 }
@@ -1757,6 +1768,9 @@ a:hover {
 }
 .last\:pb-4:last-child {
   padding-bottom: 1rem;
+}
+.last\:pb-2:last-child {
+  padding-bottom: 0.5rem;
 }
 .hover\:cursor-pointer:hover {
   cursor: pointer;
@@ -1998,8 +2012,28 @@ a:hover {
     width: 100%;
   }
 
+  .md\:w-2\/12 {
+    width: 16.666667%;
+  }
+
+  .md\:w-10\/12 {
+    width: 83.333333%;
+  }
+
+  .md\:w-1\/12 {
+    width: 8.333333%;
+  }
+
+  .md\:w-11\/12 {
+    width: 91.666667%;
+  }
+
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:border-r {
+    border-right-width: 1px;
   }
 }
 @media (min-width: 1024px) {
