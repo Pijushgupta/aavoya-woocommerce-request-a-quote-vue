@@ -28043,23 +28043,29 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 0; i < formMeta.value.length; i++) {
         if (inArray(formMeta.value[i].type, typeToAllow) !== -1) {
           if (formMeta.value[i].type == 'address' || formMeta.value[i].type == 'name') {
-            var uniqueName = formMeta.value[i].uniqueName;
-            var newArray = [];
-
             for (var j = 0; j < formMeta.value[i].data.Options.length; j++) {
               if (formMeta.value[i].data.Options[j].enabled == true) {
-                newArray.push(formMeta.value[i].data.Options[j]);
+                var uniqueName = formMeta.value[i].uniqueName;
+                var displayName = formMeta.value[i].data.Options[j].label != '' ? formMeta.value[i].data.Options[j].label.toLowerCase() : formMeta.value[i].data.Options[j].name.toLowerCase();
+                flatInput.value.push({
+                  'uniqueName': uniqueName + '_' + j,
+                  'displayName': displayName
+                });
               }
             }
-
-            for (var k = 0; k < newArray.length; k++) {
-              var displayName = newArray[k].label != '' ? newArray[k].label.toLowerCase() : newArray[k].name.toLowerCase();
-              flatInput.value.push({
-                'uniqueName': uniqueName + '_' + k,
-                'displayName': displayName
-              });
-            }
           }
+
+          if (formMeta.value[i].type == 'text' || formMeta.value[i].type == 'phone' || formMeta.value[i].type == 'textarea' || formMeta.value[i].type == 'email') {
+            var _uniqueName = formMeta.value[i].uniqueName;
+
+            var _displayName = formMeta.value[i].data.label != '' ? formMeta.value[i].data.label.toLowerCase() : formMeta.value[i].name.toLowerCase();
+
+            flatInput.value.push({
+              'uniqueName': _uniqueName,
+              'displayName': _displayName
+            });
+          } //TODO
+
         }
       }
 
@@ -28218,7 +28224,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     function formatEntryData() {
       var fields = props.row.entry[0];
-      console.log(fields);
 
       for (var key in fields) {
         if (fields.hasOwnProperty(key)) {
@@ -28226,7 +28231,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
           if (_typeof(fields[key]) == 'object') {
             numOfIndex = Object.keys(fields[key]).length;
-            console.log(numOfIndex);
           } else {
             numOfIndex = fields[key].length;
           }
@@ -28243,8 +28247,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               var count = 0;
 
               for (var j in fields[key]) {
-                //console.log(fields[key]);
-                //console.log(Object.keys(fields[key])[j]);
                 if (count === 0) {
                   fields[key][j]['css'] = 'w-full';
                 } else {

@@ -80,13 +80,13 @@ const isOpened = ref(props.row.is_opened);
  */
 function formatEntryData(){
 	let fields = props.row.entry[0]
-	console.log(fields);
+
 	for (let key in fields) {
 		if (fields.hasOwnProperty(key)) {
 			let numOfIndex = 0;
 			if (typeof fields[key] == 'object') {
 				numOfIndex = Object.keys(fields[key]).length
-				console.log(numOfIndex);
+				
 			} else {
 				numOfIndex = fields[key].length;
 			}
@@ -106,8 +106,7 @@ function formatEntryData(){
 					let count = 0;
 					for (let j in fields[key]) {
 
-						//console.log(fields[key]);
-						//console.log(Object.keys(fields[key])[j]);
+					
 						if (count === 0) {
 							fields[key][j]['css'] = 'w-full';
 						} else {

@@ -87,23 +87,26 @@ watch(formMeta, (newVal, oldVal) => {
  */
 function makeInputFlat() {
 	if (formMeta.value === false) return;
+
 	for (let i = 0; i < formMeta.value.length; i++){
 		if (inArray(formMeta.value[i].type, typeToAllow) !== -1) {
 
 			if (formMeta.value[i].type == 'address' || formMeta.value[i].type == 'name') {
-				let uniqueName = formMeta.value[i].uniqueName;
-				let newArray = [];
 				for (let j = 0; j < formMeta.value[i].data.Options.length; j++){
 					if (formMeta.value[i].data.Options[j].enabled == true) {
-						newArray.push(formMeta.value[i].data.Options[j]);
+						let uniqueName = formMeta.value[i].uniqueName;
+						let displayName = formMeta.value[i].data.Options[j].label != '' ? formMeta.value[i].data.Options[j].label.toLowerCase() : formMeta.value[i].data.Options[j].name.toLowerCase();
+						flatInput.value.push({'uniqueName': uniqueName + '_' + j, 'displayName': displayName })
 					}
 				}
-				for (let k = 0; k < newArray.length; k++){
-					let displayName = newArray[k].label != '' ? newArray[k].label.toLowerCase() : newArray[k].name.toLowerCase();
-					flatInput.value.push({ 'uniqueName': uniqueName + '_' + k, 'displayName': displayName });
-					
-				}
 			}
+			if (formMeta.value[i].type == 'text' || formMeta.value[i].type == 'phone' || formMeta.value[i].type == 'textarea' || formMeta.value[i].type == 'email') {
+				let uniqueName = formMeta.value[i].uniqueName;
+				let displayName = formMeta.value[i].data.label != '' ? formMeta.value[i].data.label.toLowerCase() : formMeta.value[i].name.toLowerCase();
+				flatInput.value.push({'uniqueName': uniqueName, 'displayName': displayName })
+			}
+
+			//TODO
 
 			
 
