@@ -13,6 +13,7 @@ class Forms {
 
 	public static function activate() {
 		add_action('wp_ajax_awraqGetForms', array(self::$globalScopeName, 'awraqGetForms'));
+		add_action('wp_ajax_awraqGetFormHavingMeta', array(self::$globalScopeName, 'awraqGetFormHavingMeta'));
 		add_action('wp_ajax_awraqCreateForms', array(self::$globalScopeName, 'awraqCreateForms'));
 		add_action('wp_ajax_awraqSaveFormData', array(self::$globalScopeName, 'awraqSaveFormData'));
 		add_action('wp_ajax_awraqGetFormMeta', array(self::$globalScopeName, 'awraqGetFormMeta'));
@@ -28,6 +29,22 @@ class Forms {
 		$forms = get_posts(array('post_type' => 'aavoya_wraq_form', 'post_status' => 'publish', 'posts_per_page' => -1));
 		empty($forms) ? $forms = null : '';
 
+		echo json_encode($forms);
+		wp_die();
+	}
+
+	public static function awraqGetFormHavingMeta() {
+		if (!Officer::check($_POST)) wp_die();
+		$forms = get_posts(array('post_type' => 'aavoya_wraq_form', 'post_status' => 'publish', 'posts_per_page' => -1));
+		if (empty($forms)) {
+			echo json_encode(null);
+			wp_die();
+		}
+		foreach ($forms as $key => $form) {
+			if (Meta::getForm($form->ID) == false) {
+				unset($forms[$key]);
+			}
+		}
 		echo json_encode($forms);
 		wp_die();
 	}

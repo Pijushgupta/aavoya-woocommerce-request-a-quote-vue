@@ -27881,7 +27881,7 @@ __webpack_require__.r(__webpack_exports__);
     var getForms = function () {
       var data = new FormData();
       data.append('awraq_nonce', awraq_nonce);
-      data.append('action', 'awraqGetForms');
+      data.append('action', 'awraqGetFormHavingMeta');
       fetch(awraq_ajax_path, {
         method: 'POST',
         credentials: 'same-origin',
@@ -27979,6 +27979,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     id: Number
@@ -27987,6 +27989,17 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
+    var formMeta = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    var flatInput = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    /**
+     * Add Non-readOnly/required types as Input types grows in future
+     */
+
+    var typeToAllow = ['content', 'name', 'text', 'email', 'address', 'phone', 'textarea', 'checkbox', 'radio'];
+    /**
+     * getting the form Meta AKA inputs 
+     * Calling it during setup automatically 
+     */
 
     var getFormMeta = function () {
       var data = new FormData();
@@ -28000,15 +28013,79 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        console.log(res);
+        if (res !== false) {
+          formMeta.value = res;
+          console.log(res);
+        }
       })["catch"](function (err) {
         return console.log(err);
       });
     }();
+    /**
+     * Watch to generate flat input if Form Meta fetched 
+     */
+
+
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(formMeta, function (newVal, oldVal) {
+      if (formMeta.value !== false) {
+        makeInputFlat();
+      }
+    }, {
+      deep: true
+    });
+    /**
+     * Creating flat input from from nested inputs(FormMeta)
+     */
+
+    function makeInputFlat() {
+      if (formMeta.value === false) return;
+
+      for (var i = 0; i < formMeta.value.length; i++) {
+        if (inArray(formMeta.value[i].type, typeToAllow) !== -1) {
+          if (formMeta.value[i].type == 'address' || formMeta.value[i].type == 'name') {
+            var uniqueName = formMeta.value[i].uniqueName;
+            var newArray = [];
+
+            for (var j = 0; j < formMeta.value[i].data.Options.length; j++) {
+              if (formMeta.value[i].data.Options[j].enabled == true) {
+                newArray.push(formMeta.value[i].data.Options[j]);
+              }
+            }
+
+            for (var k = 0; k < newArray.length; k++) {
+              var displayName = newArray[k].label != '' ? newArray[k].label.toLowerCase() : newArray[k].name.toLowerCase();
+              flatInput.value.push({
+                'uniqueName': uniqueName + '_' + k,
+                'displayName': displayName
+              });
+            }
+          }
+        }
+      }
+
+      console.log(flatInput.value);
+    }
+
+    function inArray(needle, haystack) {
+      for (var i = 0; i < haystack.length; i++) {
+        if (haystack[i] == needle) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
 
     var __returned__ = {
       props: props,
-      getFormMeta: getFormMeta
+      formMeta: formMeta,
+      flatInput: flatInput,
+      typeToAllow: typeToAllow,
+      getFormMeta: getFormMeta,
+      makeInputFlat: makeInputFlat,
+      inArray: inArray,
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
+      watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -28116,6 +28193,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -28139,23 +28218,40 @@ __webpack_require__.r(__webpack_exports__);
 
     function formatEntryData() {
       var fields = props.row.entry[0];
+      console.log(fields);
 
       for (var key in fields) {
         if (fields.hasOwnProperty(key)) {
-          if (Number(fields[key].length) === 1) {
+          var numOfIndex = 0;
+
+          if (_typeof(fields[key]) == 'object') {
+            numOfIndex = Object.keys(fields[key]).length;
+            console.log(numOfIndex);
+          } else {
+            numOfIndex = fields[key].length;
+          }
+
+          if (numOfIndex === 1) {
+            //TODO: it might not 0 all the time, run a loop with counter and replace the 0
             fields[key][0]['css'] = 'w-full';
           } else {
-            if (Number(fields[key].length % 2) === 0) {
+            if (numOfIndex % 2 === 0) {
               for (var k in fields[key]) {
                 fields[key][k]['css'] = 'w-1/2';
               }
             } else {
+              var count = 0;
+
               for (var j in fields[key]) {
-                if (Number(j) === 0) {
+                //console.log(fields[key]);
+                //console.log(Object.keys(fields[key])[j]);
+                if (count === 0) {
                   fields[key][j]['css'] = 'w-full';
                 } else {
                   fields[key][j]['css'] = 'w-1/2';
                 }
+
+                count++;
               }
             }
           }
@@ -31824,6 +31920,7 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 
 var _hoisted_6 = [_hoisted_5];
 var _hoisted_7 = {
+  key: 0,
   "class": "w-full border-b flex flex-row"
 };
 var _hoisted_8 = {
@@ -31840,7 +31937,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "rounded-full border cursor-pointer px-1 py-1",
     onClick: $setup.toggleDrawer
-  }, _hoisted_6)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  }, _hoisted_6)]), $setup.drawerStatus == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.toggleBody(1);
     }),
@@ -31862,9 +31959,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["id"])], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.bodyStatus == 2]])])], 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.drawerStatus == true]])]);
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.bodyStatus == 2]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -31882,12 +31977,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  "class": "relative"
+};
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"input-group\"><label>Sent to</label><input type=\"text\" class=\"w-full\" placeholder=\"default &lt;admin&gt;\"></div><div class=\"input-group\"><label>From name</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label>From email</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label>Reply to</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label>BCC</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label>Subject</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label>Message</label><textarea class=\"w-full\"> </textarea></div>", 7);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"input-group\"><label class=\"font-medium\">Sent to Email (Required)</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">From name</label><div class=\"flex flex-row\"><input type=\"text\" class=\"w-full\"><button class=\"border border-l-0 p-2\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z\" clip-rule=\"evenodd\"></path></svg></button></div></div><div class=\"input-group\"><label class=\"font-medium\">From email</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">Reply to</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">BCC</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">Subject</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">Message</label><textarea class=\"w-full\"> </textarea></div>", 7);
 
-var _hoisted_8 = [_hoisted_1];
+var _hoisted_9 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, _hoisted_8);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, _hoisted_9);
 }
 
 /***/ }),
@@ -32291,7 +32389,7 @@ var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 var _hoisted_26 = [_hoisted_24, _hoisted_25];
 var _hoisted_27 = ["id"];
 var _hoisted_28 = {
-  "class": "flex flex-row flex-wrap"
+  "class": "flex flex-row flex-wrap pb-2"
 };
 var _hoisted_29 = {
   "class": "flex flex-col"
@@ -32355,7 +32453,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(e, function (i, index) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
         key: index,
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([i.css, "py-1 px-4 first:pt-4 last:pb-4"])
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([i.css, "py-1 px-4"])
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(i.name), 1
       /* TEXT */
       ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(i.data), 1

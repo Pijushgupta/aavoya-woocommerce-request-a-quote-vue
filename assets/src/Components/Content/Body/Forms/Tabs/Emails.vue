@@ -27,7 +27,7 @@ const forms  = ref(false);
 const getForms = (function (){
   const data = new FormData();
   data.append('awraq_nonce',awraq_nonce);
-  data.append('action','awraqGetForms');
+  data.append('action','awraqGetFormHavingMeta');
   fetch(awraq_ajax_path,{
     method:'POST',
     credentials:'same-origin',
@@ -35,9 +35,12 @@ const getForms = (function (){
   })
       .then(res => res.json())
       .then(res=>{
-        forms.value = res;
+				forms.value = res;
+				
       })
       .catch(err => console.log(res));
 }());
+
+
 
 </script>

@@ -36,10 +36,10 @@
         <!-- Entry header area ends -->
         <!--  Entry Content area-->
         <div v-bind:id="'div' + props.row.id" >
-					<div class="flex flex-row flex-wrap">
+					<div class="flex flex-row flex-wrap pb-2">
           <template v-for="e in entry" v-bind:key="e"  >
             <template v-for="(i,index) in e" v-bind:key="index">
-              <div v-bind:class="i.css" class=" py-1 px-4 first:pt-4 last:pb-4 ">
+              <div v-bind:class="i.css" class=" py-1 px-4  ">
                 <div  class="flex flex-col">
                   <span class="my-1 capitalize font-semibold">{{i.name}}</span>
                   <span class="border rounded p-2 ">{{i.data}}</span>
@@ -80,23 +80,40 @@ const isOpened = ref(props.row.is_opened);
  */
 function formatEntryData(){
 	let fields = props.row.entry[0]
+	console.log(fields);
 	for (let key in fields) {
 		if (fields.hasOwnProperty(key)) {
-			if (Number(fields[key].length) === 1) {
-				fields[key][0]['css'] = 'w-full';
+			let numOfIndex = 0;
+			if (typeof fields[key] == 'object') {
+				numOfIndex = Object.keys(fields[key]).length
+				console.log(numOfIndex);
 			} else {
-				if (Number(fields[key].length % 2) === 0) {
+				numOfIndex = fields[key].length;
+			}
+
+			if (numOfIndex === 1) {
+				//TODO: it might not 0 all the time, run a loop with counter and replace the 0
+				
+				fields[key][0]['css'] = 'w-full';
+				
+			} else {
+				
+				if (numOfIndex % 2 === 0) {
 					for (let k in fields[key]) {
 						fields[key][k]['css'] = 'w-1/2';
 					}
 				} else {
+					let count = 0;
 					for (let j in fields[key]) {
-						if (Number(j) === 0) {
+
+						//console.log(fields[key]);
+						//console.log(Object.keys(fields[key])[j]);
+						if (count === 0) {
 							fields[key][j]['css'] = 'w-full';
 						} else {
 							fields[key][j]['css'] = 'w-1/2';
 						}
-						
+						count++
 					}
 				}
 			}

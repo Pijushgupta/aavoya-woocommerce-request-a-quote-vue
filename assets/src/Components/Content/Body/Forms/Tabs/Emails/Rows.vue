@@ -10,7 +10,7 @@
       </div>
 
     </div>
-    <div class="w-full border-b  flex flex-row " v-show="drawerStatus == true">
+    <div class="w-full border-b  flex flex-row " v-if="drawerStatus == true">
       <ul class="w-2/12 md:border-r">
 				<li @click="toggleBody(1)" :class="bodyStatus == 1 ? 'text-blue-500 ':''" class="font-medium px-4 py-2 mb-0 first:pt-4 last:pb-4 cursor-pointer">user notification</li>
 				<li @click="toggleBody(2)" :class="bodyStatus == 2 ? 'text-blue-500 ':''" class="font-medium px-4 py-2 mb-0 first:pt-4 last:pb-4 cursor-pointer">admin notification</li>
@@ -21,9 +21,6 @@
 			</ul>
     </div>
   </li>
-
-
-
 </template>
 
 <script setup>
