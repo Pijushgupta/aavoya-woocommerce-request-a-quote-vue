@@ -952,11 +952,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-96 {
   height: 24rem;
 }
-.h-52 {
-  height: 13rem;
-}
 .h-10 {
   height: 2.5rem;
+}
+.h-52 {
+  height: 13rem;
 }
 .min-h-full {
   min-height: 100%;
@@ -1071,12 +1071,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .justify-around {
   justify-content: space-around;
-}
-.overflow-hidden {
-  overflow: hidden;
-}
-.overflow-scroll {
-  overflow: scroll;
 }
 .overflow-y-scroll {
   overflow-y: scroll;

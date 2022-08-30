@@ -27999,46 +27999,26 @@ __webpack_require__.r(__webpack_exports__);
      */
 
     var typeToAllow = ['name', 'text', 'email', 'address', 'phone', 'textarea', 'checkbox', 'radio', 'date'];
-    /**
-     * getting the form Meta AKA inputs 
-     * Calling it during setup automatically 
-     */
-
-    var getFormMeta = function () {
-      var data = new FormData();
-      data.append('awraq_nonce', awraq_nonce);
-      data.append('action', 'awraqGetFormMeta');
-      data.append('id', props.id);
-      fetch(awraq_ajax_path, {
-        method: 'POST',
-        credentials: 'same-origin',
-        body: data
-      }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        if (res !== false) {
-          formMeta.value = res;
-        }
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-    }();
-    /**
-     * Watch to generate flat input if Form Meta fetched 
-     */
-
-
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(formMeta, function (newVal, oldVal) {
-      if (formMeta.value !== false) {
-        makeInputFlat();
-      }
-    }, {
-      deep: true
-    });
 
     function selected(fieldName, name) {
       console.log(fieldName);
       console.log(name);
+    }
+    /**
+     * To find element in an array
+     * @param {any} needle 
+     * @param {array} haystack 
+     */
+
+
+    function inArray(needle, haystack) {
+      for (var i = 0; i < haystack.length; i++) {
+        if (haystack[i] == needle) {
+          return i;
+        }
+      }
+
+      return -1;
     }
     /**
      * Creating flat input from from nested inputs(FormMeta)
@@ -28077,21 +28057,59 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
     /**
-     * To find element in an array
-     * @param {any} needle 
-     * @param {array} haystack 
+     * Watch to generate flat input if Form Meta fetched 
      */
 
 
-    function inArray(needle, haystack) {
-      for (var i = 0; i < haystack.length; i++) {
-        if (haystack[i] == needle) {
-          return i;
-        }
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(formMeta, function (newVal, oldVal) {
+      if (formMeta.value !== false) {
+        makeInputFlat();
       }
+    }, {
+      deep: true
+    });
+    /**
+     * getting the form Meta AKA inputs 
+     * Calling it during setup automatically 
+     */
 
-      return -1;
-    }
+    var getFormMeta = function () {
+      var data = new FormData();
+      data.append('awraq_nonce', awraq_nonce);
+      data.append('action', 'awraqGetFormMeta');
+      data.append('id', props.id);
+      fetch(awraq_ajax_path, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: data
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        if (res !== false) {
+          formMeta.value = res;
+        }
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }();
+
+    var getAdminMeta = function () {
+      var data = new FormData();
+      data.append('awraq_nonce', awraq_nonce);
+      data.append('action', 'awraqGetFormAdminNotification');
+      data.append('id', props.id);
+      fetch(awraq_ajax_path, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: data
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        return console.log(res);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }();
 
     var __returned__ = {
       props: props,
@@ -28099,10 +28117,11 @@ __webpack_require__.r(__webpack_exports__);
       flatInput: flatInput,
       menuLock: menuLock,
       typeToAllow: typeToAllow,
-      getFormMeta: getFormMeta,
       selected: selected,
-      makeInputFlat: makeInputFlat,
       inArray: inArray,
+      makeInputFlat: makeInputFlat,
+      getFormMeta: getFormMeta,
+      getAdminMeta: getAdminMeta,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
       FieldSelector: _components_FieldSelector__WEBPACK_IMPORTED_MODULE_1__["default"]
