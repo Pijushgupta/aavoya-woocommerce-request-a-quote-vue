@@ -3,7 +3,7 @@
 		<!-- Sent to Email -->
 		<div class="input-group">
 			<label class="font-medium">Sent to Email (Required)</label>
-			<input type="text" class="w-full" >
+			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.sent_to_email">
 		</div>
 		<!-- ends -->
 
@@ -19,7 +19,7 @@
 			</div>
 			</div>
 			
-			<input type="text" class="w-full">
+			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.from_name" >
 		</div>
 		<div class="input-group">
 			
@@ -28,7 +28,7 @@
 			
 			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 		</div>
-		<input type="text" class="w-full">
+		<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.from_email">
 		</div>
 		<div class="input-group">
 			
@@ -36,7 +36,7 @@
 				<label class="font-medium">Reply to</label>
 			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 			</div>
-			<input type="text" class="w-full">
+			<input  v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.replay_To">
 		</div>
 		<div class="input-group">
 			
@@ -44,7 +44,7 @@
 			<label class="font-medium">BCC</label>
 			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 			</div>
-			<input type="text" class="w-full">
+			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.bcc">
 		</div>
 		<div class="input-group">
 			
@@ -52,7 +52,7 @@
 				<label class="font-medium">Subject</label>
 			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 			</div>
-			<input type="text" class="w-full">
+			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.subject">
 		</div>
 		<div class="input-group">
 			
@@ -60,7 +60,7 @@
 				<label class="font-medium">Message</label>
 			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 			</div>
-			<textarea class="w-full"> </textarea>
+			<textarea v-if="adminNotificationSettingData != false" v-model="adminNotificationSettingData.message" class="w-full"> </textarea>
 		</div>
 	</div>
 </template>
@@ -73,6 +73,7 @@ const props = defineProps({
 
 const formMeta = ref(false);
 const flatInput = ref([]);
+const adminNotificationSettingData = ref(false);
 let menuLock = false;
 /**
  * Add Non-readOnly/required types as Input types grows in future
@@ -177,7 +178,10 @@ const getAdminMeta = (function () {
 		body: data
 	})
 		.then(res => res.json())
-		.then(res => console.log(res))
+		.then(res => {
+			
+			adminNotificationSettingData.value = res; 
+		})
 		.catch (err => console.log(err));
 }());
 
