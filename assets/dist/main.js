@@ -27980,6 +27980,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _components_FieldSelector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/FieldSelector */ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -27991,11 +27993,12 @@ __webpack_require__.r(__webpack_exports__);
     var props = __props;
     var formMeta = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var flatInput = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var menuLock = false;
     /**
      * Add Non-readOnly/required types as Input types grows in future
      */
 
-    var typeToAllow = ['content', 'name', 'text', 'email', 'address', 'phone', 'textarea', 'checkbox', 'radio'];
+    var typeToAllow = ['name', 'text', 'email', 'address', 'phone', 'textarea', 'checkbox', 'radio', 'date'];
     /**
      * getting the form Meta AKA inputs 
      * Calling it during setup automatically 
@@ -28015,7 +28018,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res !== false) {
           formMeta.value = res;
-          console.log(res);
         }
       })["catch"](function (err) {
         return console.log(err);
@@ -28033,9 +28035,15 @@ __webpack_require__.r(__webpack_exports__);
     }, {
       deep: true
     });
+
+    function selected(fieldName, name) {
+      console.log(fieldName);
+      console.log(name);
+    }
     /**
      * Creating flat input from from nested inputs(FormMeta)
      */
+
 
     function makeInputFlat() {
       if (formMeta.value === false) return;
@@ -28055,7 +28063,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
 
-          if (formMeta.value[i].type == 'text' || formMeta.value[i].type == 'phone' || formMeta.value[i].type == 'textarea' || formMeta.value[i].type == 'email') {
+          if (formMeta.value[i].type == 'text' || formMeta.value[i].type == 'phone' || formMeta.value[i].type == 'textarea' || formMeta.value[i].type == 'email' || formMeta.value[i].type == 'date' || formMeta.value[i].type == 'radio' || formMeta.value[i].type == 'checkbox') {
             var _uniqueName = formMeta.value[i].uniqueName;
 
             var _displayName = formMeta.value[i].data.label != '' ? formMeta.value[i].data.label.toLowerCase() : formMeta.value[i].name.toLowerCase();
@@ -28064,13 +28072,16 @@ __webpack_require__.r(__webpack_exports__);
               'uniqueName': _uniqueName,
               'displayName': _displayName
             });
-          } //TODO
-
+          }
         }
       }
-
-      console.log(flatInput.value);
     }
+    /**
+     * To find element in an array
+     * @param {any} needle 
+     * @param {array} haystack 
+     */
+
 
     function inArray(needle, haystack) {
       for (var i = 0; i < haystack.length; i++) {
@@ -28086,12 +28097,54 @@ __webpack_require__.r(__webpack_exports__);
       props: props,
       formMeta: formMeta,
       flatInput: flatInput,
+      menuLock: menuLock,
       typeToAllow: typeToAllow,
       getFormMeta: getFormMeta,
+      selected: selected,
       makeInputFlat: makeInputFlat,
       inArray: inArray,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
-      watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch
+      watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
+      FieldSelector: _components_FieldSelector__WEBPACK_IMPORTED_MODULE_1__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=script&setup=true&lang=js":
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=script&setup=true&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    fields: [Array, Object],
+    name: String
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var props = __props; // const emit = defineEmits([
+    // 	'selected'
+    // ]);
+
+    var __returned__ = {
+      props: props,
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -31983,11 +32036,64 @@ var _hoisted_1 = {
   "class": "relative"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"input-group\"><label class=\"font-medium\">Sent to Email (Required)</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">From name</label><div class=\"flex flex-row\"><input type=\"text\" class=\"w-full\"><button class=\"border border-l-0 p-2\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z\" clip-rule=\"evenodd\"></path></svg></button></div></div><div class=\"input-group\"><label class=\"font-medium\">From email</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">Reply to</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">BCC</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">Subject</label><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><label class=\"font-medium\">Message</label><textarea class=\"w-full\"> </textarea></div>", 7);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "input-group"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-medium"
+}, "Sent to Email (Required)"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  type: "text",
+  "class": "w-full"
+})], -1
+/* HOISTED */
+);
 
-var _hoisted_9 = [_hoisted_2];
+var _hoisted_3 = {
+  "class": "input-group"
+};
+var _hoisted_4 = {
+  "class": "flex flex-row justify-between items-center relative"
+};
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-medium"
+}, "From name", -1
+/* HOISTED */
+);
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": ""
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "h-5 w-5",
+  viewBox: "0 0 20 20",
+  fill: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+})])], -1
+/* HOISTED */
+);
+
+var _hoisted_7 = {
+  "class": "p-2 absolute right-0 top-4 bg-white rounded-lg border min-w-fit shadow"
+};
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  type: "text",
+  "class": "w-full"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"input-group\"><div class=\"flex flex-row justify-between items-center\"><label class=\"font-medium\">From email</label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center\"><label class=\"font-medium\">Reply to</label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center\"><label class=\"font-medium\">BCC</label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center\"><label class=\"font-medium\">Subject</label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center\"><label class=\"font-medium\">Message</label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><textarea class=\"w-full\"> </textarea></div>", 5);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, _hoisted_9);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sent to Email "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ends "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FieldSelector"], {
+    name: 'fromname',
+    fields: $setup.flatInput,
+    onSelected: $setup.selected
+  }, null, 8
+  /* PROPS */
+  , ["fields"])])]), _hoisted_8]), _hoisted_9]);
 }
 
 /***/ }),
@@ -32005,6 +32111,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function render(_ctx, _cache) {
   return " User ";
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=template&id=3d165b30":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=template&id=3d165b30 ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "h-52 overflow-y-scroll tw-scroll-bar"
+};
+var _hoisted_2 = ["onClick"];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.props.fields, function (item) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
+      key: item,
+      "class": "font-medium cursor-pointer border-l-2 border-transparent py-2 pl-6 pr-8 first:mt-1 last:mb-1 hover:bg-gray-50 hover:border-blue-500",
+      onClick: function onClick($event) {
+        return _ctx.$emit('selected', item.uniqueName, $props.name);
+      }
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.displayName) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.uniqueName) + ")", 9
+    /* TEXT, PROPS */
+    , _hoisted_2);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))]);
 }
 
 /***/ }),
@@ -86458,6 +86599,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue":
+/*!************************************************************************************************!*\
+  !*** ./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FieldSelector_vue_vue_type_template_id_3d165b30__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FieldSelector.vue?vue&type=template&id=3d165b30 */ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=template&id=3d165b30");
+/* harmony import */ var _FieldSelector_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldSelector.vue?vue&type=script&setup=true&lang=js */ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var C_Users_Pijush_Gupta_Local_Sites_raqpro_app_public_wp_content_plugins_aavoya_woocommerce_request_a_quote_vue_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,C_Users_Pijush_Gupta_Local_Sites_raqpro_app_public_wp_content_plugins_aavoya_woocommerce_request_a_quote_vue_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_FieldSelector_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FieldSelector_vue_vue_type_template_id_3d165b30__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./assets/src/Components/Content/Body/Forms/Tabs/Entries.vue":
 /*!*******************************************************************!*\
   !*** ./assets/src/Components/Content/Body/Forms/Tabs/Entries.vue ***!
@@ -87369,6 +87538,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=script&setup=true&lang=js":
+/*!***********************************************************************************************************************************!*\
+  !*** ./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=script&setup=true&lang=js ***!
+  \***********************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FieldSelector_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FieldSelector_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./FieldSelector.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./assets/src/Components/Content/Body/Forms/Tabs/Entries.vue?vue&type=script&setup=true&lang=js":
 /*!******************************************************************************************************!*\
   !*** ./assets/src/Components/Content/Body/Forms/Tabs/Entries.vue?vue&type=script&setup=true&lang=js ***!
@@ -87941,6 +88126,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_User_vue_vue_type_template_id_90a9d59a__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_User_vue_vue_type_template_id_90a9d59a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./User.vue?vue&type=template&id=90a9d59a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/User.vue?vue&type=template&id=90a9d59a");
+
+
+/***/ }),
+
+/***/ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=template&id=3d165b30":
+/*!******************************************************************************************************************************!*\
+  !*** ./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=template&id=3d165b30 ***!
+  \******************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FieldSelector_vue_vue_type_template_id_3d165b30__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FieldSelector_vue_vue_type_template_id_3d165b30__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./FieldSelector.vue?vue&type=template&id=3d165b30 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue?vue&type=template&id=3d165b30");
 
 
 /***/ }),

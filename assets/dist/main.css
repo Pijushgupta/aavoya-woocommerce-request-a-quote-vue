@@ -834,6 +834,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .top-12 {
   top: 3rem;
 }
+.right-0 {
+  right: 0px;
+}
+.top-4 {
+  top: 1rem;
+}
 .z-10 {
   z-index: 10;
 }
@@ -946,6 +952,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-96 {
   height: 24rem;
 }
+.h-52 {
+  height: 13rem;
+}
 .h-10 {
   height: 2.5rem;
 }
@@ -1015,6 +1024,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-1\/3 {
   width: 33.333333%;
 }
+.min-w-fit {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
 .rotate-90 {
   --tw-rotate: 90deg;
   transform: var(--tw-transform);
@@ -1058,6 +1072,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .justify-around {
   justify-content: space-around;
 }
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-scroll {
+  overflow: scroll;
+}
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1096,11 +1119,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-r {
   border-right-width: 1px;
 }
-.border-l-0 {
-  border-left-width: 0px;
+.border-l-2 {
+  border-left-width: 2px;
 }
 .border-dashed {
   border-style: dashed;
+}
+.border-transparent {
+  border-color: transparent;
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -1217,6 +1243,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pr-2 {
   padding-right: 0.5rem;
+}
+.pl-6 {
+  padding-left: 1.5rem;
+}
+.pr-8 {
+  padding-right: 2rem;
 }
 .text-center {
   text-align: center;
@@ -1735,6 +1767,34 @@ a:hover {
 .input-group label {
   margin-bottom: 0.25rem;
 }
+.tw-scroll-bar::-webkit-scrollbar{
+	width: 5px;
+	height: 5px;
+}
+
+
+.tw-scroll-bar::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+.tw-scroll-bar::-moz-scrollbar-track {
+  background: #ffffff;
+}
+
+/* Handle */
+.tw-scroll-bar::-webkit-scrollbar-thumb {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+.tw-scroll-bar::-webkit-scrollbar-thumb:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+.first\:mt-1:first-child {
+  margin-top: 0.25rem;
+}
 .first\:rounded-l:first-child {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
@@ -1747,6 +1807,9 @@ a:hover {
 }
 .last\:mb-0:last-child {
   margin-bottom: 0px;
+}
+.last\:mb-1:last-child {
+  margin-bottom: 0.25rem;
 }
 .last\:rounded-r:last-child {
   border-top-right-radius: 0.25rem;
@@ -1763,6 +1826,14 @@ a:hover {
 }
 .hover\:cursor-pointer:hover {
   cursor: pointer;
+}
+.hover\:border-blue-500:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity));
+}
+.hover\:bg-gray-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 .hover\:text-blue-500:hover {
   --tw-text-opacity: 1;

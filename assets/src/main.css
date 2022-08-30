@@ -207,3 +207,26 @@ a:hover{
 .input-group label{
 	@apply mb-1;
 }
+.tw-scroll-bar::-webkit-scrollbar{
+	width: 5px;
+	height: 5px;
+}
+
+
+.tw-scroll-bar::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+.tw-scroll-bar::-moz-scrollbar-track {
+  background: #ffffff;
+}
+
+/* Handle */
+.tw-scroll-bar::-webkit-scrollbar-thumb {
+  @apply bg-gray-300;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+.tw-scroll-bar::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-300;
+}
