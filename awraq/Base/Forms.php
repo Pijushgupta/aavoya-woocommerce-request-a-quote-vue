@@ -21,6 +21,7 @@ class Forms {
 		add_action('wp_ajax_awraqGetCaptchMeta', array(self::$globalScopeName, 'awraqGetCaptchMeta'));
 		add_action('wp_ajax_awraqGetCaptchaMeta', array(self::$globalScopeName, 'awraqGetCaptchaMeta'));
 		add_action('wp_ajax_awraqUpdateCaptchaMeta', array(self::$globalScopeName, 'awraqUpdateCaptchaMeta'));
+		add_action('wp_ajax_awraqGetAdminFormMeta', array(self::$globalScopeName, 'awraqGetAdminFormMeta'));
 	}
 
 	public static function awraqGetForms() {
@@ -127,6 +128,18 @@ class Forms {
 		$isCaptch = get_post_meta($postId, 'googleCaptchaMeta', true);
 
 		echo json_encode(update_post_meta($postId, 'googleCaptchaMeta', !$isCaptch));
+		wp_die();
+	}
+	public static function awraqGetAdminFormMeta() {
+		if (!Officer::check($_POST)) wp_die();
+		$postId = $_POST['id'];
+		if (!$postId) wp_die();
+		$postId = (int)Officer::sanitize($postId, 'int');
+
+		$meta = get_post_meta($postId, 'awraqFormAdminNotification', true);
+
+		echo json_encode(unserialize($meta));
+
 		wp_die();
 	}
 }

@@ -169,7 +169,7 @@ function inArray(needle,haystack) {
 const getAdminMeta = (function () {
 	const data = new FormData();
 	data.append('awraq_nonce', awraq_nonce);
-	data.append('action', 'awraqGetFormAdminNotification');
+	data.append('action', 'awraqGetAdminFormMeta');
 	data.append('id', props.id);
 	fetch(awraq_ajax_path, {
 		method: 'POST',
