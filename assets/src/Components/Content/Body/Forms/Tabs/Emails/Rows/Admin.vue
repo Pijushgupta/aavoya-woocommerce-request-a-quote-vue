@@ -62,13 +62,16 @@
 			<button @click="fieldSeclectorMenuToOpen == 'message' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'message'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 			<FieldSelector v-if="fieldSeclectorMenuToOpen == 'message'" v-bind:name="'message'" v-bind:fields="flatInput" @selected='selected'/>
 			</div>
-			<textarea v-if="adminNotificationSettingData != false" v-model="adminNotificationSettingData.message" class="w-full"> </textarea>
+			<Editor v-if="adminNotificationSettingData != false" v-model="adminNotificationSettingData.message" class="w-full" />
 		</div>
 	</div>
 </template>
 <script setup>
 import { ref, watch } from 'vue';
 import FieldSelector from './components/FieldSelector';
+import Editor from './components/Editor.vue';
+
+
 const props = defineProps({
 	id: Number
 });
@@ -85,7 +88,11 @@ let typeToAllow = ['name','text','email','address','phone','textarea','checkbox'
 
 
 
-
+/**
+ * Update the local variable related to inputs  
+ * @param {string} fieldName 
+ * @param {string} name 
+ */
 function selected(fieldName, name) {
 	if (name === 'message') {
 		adminNotificationSettingData.value.message = adminNotificationSettingData.value.message + ' {'+fieldName+'} ';
@@ -103,8 +110,12 @@ function selected(fieldName, name) {
 		adminNotificationSettingData.value.from_email = '{'+fieldName+'}';
 	}
 	if (name === 'fromname') {
-		adminNotificationSettingData.value.from_name = adminNotificationSettingData.value.from_name + ' {'+fieldName+'} ';
+		adminNotificationSettingData.value.from_name = '{'+fieldName+'}';
 	}
+}
+
+function updateAdminNotificationInputs() {
+	
 }
 
 /**
