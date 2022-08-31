@@ -10,55 +10,57 @@
 		<div class="input-group">
 			
 			<div class="flex flex-row justify-between items-center relative">
-			<label class="font-medium">From name</label>
-			<button class=" ">
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg>
-			</button>
-			<div  class="p-2 absolute right-0 top-4 bg-white rounded-lg border min-w-fit shadow">
-				<FieldSelector v-bind:name="'fromname'" v-bind:fields="flatInput" @selected='selected'/>
-			</div>
+				<label class="font-medium">From name</label>
+				<button @click="fieldSeclectorMenuToOpen == 'fromname' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'fromname'" class=" ">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg>
+				</button>
+				<FieldSelector v-if="fieldSeclectorMenuToOpen == 'fromname'" v-bind:name="'fromname'" v-bind:fields="flatInput" @selected='selected'/>
 			</div>
 			
 			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.from_name" >
 		</div>
 		<div class="input-group">
-			
-			<div class="flex flex-row justify-between items-center">
+			<div class="flex flex-row justify-between items-center relative">
 				<label class="font-medium">From email</label>
-			
-			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+				<button @click="fieldSeclectorMenuToOpen == 'fromemail' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'fromemail'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+				<FieldSelector v-if="fieldSeclectorMenuToOpen == 'fromemail'" v-bind:name="'fromemail'" v-bind:fields="flatInput" @selected='selected'/>
+			</div>
+			<input  type="text" class="w-full" v-model="adminNotificationSettingData.from_email">
 		</div>
-		<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.from_email">
-		</div>
+
 		<div class="input-group">
 			
-			<div class="flex flex-row justify-between items-center">
+			<div class="flex flex-row justify-between items-center relative">
 				<label class="font-medium">Reply to</label>
-			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<button @click="fieldSeclectorMenuToOpen == 'replyto' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'replyto'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<FieldSelector v-if="fieldSeclectorMenuToOpen == 'replyto'" v-bind:name="'replyto'" v-bind:fields="flatInput" @selected='selected'/>
 			</div>
 			<input  v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.replay_To">
 		</div>
 		<div class="input-group">
 			
-			<div class="flex flex-row justify-between items-center">
+			<div class="flex flex-row justify-between items-center relative">
 			<label class="font-medium">BCC</label>
-			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<button @click="fieldSeclectorMenuToOpen == 'bcc' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'bcc'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<FieldSelector v-if="fieldSeclectorMenuToOpen == 'bcc'" v-bind:name="'bcc'" v-bind:fields="flatInput" @selected='selected'/>
 			</div>
 			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.bcc">
 		</div>
 		<div class="input-group">
 			
-			<div class="flex flex-row justify-between items-center">
+			<div class="flex flex-row justify-between items-center relative">
 				<label class="font-medium">Subject</label>
-			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<button @click="fieldSeclectorMenuToOpen == 'subject' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'subject'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<FieldSelector v-if="fieldSeclectorMenuToOpen == 'subject'" v-bind:name="'subject'" v-bind:fields="flatInput" @selected='selected'/>
 			</div>
 			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.subject">
 		</div>
 		<div class="input-group">
 			
-			<div class="flex flex-row justify-between items-center">
+			<div class="flex flex-row justify-between items-center relative">
 				<label class="font-medium">Message</label>
-			<button class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<button @click="fieldSeclectorMenuToOpen == 'message' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'message'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+			<FieldSelector v-if="fieldSeclectorMenuToOpen == 'message'" v-bind:name="'message'" v-bind:fields="flatInput" @selected='selected'/>
 			</div>
 			<textarea v-if="adminNotificationSettingData != false" v-model="adminNotificationSettingData.message" class="w-full"> </textarea>
 		</div>
@@ -74,7 +76,7 @@ const props = defineProps({
 const formMeta = ref(false);
 const flatInput = ref([]);
 const adminNotificationSettingData = ref(false);
-let menuLock = false;
+const fieldSeclectorMenuToOpen = ref('none');
 /**
  * Add Non-readOnly/required types as Input types grows in future
  */
@@ -84,9 +86,25 @@ let typeToAllow = ['name','text','email','address','phone','textarea','checkbox'
 
 
 
-function selected(fieldName,name) {
-	console.log(fieldName);
-	console.log(name);
+function selected(fieldName, name) {
+	if (name === 'message') {
+		adminNotificationSettingData.value.message = adminNotificationSettingData.value.message + ' {'+fieldName+'} ';
+	}
+	if (name === 'subject') {
+		adminNotificationSettingData.value.subject = '{'+fieldName+'}';
+	}
+	if (name === 'bcc') {
+		adminNotificationSettingData.value.bcc = '{'+fieldName+'}';
+	}
+	if (name === 'replyto') {
+		adminNotificationSettingData.value.replay_To = '{'+fieldName+'}';
+	}
+	if (name === 'fromemail') {
+		adminNotificationSettingData.value.from_email = '{'+fieldName+'}';
+	}
+	if (name === 'fromname') {
+		adminNotificationSettingData.value.from_name = adminNotificationSettingData.value.from_name + ' {'+fieldName+'} ';
+	}
 }
 
 /**
