@@ -70,7 +70,22 @@ class Forms {
 		if (!Officer::check($_POST)) wp_die();
 		//TODO: User notification meta
 		$postId = wp_insert_post(array('ID' => '', 'post_type' => 'aavoya_wraq_form', 'post_status' => 'publish'));
-		add_post_meta($postId, 'awraqFormAdminNotification', serialize(array('sent_to_email' => '{wordpress_admin}', 'from_name' => '{wordpress_admin_name}', 'from_email' => 'noreplay@domain.com', 'replay_To' => '', 'bcc' => '', 'subject' => '', 'message' => '{all}')));
+		add_post_meta(
+			$postId,
+			'awraqFormAdminNotification',
+			serialize(
+				array(
+					'en' => 'false',
+					'sent_to_email' => '{wordpress_admin}',
+					'from_name' => '{wordpress_admin_name}',
+					'from_email' => 'noreplay@domain.com',
+					'replay_To' => '',
+					'bcc' => '',
+					'subject' => '',
+					'message' => '{all}'
+				)
+			)
+		);
 		echo json_encode(get_post($postId));
 		wp_die();
 	}

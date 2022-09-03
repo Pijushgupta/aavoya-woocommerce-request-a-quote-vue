@@ -74,7 +74,7 @@
   </div>
   <editor-content 
 	:editor="editor" 
-	class="border p-4 rounded-b-lg  w-full"
+	class="border p-4 rounded-b-lg prose xs:prose-xs sm:prose-sm lg:prose-lg w-full"
 	/>
 	</div>
 </template>

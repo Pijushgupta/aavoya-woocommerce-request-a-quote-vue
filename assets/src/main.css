@@ -230,3 +230,10 @@ a:hover{
 .tw-scroll-bar::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-300;
 }
+
+.tool-tip{
+	@apply hidden ;
+}
+.tool-tip:hover{
+	@apply inline absolute;
+}

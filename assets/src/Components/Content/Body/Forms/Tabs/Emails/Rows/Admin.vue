@@ -1,8 +1,12 @@
 <template>
 	<div  class="mx-auto md:w-7/12 px-4 py-4">
-		<!-- Sent to Email -->
+		<div class="flex flex-row justify-between items-center py-6">
+      <label class="font-medium" :for="'ed'+props.id">Enable/Disable</label>
+      <input :id="'ed'+props.id" type="checkbox" />
+    </div>
+    <!-- Sent to Email -->
 		<div class="input-group">
-			<label class="font-medium">Sent to Email (Required)</label>
+			<label class="font-medium">Sent to Email. <div class="tool-tip">Hello</div>  (Required)</label>
 			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.sent_to_email">
 		</div>
 		<!-- ends -->
@@ -75,6 +79,7 @@
 import { ref, watch } from 'vue';
 import FieldSelector from './components/FieldSelector';
 import Editor from './components/Editor.vue';
+import {useToast} from "vue-toastification";
 
 
 const props = defineProps({
@@ -115,10 +120,18 @@ function selected(fieldName, name) {
 		adminNotificationSettingData.value.from_email = '{'+fieldName+'}';
 	}
 	if (name === 'fromname') {
-		adminNotificationSettingData.value.from_name = '{'+fieldName+'}';
+    if(adminNotificationSettingData.value.from_name == ''){
+      adminNotificationSettingData.value.from_name = '{'+fieldName+'}';
+    }else{
+      adminNotificationSettingData.value.from_name = adminNotificationSettingData.value.from_name +', {'+fieldName+'}';
+    }
+
 	}
 }
 
+/**
+ * updating
+ */
 function updateAdminNotificationInputs() {
   if(adminNotificationSettingData.value === false) return;
   const data = new FormData();
@@ -132,8 +145,13 @@ function updateAdminNotificationInputs() {
     body:data
   })
       .then(res => res.json())
-      .then(res => console.log(res))
-      .catch(err => console.log(res));
+      .then(res => {
+        if(res === true){
+          const notification =  useToast();
+          notification('Setting Updated');
+        }
+      })
+      .catch(err => console.log(err));
 }
 
 /**
@@ -214,7 +232,7 @@ function inArray(needle,haystack) {
 
 }());
 
-const getAdminMeta = (function () {
+ const getAdminMeta = (function () {
 	const data = new FormData();
 	data.append('awraq_nonce', awraq_nonce);
 	data.append('action', 'awraqGetAdminFormMeta');

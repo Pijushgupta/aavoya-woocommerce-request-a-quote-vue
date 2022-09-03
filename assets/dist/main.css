@@ -1226,6 +1226,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
 .pb-8 {
   padding-bottom: 2rem;
 }
@@ -1785,6 +1789,14 @@ a:hover {
 .tw-scroll-bar::-webkit-scrollbar-thumb:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+
+.tool-tip {
+  display: none;
+}
+.tool-tip:hover {
+  position: absolute;
+  display: inline;
 }
 .first\:mt-1:first-child {
   margin-top: 0.25rem;
