@@ -25,6 +25,11 @@ class Forms {
 		add_action('wp_ajax_awraqUpdateAdminFormMeta', array(self::$globalScopeName, 'awraqUpdateAdminFormMeta'));
 	}
 
+	/**
+	 * Getting forms
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqGetForms() {
 		if (!Officer::check($_POST)) wp_die();
 
@@ -35,6 +40,11 @@ class Forms {
 		wp_die();
 	}
 
+	/**
+	 * Getting form that having Valid inputs(meta)
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqGetFormHavingMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$forms = get_posts(array('post_type' => 'aavoya_wraq_form', 'post_status' => 'publish', 'posts_per_page' => -1));
@@ -51,15 +61,25 @@ class Forms {
 		wp_die();
 	}
 
+	/**
+	 * Creating form and form meta for form inputs and notifications(admin and user)
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqCreateForms() {
 		if (!Officer::check($_POST)) wp_die();
-		//TODO: Admin notification meta
+		//TODO: User notification meta
 		$postId = wp_insert_post(array('ID' => '', 'post_type' => 'aavoya_wraq_form', 'post_status' => 'publish'));
 		add_post_meta($postId, 'awraqFormAdminNotification', serialize(array('sent_to_email' => '{wordpress_admin}', 'from_name' => '{wordpress_admin_name}', 'from_email' => 'noreplay@domain.com', 'replay_To' => '', 'bcc' => '', 'subject' => '', 'message' => '{all}')));
 		echo json_encode(get_post($postId));
 		wp_die();
 	}
 
+	/**
+	 * Saving Form Meta(all from design and input related data stored as meta)
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqSaveFormData() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['id'], 'int');
@@ -84,6 +104,11 @@ class Forms {
 		wp_die();
 	}
 
+	/**
+	 * Getting form Meta(all from design and input related data stored as meta)
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqGetFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['id'], 'int');
@@ -93,6 +118,11 @@ class Forms {
 		wp_die();
 	}
 
+	/**
+	 * Deleting form
+	 * @return void
+	 * TODO: deletes everything related form
+	 */
 	public static function awraqDeleteForm() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['id'], 'int');
@@ -105,6 +135,11 @@ class Forms {
 		wp_die();
 	}
 
+	/**
+	 * Getting form captcha Meta(google captcha - boolean data)
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqGetCaptchaMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['formId'];
@@ -120,31 +155,41 @@ class Forms {
 		wp_die();
 	}
 
+	/**
+	 * Saving form captcha Meta(google captcha - boolean data)
+	 * @return void
+	 * @return void
+	 */
 	public static function awraqUpdateCaptchaMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['formId'];
 		if (!$postId) wp_die();
-
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$isCaptch = get_post_meta($postId, 'googleCaptchaMeta', true);
-
 		echo json_encode(update_post_meta($postId, 'googleCaptchaMeta', !$isCaptch));
 		wp_die();
 	}
 
+	/**
+	 * Getting form admin Meta(notification setting)
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqGetAdminFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['id'];
 		if (!$postId) wp_die();
 		$postId = (int)Officer::sanitize($postId, 'int');
-
 		$meta = get_post_meta($postId, 'awraqFormAdminNotification', true);
-
 		echo json_encode(unserialize($meta));
-
 		wp_die();
 	}
 
+	/**
+	 * Saving form admin Meta(notification setting)
+	 * @param void
+	 * @return void
+	 */
 	public static function awraqUpdateAdminFormMeta(){
 		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['id'];
