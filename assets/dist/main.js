@@ -28034,7 +28034,25 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
 
-    function updateAdminNotificationInputs() {}
+    function updateAdminNotificationInputs() {
+      if (adminNotificationSettingData.value === false) return;
+      var data = new FormData();
+      data.append('awraq_nonce', awraq_nonce);
+      data.append('action', 'awraqUpdateAdminFormMeta');
+      data.append('id', props.id);
+      data.append('data', JSON.stringify(adminNotificationSettingData.value));
+      fetch(awraq_ajax_path, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: data
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        return console.log(res);
+      })["catch"](function (err) {
+        return console.log(res);
+      });
+    }
     /**
      * To find element in an array
      * @param {any} needle 
@@ -32124,7 +32142,13 @@ var _hoisted_8 = {
   "class": "w-2/12 md:border-r"
 };
 var _hoisted_9 = {
-  "class": "w-10/12 px-4 py-4"
+  "class": "w-10/12"
+};
+var _hoisted_10 = {
+  "class": "m-0"
+};
+var _hoisted_11 = {
+  "class": "m-0"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, "#" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.row.ID), 1
@@ -32148,9 +32172,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.bodyStatus == 2 ? 'text-blue-500 ' : '', "font-medium px-4 py-2 mb-0 first:pt-4 last:pb-4 cursor-pointer"])
   }, "admin notification", 2
   /* CLASS */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["User"])], 512
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["User"])], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.bodyStatus == 1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Admin"], {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.bodyStatus == 1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Admin"], {
     id: $props.row.ID
   }, null, 8
   /* PROPS */
@@ -32175,7 +32199,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "relative"
+  "class": "mx-auto md:w-7/12 px-4 py-4"
 };
 var _hoisted_2 = {
   "class": "input-group"
@@ -32338,7 +32362,7 @@ var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_33 = [_hoisted_32];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sent to Email "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, $setup.adminNotificationSettingData != false ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sent to Email "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, $setup.adminNotificationSettingData != false ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
     key: 0,
     type: "text",
     "class": "w-full",
@@ -32472,7 +32496,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "w-full"
   }, null, 8
   /* PROPS */
-  , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+  , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "bg-gray-50"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "mx-auto md:w-7/12 flex flex-row justify-end px-4 py-2"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "px-6 py-2 rounded-full border bg-white",
+    onClick: $setup.updateAdminNotificationInputs
+  }, "Save")])])], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),

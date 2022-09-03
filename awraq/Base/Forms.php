@@ -2,8 +2,8 @@
 
 namespace Awraq\Base;
 
-use Awraq\Base\Officer;
-use Awraq\Base\Meta;
+use Awraq\Base\Officer as Officer;
+use Awraq\Base\Meta as Meta;
 
 if (!defined('ABSPATH')) exit;
 
@@ -22,6 +22,7 @@ class Forms {
 		add_action('wp_ajax_awraqGetCaptchaMeta', array(self::$globalScopeName, 'awraqGetCaptchaMeta'));
 		add_action('wp_ajax_awraqUpdateCaptchaMeta', array(self::$globalScopeName, 'awraqUpdateCaptchaMeta'));
 		add_action('wp_ajax_awraqGetAdminFormMeta', array(self::$globalScopeName, 'awraqGetAdminFormMeta'));
+		add_action('wp_ajax_awraqUpdateAdminFormMeta', array(self::$globalScopeName, 'awraqUpdateAdminFormMeta'));
 	}
 
 	public static function awraqGetForms() {
@@ -130,6 +131,7 @@ class Forms {
 		echo json_encode(update_post_meta($postId, 'googleCaptchaMeta', !$isCaptch));
 		wp_die();
 	}
+
 	public static function awraqGetAdminFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['id'];
@@ -140,6 +142,16 @@ class Forms {
 
 		echo json_encode(unserialize($meta));
 
+		wp_die();
+	}
+
+	public static function awraqUpdateAdminFormMeta(){
+		if (!Officer::check($_POST)) wp_die();
+		$postId = $_POST['id'];
+		if (!$postId) wp_die();
+		$postId = (int)Officer::sanitize($postId, 'int');
+		$data = Officer::jsonToArray($_POST['data']);
+		echo json_encode(update_post_meta($postId,'awraqFormAdminNotification',serialize($data)));
 		wp_die();
 	}
 }

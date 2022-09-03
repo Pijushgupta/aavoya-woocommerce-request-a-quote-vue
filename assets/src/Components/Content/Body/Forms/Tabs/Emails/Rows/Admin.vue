@@ -1,12 +1,11 @@
 <template>
-	<div  class="relative">
+	<div  class="mx-auto md:w-7/12 px-4 py-4">
 		<!-- Sent to Email -->
 		<div class="input-group">
 			<label class="font-medium">Sent to Email (Required)</label>
 			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.sent_to_email">
 		</div>
 		<!-- ends -->
-
 		<div class="input-group">
 			
 			<div class="flex flex-row justify-between items-center relative">
@@ -27,7 +26,6 @@
 			</div>
 			<input  type="text" class="w-full" v-model="adminNotificationSettingData.from_email">
 		</div>
-
 		<div class="input-group">
 			
 			<div class="flex flex-row justify-between items-center relative">
@@ -64,7 +62,14 @@
 			</div>
 			<Editor v-if="adminNotificationSettingData != false" v-model="adminNotificationSettingData.message" class="w-full" />
 		</div>
+		
 	</div>
+	<div class=" bg-gray-50">
+		<div class=" mx-auto md:w-7/12 flex flex-row justify-end px-4 py-2">
+			<button class="px-6 py-2 rounded-full border bg-white" @click="updateAdminNotificationInputs">Save</button>
+	</div>
+	</div>
+	
 </template>
 <script setup>
 import { ref, watch } from 'vue';
@@ -93,7 +98,7 @@ let typeToAllow = ['name','text','email','address','phone','textarea','checkbox'
  * @param {string} fieldName 
  * @param {string} name 
  */
-function selected(fieldName, name) {
+function selected(fieldName, name) { 
 	if (name === 'message') {
 		adminNotificationSettingData.value.message = adminNotificationSettingData.value.message + ' {'+fieldName+'} ';
 	}
@@ -115,7 +120,20 @@ function selected(fieldName, name) {
 }
 
 function updateAdminNotificationInputs() {
-	
+  if(adminNotificationSettingData.value === false) return;
+  const data = new FormData();
+  data.append('awraq_nonce',awraq_nonce);
+  data.append('action','awraqUpdateAdminFormMeta');
+  data.append('id',props.id);
+  data.append('data',JSON.stringify(adminNotificationSettingData.value))
+	fetch(awraq_ajax_path,{
+    method:'POST',
+    credentials:'same-origin',
+    body:data
+  })
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(err => console.log(res));
 }
 
 /**
