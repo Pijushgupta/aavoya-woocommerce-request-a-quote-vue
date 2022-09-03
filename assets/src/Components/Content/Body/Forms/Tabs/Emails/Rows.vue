@@ -15,7 +15,7 @@
 				<li @click="toggleBody(1)" :class="bodyStatus == 1 ? 'text-blue-500 ':''" class="font-medium px-4 py-2 mb-0 first:pt-4 last:pb-4 cursor-pointer">user notification</li>
 				<li @click="toggleBody(2)" :class="bodyStatus == 2 ? 'text-blue-500 ':''" class="font-medium px-4 py-2 mb-0 first:pt-4 last:pb-4 cursor-pointer">admin notification</li>
 			</ul>
-			<ul class="w-10/12 ">
+			<ul class="w-10/12 notification">
 				<li v-show="bodyStatus == 1" class="m-0"><User/></li>
 				<li v-show="bodyStatus == 2" class="m-0"><Admin :id="row.ID"/></li>
 			</ul>

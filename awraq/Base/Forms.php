@@ -57,6 +57,10 @@ class Forms {
 				unset($forms[$key]);
 			}
 		}
+
+		if(gettype($forms) == 'array' && empty($forms)){
+			$forms = null;
+		}
 		echo json_encode($forms);
 		wp_die();
 	}

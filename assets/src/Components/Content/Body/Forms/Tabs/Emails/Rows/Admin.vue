@@ -1,11 +1,11 @@
 <template>
 	<div  class="mx-auto md:w-7/12 px-4 py-4">
-		<div class="flex flex-row justify-between items-center py-6">
+		<div class="flex flex-row justify-between items-center py-6 px-4 mb-3.5 bg-gray-50 rounded-lg">
       <label class="font-medium" :for="'ed'+props.id">Enable/Disable</label>
-      <input :id="'ed'+props.id" type="checkbox" />
+      <input :id="'ed'+props.id" type="checkbox" v-model="adminNotificationSettingData.ed"/>
     </div>
     <!-- Sent to Email -->
-		<div class="input-group">
+		<div class="input-group ">
 			<label class="font-medium">Sent to Email. <div class="tool-tip">Hello</div>  (Required)</label>
 			<input v-if="adminNotificationSettingData != false" type="text" class="w-full" v-model="adminNotificationSettingData.sent_to_email">
 		</div>
@@ -71,7 +71,7 @@
 	<div class=" bg-gray-50">
 		<div class=" mx-auto md:w-7/12 flex flex-row justify-end px-4 py-2">
 			<button class="px-6 py-2 rounded-full border bg-white" @click="updateAdminNotificationInputs">Save</button>
-	</div>
+	  </div>
 	</div>
 	
 </template>

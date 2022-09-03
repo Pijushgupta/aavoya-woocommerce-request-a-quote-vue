@@ -207,6 +207,12 @@ a:hover{
 .input-group label{
 	@apply mb-1;
 }
+.notification .input-group{
+	@apply mb-4 flex flex-col w-full ;
+}
+.notification .input-group label{
+	@apply mb-1.5;
+}
 .tw-scroll-bar::-webkit-scrollbar{
 	width: 5px;
 	height: 5px;
