@@ -92,22 +92,22 @@ function selected(fieldName, name) {
     userNotificationSettingData.value.senttoemail = userNotificationSettingData.value.senttoemail + ' {'+fieldName+'} ';
   }
   if (name === 'subject') {
-    adminNotificationSettingData.value.subject = '{'+fieldName+'}';
+    userNotificationSettingData.value.subject = '{'+fieldName+'}';
   }
   if (name === 'bcc') {
-    adminNotificationSettingData.value.bcc = '{'+fieldName+'}';
+    userNotificationSettingData.value.bcc = '{'+fieldName+'}';
   }
   if (name === 'replyto') {
-    adminNotificationSettingData.value.replay_To = '{'+fieldName+'}';
+    userNotificationSettingData.value.replay_To = '{'+fieldName+'}';
   }
   if (name === 'fromemail') {
-    adminNotificationSettingData.value.from_email = '{'+fieldName+'}';
+    userNotificationSettingData.value.from_email = '{'+fieldName+'}';
   }
   if (name === 'fromname') {
-    if(adminNotificationSettingData.value.from_name == ''){
-      adminNotificationSettingData.value.from_name = '{'+fieldName+'}';
+    if(userNotificationSettingData.value.from_name == ''){
+      userNotificationSettingData.value.from_name = '{'+fieldName+'}';
     }else{
-      adminNotificationSettingData.value.from_name = adminNotificationSettingData.value.from_name +', {'+fieldName+'}';
+      userNotificationSettingData.value.from_name = userNotificationSettingData.value.from_name +', {'+fieldName+'}';
     }
 
   }

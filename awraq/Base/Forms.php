@@ -23,6 +23,8 @@ class Forms {
 		add_action('wp_ajax_awraqUpdateCaptchaMeta', array(self::$globalScopeName, 'awraqUpdateCaptchaMeta'));
 		add_action('wp_ajax_awraqGetAdminFormMeta', array(self::$globalScopeName, 'awraqGetAdminFormMeta'));
 		add_action('wp_ajax_awraqUpdateAdminFormMeta', array(self::$globalScopeName, 'awraqUpdateAdminFormMeta'));
+		add_action('wp_ajax_awraqGetUserFormMeta', array(self::$globalScopeName, 'awraqGetUserFormMeta'));
+		add_action('wp_ajax_awraqUpdateUserFormMeta', array(self::$globalScopeName, 'awraqUpdateUserFormMeta'));
 	}
 
 	/**
@@ -87,6 +89,21 @@ class Forms {
 					'bcc' => '',
 					'subject' => '',
 					'message' => '{all}'
+				)
+			)
+		);
+		add_post_meta(
+			$postId,
+			'awraqFormUserNotification',
+			serialize(
+				array(
+					'en' => 'false',
+					'sent_to_email' => '',
+					'from_name' => '{wordpress_admin_name}',
+					'from_email' => 'noreplay@domain.com',
+					'replay_To' => '',
+					'subject' => '',
+					'message' => ''
 				)
 			)
 		);
@@ -216,6 +233,36 @@ class Forms {
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$data = Officer::jsonToArray($_POST['data']);
 		echo json_encode(update_post_meta($postId,'awraqFormAdminNotification',serialize($data)));
+		wp_die();
+	}
+
+	/**
+	 * Getting from User Meta (notification setting)
+	 * @param void
+	 * @return void
+	 */
+	public static function awraqGetUserFormMeta(){
+		if(!Officer::check($_POST)) wp_die();
+		$postId = $_POST['id'];
+		if(!$postId) wp_die();
+		$postId = (int)Officer::sanitize($postId, 'int');
+		$meta = get_post_meta($postId, 'awraqFormUserNotification', true);
+		echo json_encode(unserialize($meta));
+		wp_die();
+	}
+
+	/**
+	 * Updating from User Meta (notification setting)
+	 * @param void
+	 * @return void
+	 */
+	public static function awraqUpdateUserFormMeta(){
+		if (!Officer::check($_POST)) wp_die();
+		$postId = $_POST['id'];
+		if (!$postId) wp_die();
+		$postId = (int)Officer::sanitize($postId, 'int');
+		$data = Officer::jsonToArray($_POST['data']);
+		echo json_encode(update_post_meta($postId,'awraqFormUserNotification',serialize($data)));
 		wp_die();
 	}
 }
