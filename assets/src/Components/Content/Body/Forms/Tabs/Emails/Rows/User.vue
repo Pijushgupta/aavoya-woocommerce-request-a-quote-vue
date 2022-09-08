@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-between items-center py-6 px-4 mb-3.5 bg-gray-50 rounded-lg">
       <label class="font-medium" >Enable/Disable</label>
 
-      <input  type="checkbox" />
+      <input  type="checkbox" v-model="userNotificationSettingData.ed"/>
     </div>
     <div class="input-group">
       <div class="flex flex-row justify-between items-center relative">
@@ -13,63 +13,69 @@
         </button>
         <FieldSelector v-if="fieldSeclectorMenuToOpen == 'senttoemail'" v-bind:name="'senttoemail'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
-      <input  type="text" class="w-full"  >
+      <input  type="text" class="w-full"  v-model="userNotificationSettingData.sent_to_email">
     </div>
     <div class="input-group">
       <div class="flex flex-row justify-between items-center relative">
         <label class="font-medium">From name. </label>
-        <button  class=" ">
+        <button @click="fieldSeclectorMenuToOpen == 'fromname' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'fromname'" class=" ">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg>
         </button>
+        <FieldSelector v-if="fieldSeclectorMenuToOpen == 'fromname'" v-bind:name="'fromname'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
-      <input  type="text" class="w-full"  >
+      <input  type="text" class="w-full"  v-model="userNotificationSettingData.from_name">
     </div>
     <div class="input-group">
       <div class="flex flex-row justify-between items-center relative">
         <label class="font-medium">From Email </label>
-        <button  class=" ">
+        <button  @click="fieldSeclectorMenuToOpen == 'fromemail' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'fromemail'" class=" ">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg>
         </button>
+        <FieldSelector v-if="fieldSeclectorMenuToOpen == 'fromemail'" v-bind:name="'fromemail'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
-      <input  type="text" class="w-full"  >
+      <input  type="text" class="w-full"  v-model="userNotificationSettingData.from_email">
     </div>
     <div class="input-group">
       <div class="flex flex-row justify-between items-center relative">
         <label class="font-medium">Reply to Email. </label>
-        <button  class=" ">
+        <button  @click="fieldSeclectorMenuToOpen == 'replyto' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'replyto'" class=" ">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg>
         </button>
+        <FieldSelector v-if="fieldSeclectorMenuToOpen == 'replyto'" v-bind:name="'replyto'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
-      <input  type="text" class="w-full"  >
+      <input  type="text" class="w-full"  v-model="userNotificationSettingData.replay_To">
     </div>
     <div class="input-group">
       <div class="flex flex-row justify-between items-center relative">
         <label class="font-medium">Subject </label>
-        <button  class=" ">
+        <button  @click="fieldSeclectorMenuToOpen == 'subject' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'subject'" class=" ">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg>
         </button>
+        <FieldSelector v-if="fieldSeclectorMenuToOpen == 'subject'" v-bind:name="'subject'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
-      <input  type="text" class="w-full"  >
+      <input  type="text" class="w-full" v-model="userNotificationSettingData.subject" >
     </div>
     <div class="input-group">
 
       <div class="flex flex-row justify-between items-center relative">
         <label class="font-medium">Message</label>
-        <button  class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
+        <button  @click="fieldSeclectorMenuToOpen == 'message' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'message'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 
       </div>
-
+      <Editor v-if="userNotificationSettingData != false" v-model="userNotificationSettingData.message" class="w-full" />
     </div>
   </div>
   <div class=" bg-gray-50">
     <div class=" mx-auto md:w-7/12 flex flex-row justify-end px-4 py-2">
-      <button class="px-6 py-2 rounded-full border bg-white" @click="">Save</button>
+      <button class="px-6 py-2 rounded-full border bg-white" @click="updateUserNotificationInputs">Save</button>
     </div>
   </div>
 </template>
 <script setup>
 import {ref, watch} from 'vue';
 import FieldSelector from './components/FieldSelector';
+import Editor from './components/Editor.vue';
+import {useToast} from "vue-toastification";
 const props = defineProps({
   id:Number
 })
@@ -89,14 +95,12 @@ let typeToAllow = ['name','text','email','address','phone','textarea','checkbox'
  */
 function selected(fieldName, name) {
   if (name === 'senttoemail') {
-    userNotificationSettingData.value.senttoemail = userNotificationSettingData.value.senttoemail + ' {'+fieldName+'} ';
+    userNotificationSettingData.value.sent_to_email = userNotificationSettingData.value.sent_to_email + ' {'+fieldName+'} ';
   }
   if (name === 'subject') {
     userNotificationSettingData.value.subject = '{'+fieldName+'}';
   }
-  if (name === 'bcc') {
-    userNotificationSettingData.value.bcc = '{'+fieldName+'}';
-  }
+
   if (name === 'replyto') {
     userNotificationSettingData.value.replay_To = '{'+fieldName+'}';
   }
@@ -111,6 +115,31 @@ function selected(fieldName, name) {
     }
 
   }
+}
+
+/**
+ * updating
+ */
+function updateUserNotificationInputs() {
+  if(userNotificationSettingData.value === false) return;
+  const data = new FormData();
+  data.append('awraq_nonce',awraq_nonce);
+  data.append('action','awraqUpdateUserFormMeta');
+  data.append('id',props.id);
+  data.append('data',JSON.stringify(userNotificationSettingData.value))
+  fetch(awraq_ajax_path,{
+    method:'POST',
+    credentials:'same-origin',
+    body:data
+  })
+      .then(res => res.json())
+      .then(res => {
+        if(res === true){
+          const notification =  useToast();
+          notification('Setting Updated');
+        }
+      })
+      .catch(err => console.log(err));
 }
 
 /**
@@ -188,6 +217,24 @@ const getFormMeta = (function () {
       })
       .catch(err => console.log(err));
 
+}());
+
+const getUserMeta = (function () {
+  const data = new FormData();
+  data.append('awraq_nonce', awraq_nonce);
+  data.append('action', 'awraqGetUserFormMeta');
+  data.append('id', props.id);
+  fetch(awraq_ajax_path, {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: data
+  })
+      .then(res => res.json())
+      .then(res => {
+
+        userNotificationSettingData.value = res;
+      })
+      .catch (err => console.log(err));
 }());
 
 </script>

@@ -28215,6 +28215,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _components_FieldSelector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/FieldSelector */ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/FieldSelector.vue");
+/* harmony import */ var _components_Editor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Editor.vue */ "./assets/src/Components/Content/Body/Forms/Tabs/Emails/Rows/components/Editor.vue");
+/* harmony import */ var vue_toastification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-toastification */ "./node_modules/vue-toastification/dist/index.mjs");
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -28242,15 +28246,11 @@ __webpack_require__.r(__webpack_exports__);
 
     function selected(fieldName, name) {
       if (name === 'senttoemail') {
-        userNotificationSettingData.value.senttoemail = userNotificationSettingData.value.senttoemail + ' {' + fieldName + '} ';
+        userNotificationSettingData.value.sent_to_email = userNotificationSettingData.value.sent_to_email + ' {' + fieldName + '} ';
       }
 
       if (name === 'subject') {
         userNotificationSettingData.value.subject = '{' + fieldName + '}';
-      }
-
-      if (name === 'bcc') {
-        userNotificationSettingData.value.bcc = '{' + fieldName + '}';
       }
 
       if (name === 'replyto') {
@@ -28268,6 +28268,33 @@ __webpack_require__.r(__webpack_exports__);
           userNotificationSettingData.value.from_name = userNotificationSettingData.value.from_name + ', {' + fieldName + '}';
         }
       }
+    }
+    /**
+     * updating
+     */
+
+
+    function updateUserNotificationInputs() {
+      if (userNotificationSettingData.value === false) return;
+      var data = new FormData();
+      data.append('awraq_nonce', awraq_nonce);
+      data.append('action', 'awraqUpdateUserFormMeta');
+      data.append('id', props.id);
+      data.append('data', JSON.stringify(userNotificationSettingData.value));
+      fetch(awraq_ajax_path, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: data
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        if (res === true) {
+          var notification = (0,vue_toastification__WEBPACK_IMPORTED_MODULE_3__.useToast)();
+          notification('Setting Updated');
+        }
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
     /**
      * To find element in an array
@@ -28358,6 +28385,24 @@ __webpack_require__.r(__webpack_exports__);
       });
     }();
 
+    var getUserMeta = function () {
+      var data = new FormData();
+      data.append('awraq_nonce', awraq_nonce);
+      data.append('action', 'awraqGetUserFormMeta');
+      data.append('id', props.id);
+      fetch(awraq_ajax_path, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: data
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        userNotificationSettingData.value = res;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }();
+
     var __returned__ = {
       props: props,
       formMeta: formMeta,
@@ -28366,12 +28411,16 @@ __webpack_require__.r(__webpack_exports__);
       fieldSeclectorMenuToOpen: fieldSeclectorMenuToOpen,
       typeToAllow: typeToAllow,
       selected: selected,
+      updateUserNotificationInputs: updateUserNotificationInputs,
       inArray: inArray,
       makeInputFlat: makeInputFlat,
       getFormMeta: getFormMeta,
+      getUserMeta: getUserMeta,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
-      FieldSelector: _components_FieldSelector__WEBPACK_IMPORTED_MODULE_1__["default"]
+      FieldSelector: _components_FieldSelector__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Editor: _components_Editor_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+      useToast: vue_toastification__WEBPACK_IMPORTED_MODULE_3__.useToast
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -28493,10 +28542,7 @@ __webpack_require__.r(__webpack_exports__);
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
-    var props = __props; // const emit = defineEmits([
-    // 	'selected'
-    // ]);
-
+    var props = __props;
     var __returned__ = {
       props: props,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref
@@ -32745,31 +32791,30 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "mx-auto md:w-7/12 px-4 py-4"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_2 = {
   "class": "flex flex-row justify-between items-center py-6 px-4 mb-3.5 bg-gray-50 rounded-lg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+};
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "font-medium"
-}, "Enable/Disable"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-  type: "checkbox"
-})], -1
+}, "Enable/Disable", -1
 /* HOISTED */
 );
 
-var _hoisted_3 = {
+var _hoisted_4 = {
   "class": "input-group"
 };
-var _hoisted_4 = {
+var _hoisted_5 = {
   "class": "flex flex-row justify-between items-center relative"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "font-medium"
 }, "Sent to Email. ", -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   "class": "h-5 w-5",
   viewBox: "0 0 20 20",
@@ -32780,39 +32825,261 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_7 = [_hoisted_6];
+var _hoisted_8 = [_hoisted_7];
+var _hoisted_9 = {
+  "class": "input-group"
+};
+var _hoisted_10 = {
+  "class": "flex flex-row justify-between items-center relative"
+};
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-  type: "text",
-  "class": "w-full"
-}, null, -1
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-medium"
+}, "From name. ", -1
 /* HOISTED */
 );
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"input-group\"><div class=\"flex flex-row justify-between items-center relative\"><label class=\"font-medium\">From name. </label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center relative\"><label class=\"font-medium\">From Email </label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center relative\"><label class=\"font-medium\">Reply to Email. </label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center relative\"><label class=\"font-medium\">Subject </label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div><input type=\"text\" class=\"w-full\"></div><div class=\"input-group\"><div class=\"flex flex-row justify-between items-center relative\"><label class=\"font-medium\">Message</label><button class=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z\"></path></svg></button></div></div>", 5);
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "h-5 w-5",
+  viewBox: "0 0 20 20",
+  fill: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+})], -1
+/* HOISTED */
+);
 
+var _hoisted_13 = [_hoisted_12];
 var _hoisted_14 = {
-  "class": "bg-gray-50"
+  "class": "input-group"
 };
 var _hoisted_15 = {
-  "class": "mx-auto md:w-7/12 flex flex-row justify-end px-4 py-2"
+  "class": "flex flex-row justify-between items-center relative"
 };
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-medium"
+}, "From Email ", -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "h-5 w-5",
+  viewBox: "0 0 20 20",
+  fill: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+})], -1
+/* HOISTED */
+);
+
+var _hoisted_18 = [_hoisted_17];
+var _hoisted_19 = {
+  "class": "input-group"
+};
+var _hoisted_20 = {
+  "class": "flex flex-row justify-between items-center relative"
+};
+
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-medium"
+}, "Reply to Email. ", -1
+/* HOISTED */
+);
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "h-5 w-5",
+  viewBox: "0 0 20 20",
+  fill: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+})], -1
+/* HOISTED */
+);
+
+var _hoisted_23 = [_hoisted_22];
+var _hoisted_24 = {
+  "class": "input-group"
+};
+var _hoisted_25 = {
+  "class": "flex flex-row justify-between items-center relative"
+};
+
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-medium"
+}, "Subject ", -1
+/* HOISTED */
+);
+
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "h-5 w-5",
+  viewBox: "0 0 20 20",
+  fill: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+})], -1
+/* HOISTED */
+);
+
+var _hoisted_28 = [_hoisted_27];
+var _hoisted_29 = {
+  "class": "input-group"
+};
+var _hoisted_30 = {
+  "class": "flex flex-row justify-between items-center relative"
+};
+
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "font-medium"
+}, "Message", -1
+/* HOISTED */
+);
+
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "h-5 w-5",
+  viewBox: "0 0 20 20",
+  fill: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+})], -1
+/* HOISTED */
+);
+
+var _hoisted_33 = [_hoisted_32];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[0] || (_cache[0] = function ($event) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "checkbox",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.userNotificationSettingData.ed = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.userNotificationSettingData.ed]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.fieldSeclectorMenuToOpen == 'senttoemail' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'senttoemail';
     }),
     "class": ""
-  }, _hoisted_7), $setup.fieldSeclectorMenuToOpen == 'senttoemail' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["FieldSelector"], {
+  }, _hoisted_8), $setup.fieldSeclectorMenuToOpen == 'senttoemail' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["FieldSelector"], {
     key: 0,
     name: 'senttoemail',
     fields: $setup.flatInput,
     onSelected: $setup.selected
   }, null, 8
   /* PROPS */
-  , ["fields"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_8]), _hoisted_9]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  , ["fields"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "w-full",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $setup.userNotificationSettingData.sent_to_email = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.userNotificationSettingData.sent_to_email]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[3] || (_cache[3] = function ($event) {
+      return $setup.fieldSeclectorMenuToOpen == 'fromname' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'fromname';
+    }),
+    "class": ""
+  }, _hoisted_13), $setup.fieldSeclectorMenuToOpen == 'fromname' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["FieldSelector"], {
+    key: 0,
+    name: 'fromname',
+    fields: $setup.flatInput,
+    onSelected: $setup.selected
+  }, null, 8
+  /* PROPS */
+  , ["fields"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "w-full",
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+      return $setup.userNotificationSettingData.from_name = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.userNotificationSettingData.from_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[5] || (_cache[5] = function ($event) {
+      return $setup.fieldSeclectorMenuToOpen == 'fromemail' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'fromemail';
+    }),
+    "class": ""
+  }, _hoisted_18), $setup.fieldSeclectorMenuToOpen == 'fromemail' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["FieldSelector"], {
+    key: 0,
+    name: 'fromemail',
+    fields: $setup.flatInput,
+    onSelected: $setup.selected
+  }, null, 8
+  /* PROPS */
+  , ["fields"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "w-full",
+    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+      return $setup.userNotificationSettingData.from_email = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.userNotificationSettingData.from_email]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[7] || (_cache[7] = function ($event) {
+      return $setup.fieldSeclectorMenuToOpen == 'replyto' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'replyto';
+    }),
+    "class": ""
+  }, _hoisted_23), $setup.fieldSeclectorMenuToOpen == 'replyto' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["FieldSelector"], {
+    key: 0,
+    name: 'replyto',
+    fields: $setup.flatInput,
+    onSelected: $setup.selected
+  }, null, 8
+  /* PROPS */
+  , ["fields"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "w-full",
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+      return $setup.userNotificationSettingData.replay_To = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.userNotificationSettingData.replay_To]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[9] || (_cache[9] = function ($event) {
+      return $setup.fieldSeclectorMenuToOpen == 'subject' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'subject';
+    }),
+    "class": ""
+  }, _hoisted_28), $setup.fieldSeclectorMenuToOpen == 'subject' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["FieldSelector"], {
+    key: 0,
+    name: 'subject',
+    fields: $setup.flatInput,
+    onSelected: $setup.selected
+  }, null, 8
+  /* PROPS */
+  , ["fields"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "w-full",
+    "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+      return $setup.userNotificationSettingData.subject = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.userNotificationSettingData.subject]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[11] || (_cache[11] = function ($event) {
+      return $setup.fieldSeclectorMenuToOpen == 'message' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'message';
+    }),
+    "class": ""
+  }, _hoisted_33)]), $setup.userNotificationSettingData != false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Editor"], {
+    key: 0,
+    modelValue: $setup.userNotificationSettingData.message,
+    "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
+      return $setup.userNotificationSettingData.message = $event;
+    }),
+    "class": "w-full"
+  }, null, 8
+  /* PROPS */
+  , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "bg-gray-50"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "mx-auto md:w-7/12 flex flex-row justify-end px-4 py-2"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "px-6 py-2 rounded-full border bg-white",
-    onClick: _cache[1] || (_cache[1] = function () {})
+    onClick: $setup.updateUserNotificationInputs
   }, "Save")])])], 64
   /* STABLE_FRAGMENT */
   );

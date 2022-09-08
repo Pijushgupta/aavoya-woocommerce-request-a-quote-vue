@@ -11,9 +11,7 @@ const props = defineProps({
 	fields: [Array, Object],
 	name:String
 });
-// const emit = defineEmits([
-// 	'selected'
-// ]);
+
 
 
 
