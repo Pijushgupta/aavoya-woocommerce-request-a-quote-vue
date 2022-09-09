@@ -84,18 +84,18 @@ class Woho {
 			$term_meta = unserialize(get_term_meta($value->term_id, 'awraq_term_meta', true));
 
 			if ((int)Officer::sanitize($value->parent, 'int') != 0) {
-				$filteredWooCats[$key]->name = self::fullNameWithParent($wooCats, $value->parent) . esc_html($value->name);
+				$filteredWooCats[$key]['name'] = self::fullNameWithParent($wooCats, $value->parent) . esc_html($value->name);
 			} else {
-				$filteredWooCats[$key]->name = esc_html($value->name);
+				$filteredWooCats[$key]['name'] = esc_html($value->name);
 			}
 
 
-			$filteredWooCats[$key]->term_id		= (int)Officer::sanitize($value->term_id, 'int');
-			$filteredWooCats[$key]->count		= (int)Officer::sanitize($value->count, 'int');
-			$filteredWooCats[$key]->parent		= (int)Officer::sanitize($value->parent, 'int');
-			$filteredWooCats[$key]->selected	= (int)Officer::sanitize($term_meta['selected'], 'int');
-			$filteredWooCats[$key]->switch		= Officer::sanitize($term_meta['switch'], 'bool');
-			$filteredWooCats[$key]->options		= $filteredOptions;
+			$filteredWooCats[$key]['term_id']		= (int)Officer::sanitize($value->term_id, 'int');
+			$filteredWooCats[$key]['count']		= (int)Officer::sanitize($value->count, 'int');
+			$filteredWooCats[$key]['parent']		= (int)Officer::sanitize($value->parent, 'int');
+			$filteredWooCats[$key]['selected']	=  $term_meta !== false ? (int)Officer::sanitize($term_meta['selected'], 'int'):0;
+			$filteredWooCats[$key]['switch']		= $term_meta !== false ? Officer::sanitize($term_meta['switch'], 'bool'): 0;
+			$filteredWooCats[$key]['options']		= $filteredOptions;
 		}
 		echo json_encode($filteredWooCats);
 		wp_die();
@@ -135,17 +135,17 @@ class Woho {
 		}
 
 		$wooTags = get_tags(array('taxonomy' => 'product_tag', 'hide_empty' => false));
-		$fillteredWooCats = array();
+		$filteredWooCats = array();
 
 		foreach ($wooTags  as $key => $value) {
 
 			$term_meta = unserialize(get_term_meta($value->term_id, 'awraq_term_meta', true));
-			$filteredWooCats[$key]->name		= esc_html($value->name);
-			$filteredWooCats[$key]->term_id		= (int)Officer::sanitize($value->term_id, 'int');
-			$filteredWooCats[$key]->count		= (int)Officer::sanitize($value->count, 'int');
-			$filteredWooCats[$key]->selected	= (int)Officer::sanitize($term_meta['selected'], 'int');
-			$filteredWooCats[$key]->switch		= Officer::sanitize($term_meta['switch'], 'bool');
-			$filteredWooCats[$key]->options		= $filteredOptions;
+			$filteredWooCats[$key]['name']		= esc_html($value->name);
+			$filteredWooCats[$key]['term_id']		= (int)Officer::sanitize($value->term_id, 'int');
+			$filteredWooCats[$key]['count']		= (int)Officer::sanitize($value->count, 'int');
+			$filteredWooCats[$key]['selected']	= $term_meta !== false ? (int)Officer::sanitize($term_meta['selected'], 'int'): 0;
+			$filteredWooCats[$key]['switch']		= $term_meta !== false ? Officer::sanitize($term_meta['switch'], 'bool'): 0;
+			$filteredWooCats[$key]['options']		= $filteredOptions;
 		}
 
 		echo json_encode($filteredWooCats);

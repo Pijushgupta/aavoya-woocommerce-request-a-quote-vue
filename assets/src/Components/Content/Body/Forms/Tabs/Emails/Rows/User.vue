@@ -95,7 +95,12 @@ let typeToAllow = ['name','text','email','address','phone','textarea','checkbox'
  */
 function selected(fieldName, name) {
   if (name === 'senttoemail') {
-    userNotificationSettingData.value.sent_to_email = userNotificationSettingData.value.sent_to_email + ' {'+fieldName+'} ';
+    if(userNotificationSettingData.value.sent_to_email == ''){
+      userNotificationSettingData.value.sent_to_email = '{'+fieldName+'}';
+    }else{
+      userNotificationSettingData.value.sent_to_email = userNotificationSettingData.value.sent_to_email + ', {'+fieldName+'} ';
+    }
+
   }
   if (name === 'subject') {
     userNotificationSettingData.value.subject = '{'+fieldName+'}';

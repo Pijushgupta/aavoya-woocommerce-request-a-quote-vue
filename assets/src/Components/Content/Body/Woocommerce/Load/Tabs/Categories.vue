@@ -1,5 +1,5 @@
 <template>
-	<div class="container mx-auto border md:w-7/12 my-10 rounded-lg">
+	<div v-if="categories !== false && categories.length !==0 " class="container mx-auto border md:w-7/12 my-10 rounded-lg">
 		<ul>
 			<Row 
 			v-for="category in categories" 
@@ -8,6 +8,7 @@
 			/>
 		</ul>
 	</div>
+
 </template>
 
 <script>
@@ -19,7 +20,7 @@ export default {
 	},
 	data: function(){
 		return {
-			categories:'',
+			categories:false,
 			
 		}
 	},

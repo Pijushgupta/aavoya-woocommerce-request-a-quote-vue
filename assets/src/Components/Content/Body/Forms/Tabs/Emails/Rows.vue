@@ -1,6 +1,6 @@
 <template>
   <li class=" mb-0 ">
-    <div class="border-b form-row flex flex-row justify-between items-center px-4 py-2">
+    <div class="border-b form-row flex flex-row justify-between items-center px-4 py-4">
       <div class="flex flex row">
         <div class="font-medium px-1">#{{props.row.ID}}</div>
         <div>{{props.row.post_title ? props.row.post_title : 'Untitled Form'}}</div>
