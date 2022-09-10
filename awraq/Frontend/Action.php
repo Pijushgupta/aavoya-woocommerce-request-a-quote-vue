@@ -211,8 +211,11 @@ class Action {
 		}
 
 
-		$emialData = apply_filters('raqba_form_before_email_{$formID}', $mappedPostData);
-		$emialData = apply_filters('raqba_form_before_email', $emialData);
+		$emailData = apply_filters('raqba_form_before_email_{$formID}', $mappedPostData);
+		$emailData = apply_filters('raqba_form_before_email', $emailData);
+
+
+
 
 		//Send email 
 
