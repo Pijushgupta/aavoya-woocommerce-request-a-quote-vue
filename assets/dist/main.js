@@ -32660,11 +32660,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: 'ed' + $setup.props.id,
     type: "checkbox",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $setup.adminNotificationSettingData.ed = $event;
+      return $setup.adminNotificationSettingData.en = $event;
     })
   }, null, 8
   /* PROPS */
-  , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.adminNotificationSettingData.ed]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sent to Email "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, $setup.adminNotificationSettingData != false ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
+  , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.adminNotificationSettingData.en]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sent to Email "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, $setup.adminNotificationSettingData != false ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
     key: 0,
     type: "text",
     "class": "w-full",
@@ -33022,11 +33022,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: 'edu' + $setup.props.id,
     type: "checkbox",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $setup.userNotificationSettingData.ed = $event;
+      return $setup.userNotificationSettingData.en = $event;
     })
   }, null, 8
   /* PROPS */
-  , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.userNotificationSettingData.ed]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.userNotificationSettingData.en]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.fieldSeclectorMenuToOpen == 'senttoemail' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'senttoemail';
     }),

@@ -2,7 +2,7 @@
 	<div  class="mx-auto md:w-7/12 px-4 py-4">
 		<div class="flex flex-row justify-between items-center py-6 px-4 mb-3.5 bg-gray-50 rounded-lg">
       <label class="font-medium" :for="'ed'+props.id">Enable/Disable</label>
-      <input :id="'ed'+props.id" type="checkbox" v-model="adminNotificationSettingData.ed" />
+      <input :id="'ed'+props.id" type="checkbox" v-model="adminNotificationSettingData.en" />
     </div>
     <!-- Sent to Email -->
 		<div class="input-group ">

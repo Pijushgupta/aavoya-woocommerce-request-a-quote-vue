@@ -21,11 +21,13 @@ class Email {
 		/**
 		 * checking this pattern -  {anything}
 		 */
-		$intStatus = preg_match_all("/\{ .* \}/im",$setting_element,$output);
+		$intStatus = preg_match_all("/\{.*\}/i",$setting_element,$output);
 		/**
 		 * if no pattern found return the data
 		 */
-		if($intStatus == 0) return $setting_element;
+		if($intStatus === 0) {
+			return $setting_element;
+		}
 
 		/**
 		 * if pattern found, trim {,}
@@ -39,20 +41,25 @@ class Email {
 			$admins = array_map(function ($user) {
 				return array(
 					'id' => intval($user->ID),
+					'email' => sanitize_text_field($user->user_email),
+				);
+			}, $admins);
+
+			return $admins[0]['email'];
+		}
+
+		if($output === 'wordpress_admin_name'){
+			$admins = get_users(array(
+				'role__in' => array('administrator')
+			));
+			$admins = array_map(function ($user) {
+				return array(
+					'id' => intval($user->ID),
 					'name' => sanitize_text_field($user->display_name),
 				);
 			}, $admins);
 
-			return $admins;
-		}
-
-		if($output === 'wordpress_admin_name'){
-			if(get_user_by('id',1) != false){
-				$user =  get_user_by('id',1);
-				return $user->display_name;
-			}else{
-				return 'admin';
-			}
+			return $admins[0]['name'];
 		}
 
 		if($output === 'noreplay@domain.com'){
@@ -100,7 +107,8 @@ class Email {
 
 
 		}
-
+		var_dump($userNotificationSettins);
+		echo '----------------';
 		var_dump($newAarray);
 	}
 }
