@@ -11,6 +11,7 @@ use Awraq\Frontend\Form\Action\Gcaptcha;
 use Awraq\Frontend\Form\Action\Map;
 use Awraq\Frontend\Form\Action\Validation;
 use Awraq\Frontend\Entry\Entry;
+use Awraq\Frontend\Emails\Email;
 
 
 class Action {
@@ -214,7 +215,8 @@ class Action {
 		$emailData = apply_filters('raqba_form_before_email_{$formID}', $mappedPostData);
 		$emailData = apply_filters('raqba_form_before_email', $emailData);
 
-
+		Email::init($formID, $emailData);
+		die;
 
 
 		//Send email 

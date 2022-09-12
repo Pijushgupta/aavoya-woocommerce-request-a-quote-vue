@@ -84,7 +84,7 @@ class Forms {
 					'en' => 'false',
 					'sent_to_email' => '{wordpress_admin}',
 					'from_name' => '{wordpress_admin_name}',
-					'from_email' => 'noreplay@domain.com',
+					'from_email' => '{noreplay@domain.com}',
 					'replay_To' => '',
 					'bcc' => '',
 					'subject' => '',
@@ -100,7 +100,7 @@ class Forms {
 					'en' => 'false',
 					'sent_to_email' => '',
 					'from_name' => '{wordpress_admin_name}',
-					'from_email' => 'noreplay@domain.com',
+					'from_email' => '{noreplay@domain.com}',
 					'replay_To' => '',
 					'subject' => '',
 					'message' => ''

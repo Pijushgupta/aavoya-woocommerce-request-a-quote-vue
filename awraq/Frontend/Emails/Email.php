@@ -32,9 +32,33 @@ class Email {
 		 */
 		$output = trim($output[0][0],'{}');
 
-		if($output == 'all'){
+		if($output === 'wordpress_admin'){
+			$admins = get_users(array(
+				'role__in' => array('administrator')
+			));
+			$admins = array_map(function ($user) {
+				return array(
+					'id' => intval($user->ID),
+					'name' => sanitize_text_field($user->display_name),
+				);
+			}, $admins);
 
+			return $admins;
 		}
+
+		if($output === 'wordpress_admin_name'){
+			if(get_user_by('id',1) != false){
+				$user =  get_user_by('id',1);
+				return $user->display_name;
+			}else{
+				return 'admin';
+			}
+		}
+
+		if($output === 'noreplay@domain.com'){
+			return 'noreply@'.$_SERVER['SERVER_NAME'];
+		}
+
 	}
 	public static function sendAdminNotification(int $formID,array $formData){
 		$adminNotificationSettings = unserialize(get_post_meta($formID,'awraqFormAdminNotification',true));
@@ -60,18 +84,23 @@ class Email {
 		$newAarray = array();
 
 		foreach ( $userNotificationSettins as $key => $setting ) {
-			
-				$setting_elements = explode( ',', $setting );
-				$count = 0;
-				foreach ( $setting_elements as $setting_element ) {
-					if($count == 0){
-						$newAarray[$key] = self::transalate($setting_element);
-					}else{
-						$newAarray[$key] = ',' . self::transalate($setting_element);
+				if($key !== 'message'){
+					$setting_elements = explode( ',', $setting );
+					$count = 0;
+
+					foreach ( $setting_elements as $setting_element ) {
+						if($count == 0){
+							$newAarray[$key] = self::transalate($setting_element);
+						}else{
+							$newAarray[$key] = ',' . self::transalate($setting_element);
+						}
+						$count ++;
 					}
-					$count ++;
 				}
 
+
 		}
+
+		var_dump($newAarray);
 	}
 }
