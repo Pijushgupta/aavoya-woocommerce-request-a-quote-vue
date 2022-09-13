@@ -28272,6 +28272,14 @@ __webpack_require__.r(__webpack_exports__);
           userNotificationSettingData.value.from_name = userNotificationSettingData.value.from_name + ', {' + fieldName + '}';
         }
       }
+
+      if (name === 'message') {
+        if (userNotificationSettingData.value.message == '') {
+          userNotificationSettingData.value.message = '{' + fieldName + '}';
+        } else {
+          userNotificationSettingData.value.message = userNotificationSettingData.value.message + ', {' + fieldName + '}';
+        }
+      }
     }
     /**
      * updating
@@ -33131,7 +33139,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.fieldSeclectorMenuToOpen == 'message' ? $setup.fieldSeclectorMenuToOpen = 'none' : $setup.fieldSeclectorMenuToOpen = 'message';
     }),
     "class": ""
-  }, _hoisted_34)]), $setup.userNotificationSettingData != false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Editor"], {
+  }, _hoisted_34), $setup.fieldSeclectorMenuToOpen == 'message' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["FieldSelector"], {
+    key: 0,
+    name: 'message',
+    fields: $setup.flatInput,
+    onSelected: $setup.selected
+  }, null, 8
+  /* PROPS */
+  , ["fields"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $setup.userNotificationSettingData != false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Editor"], {
     key: 0,
     modelValue: $setup.userNotificationSettingData.message,
     "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {

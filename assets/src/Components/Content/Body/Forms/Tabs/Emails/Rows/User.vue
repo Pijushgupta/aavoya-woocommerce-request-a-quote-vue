@@ -59,7 +59,7 @@
       <div class="flex flex-row justify-between items-center relative">
         <label class="font-medium">Message</label>
         <button  @click="fieldSeclectorMenuToOpen == 'message' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'message'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
-
+        <FieldSelector v-if="fieldSeclectorMenuToOpen == 'message'" v-bind:name="'message'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
       <Editor v-if="userNotificationSettingData != false" v-model="userNotificationSettingData.message" class="w-full" />
     </div>
@@ -116,6 +116,14 @@ function selected(fieldName, name) {
       userNotificationSettingData.value.from_name = '{'+fieldName+'}';
     }else{
       userNotificationSettingData.value.from_name = userNotificationSettingData.value.from_name +', {'+fieldName+'}';
+    }
+
+  }
+  if (name === 'message') {
+    if(userNotificationSettingData.value.message == ''){
+      userNotificationSettingData.value.message = '{'+fieldName+'}';
+    }else{
+      userNotificationSettingData.value.message = userNotificationSettingData.value.message +', {'+fieldName+'}';
     }
 
   }
