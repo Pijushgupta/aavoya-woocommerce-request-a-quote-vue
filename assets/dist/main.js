@@ -28274,11 +28274,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (name === 'message') {
-        if (userNotificationSettingData.value.message == '') {
-          userNotificationSettingData.value.message = '{' + fieldName + '}';
-        } else {
-          userNotificationSettingData.value.message = userNotificationSettingData.value.message + ', {' + fieldName + '}';
-        }
+        userNotificationSettingData.value.message = userNotificationSettingData.value.message + '{' + fieldName + '}';
       }
     }
     /**
@@ -28469,7 +28465,7 @@ __webpack_require__.r(__webpack_exports__);
     EditorContent: _tiptap_vue_3__WEBPACK_IMPORTED_MODULE_3__.EditorContent
   },
   props: {
-    modelValue: [String, Object]
+    modelValue: [String]
   },
   data: function data() {
     return {
@@ -28499,9 +28495,9 @@ __webpack_require__.r(__webpack_exports__);
       content: this.modelValue,
       onUpdate: function onUpdate() {
         // HTML
-        //this.$emit('update:modelValue', this.editor.getHTML())
-        // JSON - saving the value as JSON 
-        _this.$emit('update:modelValue', _this.editor.getJSON());
+        _this.$emit('update:modelValue', _this.editor.getHTML()); // JSON - saving the value as JSON 
+        //this.$emit('update:modelValue', this.editor.getJSON())
+
       }
     });
   },

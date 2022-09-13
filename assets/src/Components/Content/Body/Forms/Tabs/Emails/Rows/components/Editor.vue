@@ -93,7 +93,7 @@ export default {
   },
 
   props: {
-    modelValue: [String,Object],
+    modelValue: [String],
   },
 
   data() {
@@ -131,10 +131,10 @@ export default {
 		
       onUpdate: () => {
         // HTML
-        //this.$emit('update:modelValue', this.editor.getHTML())
+        this.$emit('update:modelValue', this.editor.getHTML())
 
         // JSON - saving the value as JSON 
-        this.$emit('update:modelValue', this.editor.getJSON())
+        //this.$emit('update:modelValue', this.editor.getJSON())
       },
     })
   },

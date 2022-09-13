@@ -120,11 +120,9 @@ function selected(fieldName, name) {
 
   }
   if (name === 'message') {
-    if(userNotificationSettingData.value.message == ''){
-      userNotificationSettingData.value.message = '{'+fieldName+'}';
-    }else{
-      userNotificationSettingData.value.message = userNotificationSettingData.value.message +', {'+fieldName+'}';
-    }
+
+      userNotificationSettingData.value.message = userNotificationSettingData.value.message +'{'+fieldName+'}';
+
 
   }
 }

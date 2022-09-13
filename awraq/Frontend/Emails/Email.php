@@ -98,6 +98,8 @@ class Email {
 			}
 
 		}
+
+		//TODO: {all} conversion
 		return $message;
 	}
 	public static function sendAdminNotification(int $formID){
