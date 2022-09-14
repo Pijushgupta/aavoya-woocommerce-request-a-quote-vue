@@ -81,7 +81,6 @@ class Email {
 
 
 	}
-
 	public static function transalateMessage($message){
 		foreach(self::$formData as $key => $inputArray){
 			if(count($inputArray) > 1) {
@@ -117,6 +116,56 @@ class Email {
 		}
 		return $message;
 	}
+	public static function sendMail($data){
+		$validatedEmailsString = '';
+		$formName = '';
+		$validatedFormEmail = '';
+		$validatedReplyTo = '';
+		if(array_key_exists('sent_to_email',$data)){
+			/**
+			 * Validating Emails
+			 */
+			$sentToEmails = $data['sent_to_email'];
+			$sentToEmails = explode(',',$sentToEmails);
+			$count = 0;
+			foreach($sentToEmails as $email){
+				if(filter_var($email, FILTER_VALIDATE_EMAIL) != false){
+					if($count == 0){
+						$validatedEmailsString = $email;
+					}else{
+						$validatedEmailsString .= ','.$email;
+					}
+				}
+			}
+			/**
+			 * end of email validation
+			 */
+		}
+		if(array_key_exists('from_name',$data)){
+			$formName = $data['form_name'];
+		}
+		if(array_key_exists('from_email',$data)){
+			$formEmails = $data['form_email'];
+			$formEmails = explode(',',$formEmails);
+			$count = 0;
+			foreach($formEmails as $formEmail){
+				if(filter_var($formEmail,FILTER_VALIDATE_EMAIL) != false){
+					if($count == 0){
+						$validatedFormEmail = $formEmail;
+					}else{
+						$validatedFormEmail .= ','.$formEmail;
+					}
+				}
+			}
+		}
+		if(array_key_exists('replay_To',$data)){
+			$replyTo = $data['replay_To'];
+			if(filter_var($replyTo, FILTER_VALIDATE_EMAIL) != false){
+				$validatedReplyTo = $replyTo;
+			}
+		}
+
+	}
 	public static function sendAdminNotification(int $formID){
 		/**
 		 * Getting Admin email notification setting from form meta
@@ -141,15 +190,18 @@ class Email {
 					if($count == 0){
 						$newAarray[$key] = self::transalate($setting_element);
 					}else{
-						$newAarray[$key] = ',' . self::transalate($setting_element);
+						$newAarray[$key] .= ',' . self::transalate($setting_element);
 					}
 					$count ++;
 				}
 			}
+			if($key == 'message'){
+				$newAarray[$key] = self::transalateMessage($setting);
+			}
 
 
 		}
-		var_dump($newAarray);
+
 
 	}
 	public static function sendUserNotification(int $formID) {
@@ -178,7 +230,7 @@ class Email {
 						if($count == 0){
 							$newAarray[$key] = self::transalate($setting_element);
 						}else{
-							$newAarray[$key] = ',' . self::transalate($setting_element);
+							$newAarray[$key] .= ',' . self::transalate($setting_element);
 						}
 						$count ++;
 					}
@@ -187,10 +239,8 @@ class Email {
 					$newAarray[$key] = self::transalateMessage($setting);
 				}
 
-
-
 		}
-		var_dump(self::$formData);
 		var_dump($newAarray);
+
 	}
 }
