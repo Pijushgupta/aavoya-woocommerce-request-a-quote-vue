@@ -121,6 +121,9 @@ class Email {
 		$formName = '';
 		$validatedFormEmail = '';
 		$validatedReplyTo = '';
+		$validatedBcc = '';
+		$subject = '';
+		$body = '';
 		if(array_key_exists('sent_to_email',$data)){
 			/**
 			 * Validating Emails
@@ -135,6 +138,7 @@ class Email {
 					}else{
 						$validatedEmailsString .= ','.$email;
 					}
+					$count ++;
 				}
 			}
 			/**
@@ -155,6 +159,7 @@ class Email {
 					}else{
 						$validatedFormEmail .= ','.$formEmail;
 					}
+					$count++;
 				}
 			}
 		}
@@ -164,6 +169,32 @@ class Email {
 				$validatedReplyTo = $replyTo;
 			}
 		}
+		if(array_key_exists('bcc',$data)){
+			$bccs = $data['bcc'];
+			$bccs = explode(',',$bccs);
+			$count = 0;
+			foreach($bccs as $bcc){
+				if(filter_var($bcc, FILTER_VALIDATE_EMAIL) != false){
+					if($count == 0){
+						$validatedBcc = $bcc;
+					}else{
+						$validatedBcc .= ','.$bcc;
+					}
+					$count++;
+				}
+			}
+
+
+		}
+		if(array_key_exists('subject',$data)){
+			$subject = $data['subject'];
+		}
+		if(array_key_exists('message',$data)){
+			$body = $data['message'];
+		}
+
+		var_dump($body);
+
 
 	}
 	public static function sendAdminNotification(int $formID){
@@ -240,7 +271,7 @@ class Email {
 				}
 
 		}
-		var_dump($newAarray);
+		self::sendMail($newAarray);
 
 	}
 }
