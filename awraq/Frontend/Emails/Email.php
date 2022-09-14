@@ -86,20 +86,35 @@ class Email {
 		foreach(self::$formData as $key => $inputArray){
 			if(count($inputArray) > 1) {
 				foreach ( $inputArray as $k => $value ) {
-					if(str_contains($message,$key.'_'.$k)){
+					if(str_contains($message,'{'.$key.'_'.$k.'}')){
 
-						str_replace($key.'_'.$k,$inputArray[$k]['data'],$message);
+						$message = str_replace('{'.$key.'_'.$k.'}',$inputArray[$k]['data'],$message);
 					}
 				}
 			}else{
-				if(str_contains($message, $key)){
-					str_replace($key,$inputArray[0]['data'],$message);
+				if(str_contains($message, '{'.$key.'}')){
+					$message = str_replace('{'.$key.'}',$inputArray[0]['data'],$message);
 				}
 			}
 
 		}
 
-		//TODO: {all} conversion
+
+		/**
+		 * special case for {all}
+		 */
+		if(str_contains($message,'{all}')){
+			$values = '';
+			foreach(self::$formData as $j => $d){
+
+					foreach($d as $e => $f){
+						$values .= $d[$e]['data'] . ' ';
+					}
+
+
+			}
+			$message = str_replace('{all}',$values,$message);
+		}
 		return $message;
 	}
 	public static function sendAdminNotification(int $formID){
@@ -175,7 +190,7 @@ class Email {
 
 
 		}
-
+		var_dump(self::$formData);
 		var_dump($newAarray);
 	}
 }
