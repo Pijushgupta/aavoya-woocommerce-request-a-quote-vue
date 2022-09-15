@@ -15,7 +15,7 @@ class Email {
 	 */
 	public static function init(int $formID,array $formData):bool{
 		self::$formData = $formData;
-		//self::sendAdminNotification($formID);
+		self::sendAdminNotification($formID);
 		self::sendUserNotification($formID);
 		return true;
 	}
@@ -257,7 +257,7 @@ class Email {
 
 
 		}
-
+		self::sendMail($newAarray);
 
 	}
 	public static function sendUserNotification(int $formID) {

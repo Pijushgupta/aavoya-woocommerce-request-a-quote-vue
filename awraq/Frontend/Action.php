@@ -216,7 +216,7 @@ class Action {
 		$emailData = apply_filters('raqba_form_before_email', $emailData);
 
 		Email::init($formID, $emailData);
-		die;
+
 
 
 		//Send email 
