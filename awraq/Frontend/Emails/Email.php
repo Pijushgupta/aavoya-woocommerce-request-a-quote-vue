@@ -5,6 +5,8 @@ if(!defined('ABSPATH')) exit;
 class Email {
 
 	public static $formData;
+	public static $fromMailID;
+	public static $fromName;
 	/**
 	 * @param int $formID
 	 * @param array $formData
@@ -116,10 +118,10 @@ class Email {
 		}
 		return $message;
 	}
+
+	public static function formMailName(){}
 	public static function sendMail($data){
 		$validatedEmailsString = '';
-		$formName = '';
-		$validatedFormEmail = '';
 		$validatedReplyTo = '';
 		$validatedBcc = '';
 		$subject = '';
@@ -146,18 +148,18 @@ class Email {
 			 */
 		}
 		if(array_key_exists('from_name',$data)){
-			$formName = $data['form_name'];
+			self::$fromName = $data['from_name'];
 		}
 		if(array_key_exists('from_email',$data)){
-			$formEmails = $data['form_email'];
-			$formEmails = explode(',',$formEmails);
+			$fromEmails = $data['from_email'];
+			$fromEmails = explode(',',$fromEmails);
 			$count = 0;
-			foreach($formEmails as $formEmail){
-				if(filter_var($formEmail,FILTER_VALIDATE_EMAIL) != false){
+			foreach($fromEmails as $fromEmail){
+				if(filter_var($fromEmail,FILTER_VALIDATE_EMAIL) != false){
 					if($count == 0){
-						$validatedFormEmail = $formEmail;
+						self::$fromMailID = $fromEmail;
 					}else{
-						$validatedFormEmail .= ','.$formEmail;
+						self::$fromMailID .= ','.$fromEmail;
 					}
 					$count++;
 				}
@@ -193,7 +195,30 @@ class Email {
 			$body = $data['message'];
 		}
 
-		var_dump($body);
+
+
+
+		add_filter('wp_mail_from',function(){
+			return self::$fromMailID;
+		});
+		add_filter('wp_mail_from_name',function(){
+			return self::$fromName;
+		});
+		add_filter('wp_mail_content_type',function(){
+			return 'text/html';
+		});
+		$headers = array(
+			'Bcc:'.$validatedBcc,
+			'Reply-To:<'.$validatedReplyTo.'>'
+		);
+		if($validatedEmailsString != ''){
+			wp_mail(
+				$validatedEmailsString,
+				$subject,
+				$body,
+				$headers
+			);
+		}
 
 
 	}
