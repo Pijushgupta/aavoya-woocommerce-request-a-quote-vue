@@ -36,7 +36,7 @@ class Button {
 			}
 			/* Hover ends */
 			$html .='}</style>'."\r\n";
-			$html .= '<button id="' . $htmlId . '" class="'.$buttonMeta['cssClass'].'" >' . $buttonMeta['buttonText'] . '</button>';
+			$html .= '<div class="button-area"><button id="' . $htmlId . '" class="'.$buttonMeta['cssClass'].'" >' . $buttonMeta['buttonText'] . '</button></div>';
 
 			return $html;
 

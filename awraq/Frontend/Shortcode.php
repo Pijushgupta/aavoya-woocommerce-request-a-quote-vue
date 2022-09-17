@@ -81,7 +81,10 @@ class Shortcode{
 			$html .='margin-left: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
 		}
 
-		$html .='';
+		$html .='border-radius:9999px;';
+		$html .='background-color:'.$formWrapper['svgSpanBg'].';';
+		$html .='box-shadow:'.$formWrapper['svgShadow']['hOffset'].'px '. $formWrapper['svgShadow']['vOffset'].'px ' . $formWrapper['svgShadow']['blur'].'px '.$formWrapper['svgShadow']['spread'].'px '.$formWrapper['svgShadow']['color'].'; '."\n\r";
+
 		$html .='} #xButtonSvg'.$id.'{'."\n\r";
 		$html .='width:'.$formWrapper['svgSize'].'px;'."\n\r";
 		$html .='height:'.$formWrapper['svgSize'].'px;'."\n\r";
@@ -90,6 +93,7 @@ class Shortcode{
 		$html .='}</style>';
 		$html .= '<div id="'.$htmlId.'" class="'. sanitize_html_class($formWrapper['formCssClassName']).'">';
 		$html .= '<span id="'.$xButtonId.'"><svg xmlns="http://www.w3.org/2000/svg" class="'.sanitize_html_class($formWrapper['svgCssClassName']).'" id="xButtonSvg'.$id.'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>';
+		$html .= 'Hello</div>';
 		return $html;
 	}
 
