@@ -35,7 +35,7 @@ class Shortcode{
 	 * @param  array $a(attribute array)
 	 * @return void
 	 */
-	public static function awraqButton($a){
+	public static function awraqButton($a):string{
 		if(!$a['id']) { return false;}
 		$id = intval($a['id']);
 	
@@ -52,7 +52,10 @@ class Shortcode{
 		}
 		
 		$html = Button::create($buttonMeta['drawer'],$id);
-		$html .= '<div class="form-area">'.self::formWrapper($buttonMeta['formDrawer'],$id).'</div>';
+		$html .= self::formWrapper($buttonMeta['formDrawer'],$id);
+		if(str_contains($html,'{form}')){
+			$html = str_replace('{form}',do_shortcode('[awraqf id="'.$buttonMeta["fs"].'"]'),$html );
+		}
 		return $html;
 	}
 
@@ -60,7 +63,7 @@ class Shortcode{
 		if($formWrapper == null || $id == null) return false;
 		$htmlId = 'formbyaavoya-'.$id;
 		$xButtonId = 'xCloseId'.$id;
-		$html = '<style> #'.$htmlId.'{';
+		$html = '<div class="form-area"><style> #'.$htmlId.'{';
 		$html .= 'background-color:'.$formWrapper['bgColor'].'!important;'."\n\r";
 		$html .= 'position:relative;'."\n\r";
 		$html .= 'padding:'.$formWrapper['paddingY'].'px '. $formWrapper['paddingX'].'px ;'."\n\r";
@@ -93,7 +96,7 @@ class Shortcode{
 		$html .='}</style>';
 		$html .= '<div id="'.$htmlId.'" class="'. sanitize_html_class($formWrapper['formCssClassName']).'">';
 		$html .= '<span id="'.$xButtonId.'"><svg xmlns="http://www.w3.org/2000/svg" class="'.sanitize_html_class($formWrapper['svgCssClassName']).'" id="xButtonSvg'.$id.'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>';
-		$html .= 'Hello</div>';
+		$html .= '{form}</div></div>';
 		return $html;
 	}
 
