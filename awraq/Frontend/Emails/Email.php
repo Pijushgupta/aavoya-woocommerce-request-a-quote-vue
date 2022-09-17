@@ -118,8 +118,6 @@ class Email {
 		}
 		return $message;
 	}
-
-	public static function formMailName(){}
 	public static function sendMail($data){
 		$validatedEmailsString = '';
 		$validatedReplyTo = '';
@@ -194,9 +192,6 @@ class Email {
 		if(array_key_exists('message',$data)){
 			$body = $data['message'];
 		}
-
-
-
 
 		add_filter('wp_mail_from',function(){
 			return self::$fromMailID;

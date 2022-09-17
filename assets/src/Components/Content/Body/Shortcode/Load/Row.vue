@@ -189,7 +189,10 @@ export default {
 		}
 		
 
-	}
+	},
+ Mounted:function(){
+    console.log('Hello');
+ }
 }
 
 </script>

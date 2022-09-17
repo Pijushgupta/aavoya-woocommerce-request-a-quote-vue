@@ -52,8 +52,47 @@ class Shortcode{
 		}
 		
 		$html = Button::create($buttonMeta['drawer'],$id);
+		$html .= '<div class="form-area">'.self::formWrapper($buttonMeta['formDrawer'],$id).'</div>';
 		return $html;
 	}
+
+	public static function formWrapper($formWrapper = null, $id = null){
+		if($formWrapper == null || $id == null) return false;
+		$htmlId = 'formbyaavoya-'.$id;
+		$xButtonId = 'xCloseId'.$id;
+		$html = '<style> #'.$htmlId.'{';
+		$html .= 'background-color:'.$formWrapper['bgColor'].'!important;'."\n\r";
+		$html .= 'position:relative;'."\n\r";
+		$html .= 'padding:'.$formWrapper['paddingY'].'px '. $formWrapper['paddingX'].'px ;'."\n\r";
+		$html .= 'box-shadow:'.$formWrapper['formShadow']['hOffset'].'px '. $formWrapper['formShadow']['vOffset'].'px ' . $formWrapper['formShadow']['blur'].'px '.$formWrapper['formShadow']['spread'].'px '.$formWrapper['formShadow']['color'].'; '."\n\r";
+		$html .='border-radius:'.$formWrapper['corners'].'px;'."\n\r";
+		$html .='} #'.$xButtonId.'{';
+		$html .='position:absolute;';
+		if($formWrapper['btPosition'] == 'top-right'){
+			$html .='top:0'.';'."\n\r";
+			$html .='right:0'.';'."\n\r";
+			$html .='margin-top: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
+			$html .='margin-right: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
+		}
+		if($formWrapper['btPosition'] == 'top-left'){
+			$html .='top:0'.';'."\n\r";
+			$html .='left:0'.';'."\n\r";
+			$html .='margin-top: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
+			$html .='margin-left: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
+		}
+
+		$html .='';
+		$html .='} #xButtonSvg'.$id.'{'."\n\r";
+		$html .='width:'.$formWrapper['svgSize'].'px;'."\n\r";
+		$html .='height:'.$formWrapper['svgSize'].'px;'."\n\r";
+		$html .='fill:'.$formWrapper['svgFill'].';'."\n\r";
+		$html .='stroke:'.$formWrapper['svgStroke'].';'."\n\r";
+		$html .='}</style>';
+		$html .= '<div id="'.$htmlId.'" class="'. sanitize_html_class($formWrapper['formCssClassName']).'">';
+		$html .= '<span id="'.$xButtonId.'"><svg xmlns="http://www.w3.org/2000/svg" class="'.sanitize_html_class($formWrapper['svgCssClassName']).'" id="xButtonSvg'.$id.'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>';
+		return $html;
+	}
+
 	
 	/**
 	 * awraqForm

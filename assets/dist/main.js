@@ -31109,6 +31109,9 @@ __webpack_require__.r(__webpack_exports__);
         this.emitDrawerId(this.row.id);
       }
     }
+  },
+  Mounted: function Mounted() {
+    console.log('Hello');
   }
 });
 
