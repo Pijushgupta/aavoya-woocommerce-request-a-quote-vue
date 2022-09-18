@@ -54,7 +54,8 @@ class Shortcode{
 		$html = Button::create($buttonMeta['drawer'],$id);
 		$html .= self::formWrapper($buttonMeta['formDrawer'],$id);
 		if(str_contains($html,'{form}')){
-			$html = str_replace('{form}',do_shortcode('[awraqf id="'.$buttonMeta["fs"].'"]'),$html );
+			$a = array('id'=>$buttonMeta['fs']);
+			$html = str_replace('{form}',self::awraqForm($a),$html );
 		}
 		return $html;
 	}
