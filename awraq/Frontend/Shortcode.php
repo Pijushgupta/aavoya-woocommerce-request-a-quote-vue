@@ -67,7 +67,7 @@ class Shortcode{
 		if($formWrapper == null || $id == null || $uniqueId == null) return false;
 		$htmlId = 'formwrapper'.$id.rand(0,9999);
 		$xButtonId = 'xCloseId'.$id;
-		$html = "\r\n".'<div class="form-area" style="display:none;" id='.$uniqueId.'>'."\r\n".' <style> #'.$htmlId.'{';
+		$html = "\r\n".'<div class="form-area" style="display:none; position: absolute; inset: 0;  justify-content: center; align-items: center; z-index:99;" id='.$uniqueId.' >'."\r\n".' <style> #'.$htmlId.'{';
 		$html .= 'background-color:'.$formWrapper['bgColor'].'!important;'."\r\n";
 		$html .= 'position:relative;'."\r\n";
 		$html .= 'padding:'.$formWrapper['paddingY'].'px '. $formWrapper['paddingX'].'px ;'."\r\n";
@@ -76,6 +76,7 @@ class Shortcode{
 		$html .='}'."\r\n".' #'.$xButtonId.'{'."\r\n";
 		$html .='position:absolute;'."\r\n";
 		$html .='cursor:pointer;'."\r\n";
+		$html .='display:flex;'."\r\n";
 		if($formWrapper['btPosition'] == 'top-right'){
 			$html .='top:0'.';'."\r\n";
 			$html .='right:0'.';'."\r\n";
@@ -109,7 +110,7 @@ class Shortcode{
 		$html .='});'."\r\n";
 		$html .= '});</script>';
 		$html .= '<div id="'.$htmlId.'" class="'. sanitize_html_class($formWrapper['formCssClassName']).'" >';
-		$html .= '<span id="'.$xButtonId.'" data-attr="'.$uniqueId.'"><svg xmlns="http://www.w3.org/2000/svg" class="'.sanitize_html_class($formWrapper['svgCssClassName']).'" id="xButtonSvg'.$id.'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>';
+		$html .= '<span id="'.$xButtonId.'" data-attr="'.$uniqueId.'"><svg xmlns="http://www.w3.org/2000/svg" class="'.sanitize_html_class($formWrapper['svgCssClassName']).'" id="xButtonSvg'.$id.'" viewBox="0 0 24 24"  stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>';
 		$html .= '{form}</div></div>';
 		return $html;
 	}

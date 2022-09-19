@@ -41,7 +41,7 @@ class Button {
 			$html .= "let awraqButton = document.querySelector('#".$htmlId."'); \r\n";
 			$html .= "awraqButton.addEventListener('click',function(){ \r\n";
 			$html .= "let targettingElementId = awraqButton.getAttribute('data-attr'); \r\n";
-			$html .= " document.getElementById(targettingElementId).style.display = 'inherit'; \r\n";
+			$html .= " document.getElementById(targettingElementId).style.display = 'flex'; \r\n";
 			//$html .= "console.log(targettingElementId);";
 			$html .= "});\r\n";
 			$html .="}); \r\n";
