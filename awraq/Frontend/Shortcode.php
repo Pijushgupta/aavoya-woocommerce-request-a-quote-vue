@@ -50,9 +50,12 @@ class Shortcode{
 			$html = '<div style="padding:2em;border:2px solid red; display:inline-block;"> Please assign a Form to the Button</div>';
 			return $html;
 		}
-		
-		$html = Button::create($buttonMeta['drawer'],$id);
-		$html .= self::formWrapper($buttonMeta['formDrawer'],$id);
+		$randomNumber= rand(0,9999);
+		$uniqueId = 'awraq'.$id.''.$randomNumber;
+		$html = Button::create($buttonMeta['drawer'],$id,$uniqueId);
+
+
+		$html .= self::formWrapper($buttonMeta['formDrawer'],$id,$uniqueId);
 		if(str_contains($html,'{form}')){
 			$a = array('id'=>$buttonMeta['fs']);
 			$html = str_replace('{form}',self::awraqForm($a),$html );
@@ -60,43 +63,53 @@ class Shortcode{
 		return $html;
 	}
 
-	public static function formWrapper($formWrapper = null, $id = null){
-		if($formWrapper == null || $id == null) return false;
-		$htmlId = 'formbyaavoya-'.$id;
+	public static function formWrapper($formWrapper = null, $id = null,$uniqueId = null){
+		if($formWrapper == null || $id == null || $uniqueId == null) return false;
+		$htmlId = 'formwrapper'.$id.rand(0,9999);
 		$xButtonId = 'xCloseId'.$id;
-		$html = '<div class="form-area"><style> #'.$htmlId.'{';
-		$html .= 'background-color:'.$formWrapper['bgColor'].'!important;'."\n\r";
-		$html .= 'position:relative;'."\n\r";
-		$html .= 'padding:'.$formWrapper['paddingY'].'px '. $formWrapper['paddingX'].'px ;'."\n\r";
-		$html .= 'box-shadow:'.$formWrapper['formShadow']['hOffset'].'px '. $formWrapper['formShadow']['vOffset'].'px ' . $formWrapper['formShadow']['blur'].'px '.$formWrapper['formShadow']['spread'].'px '.$formWrapper['formShadow']['color'].'; '."\n\r";
-		$html .='border-radius:'.$formWrapper['corners'].'px;'."\n\r";
-		$html .='} #'.$xButtonId.'{';
-		$html .='position:absolute;';
+		$html = "\r\n".'<div class="form-area" style="display:none;" id='.$uniqueId.'>'."\r\n".' <style> #'.$htmlId.'{';
+		$html .= 'background-color:'.$formWrapper['bgColor'].'!important;'."\r\n";
+		$html .= 'position:relative;'."\r\n";
+		$html .= 'padding:'.$formWrapper['paddingY'].'px '. $formWrapper['paddingX'].'px ;'."\r\n";
+		$html .= 'box-shadow:'.$formWrapper['formShadow']['hOffset'].'px '. $formWrapper['formShadow']['vOffset'].'px ' . $formWrapper['formShadow']['blur'].'px '.$formWrapper['formShadow']['spread'].'px '.$formWrapper['formShadow']['color'].'; '."\r\n";
+		$html .='border-radius:'.$formWrapper['corners'].'px;'."\r\n";
+		$html .='}'."\r\n".' #'.$xButtonId.'{'."\r\n";
+		$html .='position:absolute;'."\r\n";
+		$html .='cursor:pointer;'."\r\n";
 		if($formWrapper['btPosition'] == 'top-right'){
-			$html .='top:0'.';'."\n\r";
-			$html .='right:0'.';'."\n\r";
-			$html .='margin-top: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
-			$html .='margin-right: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
+			$html .='top:0'.';'."\r\n";
+			$html .='right:0'.';'."\r\n";
+			$html .='margin-top: -'.($formWrapper['svgSize']/2).'px;'."\r\n";
+			$html .='margin-right: -'.($formWrapper['svgSize']/2).'px;'."\r\n";
 		}
 		if($formWrapper['btPosition'] == 'top-left'){
-			$html .='top:0'.';'."\n\r";
-			$html .='left:0'.';'."\n\r";
-			$html .='margin-top: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
-			$html .='margin-left: -'.($formWrapper['svgSize']/2).'px;'."\n\r";
+			$html .='top:0'.';'."\r\n";
+			$html .='left:0'.';'."\r\n";
+			$html .='margin-top: -'.($formWrapper['svgSize']/2).'px;'."\r\n";
+			$html .='margin-left: -'.($formWrapper['svgSize']/2).'px;'."\r\n";
 		}
 
-		$html .='border-radius:9999px;';
-		$html .='background-color:'.$formWrapper['svgSpanBg'].';';
-		$html .='box-shadow:'.$formWrapper['svgShadow']['hOffset'].'px '. $formWrapper['svgShadow']['vOffset'].'px ' . $formWrapper['svgShadow']['blur'].'px '.$formWrapper['svgShadow']['spread'].'px '.$formWrapper['svgShadow']['color'].'; '."\n\r";
+		$html .='border-radius: 9999px;'."\r\n";
+		$html .='background-color:'.$formWrapper['svgSpanBg'].';'."\r\n";
+		$html .='box-shadow:'.$formWrapper['svgShadow']['hOffset'].'px '. $formWrapper['svgShadow']['vOffset'].'px ' . $formWrapper['svgShadow']['blur'].'px '.$formWrapper['svgShadow']['spread'].'px '.$formWrapper['svgShadow']['color'].'; '."\r\n";
 
-		$html .='} #xButtonSvg'.$id.'{'."\n\r";
-		$html .='width:'.$formWrapper['svgSize'].'px;'."\n\r";
-		$html .='height:'.$formWrapper['svgSize'].'px;'."\n\r";
-		$html .='fill:'.$formWrapper['svgFill'].';'."\n\r";
-		$html .='stroke:'.$formWrapper['svgStroke'].';'."\n\r";
-		$html .='}</style>';
-		$html .= '<div id="'.$htmlId.'" class="'. sanitize_html_class($formWrapper['formCssClassName']).'">';
-		$html .= '<span id="'.$xButtonId.'"><svg xmlns="http://www.w3.org/2000/svg" class="'.sanitize_html_class($formWrapper['svgCssClassName']).'" id="xButtonSvg'.$id.'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>';
+		$html .='} #xButtonSvg'.$id.'{'."\r\n";
+		$html .='width:'.$formWrapper['svgSize'].'px;'."\r\n";
+		$html .='height:'.$formWrapper['svgSize'].'px;'."\r\n";
+		$html .='fill:'.$formWrapper['svgFill'].';'."\r\n";
+		$html .='stroke:'.$formWrapper['svgStroke'].';'."\r\n";
+		$html .= '}'.'</style>';
+		$html .='<script>';
+		$html .='window.addEventListener("load", function(){'."\r\n";
+		$html .='let xButton = document.querySelector("#'.$xButtonId.'");' . "\r\n";
+		$html .='xButton.addEventListener("click",function(){'. "\r\n";
+		$html .='let elementToTarget = xButton.getAttribute("data-attr");'."\r\n";
+		$html .='let formDiv = document.getElementById(elementToTarget);';
+		$html .='formDiv.style.display = "none";'."\r\n";
+		$html .='});'."\r\n";
+		$html .= '});</script>';
+		$html .= '<div id="'.$htmlId.'" class="'. sanitize_html_class($formWrapper['formCssClassName']).'" >';
+		$html .= '<span id="'.$xButtonId.'" data-attr="'.$uniqueId.'"><svg xmlns="http://www.w3.org/2000/svg" class="'.sanitize_html_class($formWrapper['svgCssClassName']).'" id="xButtonSvg'.$id.'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>';
 		$html .= '{form}</div></div>';
 		return $html;
 	}

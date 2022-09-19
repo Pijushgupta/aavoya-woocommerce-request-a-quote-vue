@@ -7,10 +7,10 @@ use Awraq\Base\Meta;
 class Button {
 	
 
-		public static function create($buttonMeta = null,$id){
+		public static function create($buttonMeta = null,$id,$uniqueId){
 			if($buttonMeta == null) return false;
 			
-			$htmlId = 'awraq-button-' . $id;
+			$htmlId = 'awraq-button-' . $id.rand(0,9999);
 
 			$html = '<style> #'.$htmlId.'{'."\r\n";
 			$html .= 'cursor: pointer;'."\r\n"; 
@@ -36,7 +36,17 @@ class Button {
 			}
 			/* Hover ends */
 			$html .='}</style>'."\r\n";
-			$html .= '<div class="button-area"><button id="' . $htmlId . '" class="'.$buttonMeta['cssClass'].'" >' . $buttonMeta['buttonText'] . '</button></div>';
+			$html .="<script> \r\n";
+			$html .="window.addEventListener('load',function(){ \r\n";
+			$html .= "let awraqButton = document.querySelector('#".$htmlId."'); \r\n";
+			$html .= "awraqButton.addEventListener('click',function(){ \r\n";
+			$html .= "let targettingElementId = awraqButton.getAttribute('data-attr'); \r\n";
+			$html .= " document.getElementById(targettingElementId).style.display = 'inherit'; \r\n";
+			//$html .= "console.log(targettingElementId);";
+			$html .= "});\r\n";
+			$html .="}); \r\n";
+			$html .="</script> \r\n";
+			$html .= '<div class="button-area"><button id="' . $htmlId . '" class="'.$buttonMeta['cssClass'].'"  data-attr="'.$uniqueId.'">' . $buttonMeta['buttonText'] . '</button></div>';
 
 			return $html;
 
