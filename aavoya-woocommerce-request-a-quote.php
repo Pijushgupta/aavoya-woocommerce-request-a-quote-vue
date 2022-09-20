@@ -33,6 +33,7 @@ use Awraq\Base\Entries;
 use Awraq\Base\Ip;
 use Awraq\Base\Gcaptcha;
 use Awraq\Frontend\Shortcode;
+use Awraq\Frontend\Woocommerce\Woo;
 
 
 
@@ -53,5 +54,6 @@ function awraq_init_plugin() {
 	Ip::enable();
 	Gcaptcha::enable();
 	Shortcode::activate();
+	Woo::activate();
 }
 add_action('plugins_loaded', 'awraq_init_plugin');
