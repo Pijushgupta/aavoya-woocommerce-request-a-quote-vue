@@ -16,6 +16,7 @@ class Woo {
 		 * on Frontend. So our code is safe from executing in admin area too.
 		 */
 		add_action('template_redirect',array(self::$globalScopeName,'init'));
+
 	}
 
 	public static function init(){
@@ -27,10 +28,13 @@ class Woo {
 
 		global $post;
 		self::$postId = $post->ID;
-		$productMeta = self::findInProduct();
+		self::$raqId = self::findInProduct();
 
-		if($productMeta != false){
-			remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+		if(self::$raqId != false){
+			//TODO: Check if the button still exist or not
+			self::disableSingleAddtoCart();
+			self::addButton();
+			return;
 		}
 	}
 
@@ -46,4 +50,14 @@ class Woo {
 	}
 	public static function findInCat(){}
 	public static function findInTag(){}
+	public static function disableSingleAddtoCart(){
+		remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+		remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+		//TODO: add custom code for few themes that bypass normal add to cart, like astra.
+	}
+	public static function addButton(){
+		add_action('woocommerce_single_product_summary',function(){
+			echo do_shortcode('[awraq id="'.self::$raqId.'"]');
+		},30);
+	}
 }
