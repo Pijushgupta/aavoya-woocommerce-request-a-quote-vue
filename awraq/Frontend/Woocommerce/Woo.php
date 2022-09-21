@@ -40,7 +40,7 @@ class Woo {
 		}
 		/* Priority 2*/
 		if(self::$raqId == false || get_post(self::$raqId) == null){
-			//TODO: TAG
+			self::$raqId = self::findInTag();
 		}
 
 		/**
@@ -58,6 +58,10 @@ class Woo {
 
 	}
 
+	/**
+	 * Finds Button id in Product's Meta
+	 * @return false|mixed
+	 */
 	public static function findInProduct(){
 		if(self::$postId == null) return false;
 		$raqMeta = get_post_meta(self::$postId,'_awraq_button_data',true);
@@ -68,6 +72,12 @@ class Woo {
 		}
 		return false;
 	}
+
+	/**
+	 * Finds Button id in Product's Category meta
+	 * Search through multiple categories and select the category with the highest id
+	 * @return false|mixed
+	 */
 	public static function findInCat(){
 		if(self::$postId == null) return false;
 
@@ -98,15 +108,57 @@ class Woo {
 		return $raqMeta;
 
 	}
+
+	/**
+	 * Finds Button id in Product's Tag meta
+	 * Search through multiple tags and select the tag with the highest id
+	 * @return false|mixed
+	 */
 	public static function findInTag(){
 		if(self::$postId == null) return false;
+		$product_tags = get_the_terms(self::$postId,'product_tag');
+
+		if(is_wp_error($product_tags)) return false;
+		if($product_tags == false) return false;
+
+		$raqMetaArray = array();
+		foreach($product_tags as $key => $product_tag){
+			$raqMeta = get_term_meta($product_tag->term_id,'awraq_term_meta',true);
+			if($raqMeta != false || $raqMeta != ''){
+				array_push($raqMetaArray,array($product_tag->term_id,unserialize($raqMeta)));
+			}
+		}
+		/**
+		 * Only selecting the tag with higher ID value;
+		 */
+		$counter = 0;
+		$raqMeta = false;
+		foreach($raqMetaArray as $k=>$d){
+			if($d[0] > $counter && $d[1]['switch'] == true){
+				$counter = $d[0];
+				$raqMeta = $d[1]['selected'];
+			}
+		}
+		return $raqMeta;
+
 
 	}
+
+	/**
+	 * Disable the Woocommerce's default price
+	 * Disable the Woocommerce's deafult "add to cart" button
+	 * @return void
+	 */
 	public static function disableSingleAddtoCart(){
 		remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
 		remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
 		//TODO: add custom code for few themes that bypass normal add to cart, like astra.
 	}
+
+	/**
+	 * Add RAQ button with popup form
+	 * @return void
+	 */
 	public static function addButton(){
 		add_action('woocommerce_single_product_summary',function(){
 			echo do_shortcode('[awraq id="'.self::$raqId.'"]');
