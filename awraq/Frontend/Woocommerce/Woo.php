@@ -7,7 +7,7 @@ class Woo {
 
 	public static $globalScopeName = 'Awraq\Frontend\Woocommerce\Woo';
 	public static $postId = null;
-	public static $raqId = null;
+	public static $raqId = false;
 
 	public static function activate(): void {
 		/**
@@ -28,14 +28,34 @@ class Woo {
 
 		global $post;
 		self::$postId = $post->ID;
+
+		/* Priority 0*/
 		self::$raqId = self::findInProduct();
 
+		/* Priority 1 - Category*/
+		if(self::$raqId == false || get_post(self::$raqId) == null){
+
+			self::$raqId = self::findInCat();
+
+		}
+		/* Priority 2*/
+		if(self::$raqId == false || get_post(self::$raqId) == null){
+			//TODO: TAG
+		}
+
+		/**
+		 * Checking associated button still exists
+		 * Don't need to check form associated with the button still exists or not
+		 * Since it's done by Button generating code
+		 */
+		if(self::$raqId == false || get_post(self::$raqId) == null) return;
+
 		if(self::$raqId != false){
-			//TODO: Check if the button still exist or not
 			self::disableSingleAddtoCart();
 			self::addButton();
 			return;
 		}
+
 	}
 
 	public static function findInProduct(){
@@ -48,8 +68,40 @@ class Woo {
 		}
 		return false;
 	}
-	public static function findInCat(){}
-	public static function findInTag(){}
+	public static function findInCat(){
+		if(self::$postId == null) return false;
+
+		$product_categories = get_the_terms(self::$postId,'product_cat');
+
+		if(is_wp_error($product_categories)) return false;
+		if($product_categories == false) return false;
+
+		$raqMetaArray = array();
+		foreach($product_categories as $key => $product_category){
+			$raqMeta = get_term_meta($product_category->term_id,'awraq_term_meta',true);
+			if($raqMeta != false || $raqMeta != ''){
+				array_push($raqMetaArray,array($product_category->term_id,unserialize($raqMeta)));
+			}
+		}
+
+		/**
+		 * Only selecting the category with higher ID value;
+		 */
+		$counter = 0;
+		$raqMeta = false;
+		foreach($raqMetaArray as $k=>$d){
+			if($d[0] > $counter && $d[1]['switch'] == true){
+				$counter = $d[0];
+				$raqMeta = $d[1]['selected'];
+			}
+		}
+		return $raqMeta;
+
+	}
+	public static function findInTag(){
+		if(self::$postId == null) return false;
+
+	}
 	public static function disableSingleAddtoCart(){
 		remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
 		remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);

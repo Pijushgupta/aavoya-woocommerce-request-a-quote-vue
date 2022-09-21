@@ -45,11 +45,14 @@ class Shortcode{
 		/*
 		 * [fs] is the post id of selected form, stored inside the meta.
 		 * if [fs] is not set, then the button is not going to be active.
+		 * Also checking the set form still exists
 		 */
-		if($buttonMeta['fs'] == 0){
+		if($buttonMeta['fs'] == 0 || get_post($buttonMeta['fs']) == null){
 			$html = '<div style="padding:2em;border:2px solid red; display:inline-block;"> Please assign a Form to the Button</div>';
 			return $html;
 		}
+
+
 		$randomNumber= rand(0,9999);
 		$uniqueId = 'awraq'.$id.''.$randomNumber;
 		$html = Button::create($buttonMeta['drawer'],$id,$uniqueId);
