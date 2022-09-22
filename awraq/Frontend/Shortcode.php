@@ -61,7 +61,7 @@ class Shortcode{
 		$html .= self::formWrapper($buttonMeta['formDrawer'],$id,$uniqueId);
 		if(str_contains($html,'{form}')){
 			$a = array('id'=>$buttonMeta['fs']);
-			$html = str_replace('{form}',self::awraqForm($a),$html );
+			$html = str_replace('{form}',self::awraqCreateForm($a),$html );
 		}
 		return $html;
 	}
@@ -118,6 +118,35 @@ class Shortcode{
 		return $html;
 	}
 
+	public static function awraqCreateForm($a){
+		if(!$a['id']) { return false;}
+		$id = intval($a['id']);
+		$post_type = get_post_type($id);
+		if($post_type == 'aavoya_wraq_form'){
+			return self::awraqForm($a);
+		}
+		$activationToken = true;
+		//TODO: Check activation token
+		if($activationToken == true){
+			switch ($post_type){
+				case 'wpcf7_contact_form':
+					return do_shortcode('[contact-form-7 id="'.$id.'"]');
+					break;
+			    case 'wpforms':
+					return do_shortcode('[wpforms id="'.$id.'"]');
+					break;
+				case 'forminator_forms':
+					return do_shortcode('[forminator_form id="'.$id.'"]');
+					break;
+				case 'forminator_polls':
+					return do_shortcode('[forminator_poll id="'.$id.'"]');
+					break;
+				case 'forminator_quizzes':
+					return do_shortcode('[forminator_quiz id="'.$id.'"]');
+					break;
+			}
+		}
+	}
 	
 	/**
 	 * awraqForm
@@ -128,11 +157,12 @@ class Shortcode{
 	public static function awraqForm($a){
 		if(!$a['id']) { return false;}
 		$id = intval($a['id']);
-	
+
+		/* Creating Aavoya the Form */
 		$formInputs = Meta::getForm($id);
 		if($formInputs == false) return false;
-		/* Creating the Form */
 		return Form::create($formInputs,$id);
+
 	}
 
 }
