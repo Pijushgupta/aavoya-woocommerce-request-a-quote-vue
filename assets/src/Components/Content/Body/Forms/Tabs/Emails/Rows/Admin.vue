@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
 	<div  class="mx-auto md:w-7/12 px-4 py-4">
 		<div class="flex flex-row justify-between items-center py-6 px-4 mb-3.5 bg-gray-50 rounded-lg">
       <label class="font-medium" :for="'ed'+props.id">Enable/Disable</label>
@@ -64,7 +64,7 @@
 			<button @click="fieldSeclectorMenuToOpen == 'message' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'message'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
 			<FieldSelector v-if="fieldSeclectorMenuToOpen == 'message'" v-bind:name="'message'" v-bind:fields="flatInput" @selected='selected'/>
 			</div>
-			<Editor v-if="adminNotificationSettingData != false" v-model="adminNotificationSettingData.message" class="w-full" />
+			<textarea v-if="adminNotificationSettingData != false" v-model="adminNotificationSettingData.message" class="w-full" ></textarea>
 		</div>
 		
 	</div>
@@ -78,7 +78,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import FieldSelector from './components/FieldSelector';
-import Editor from './components/Editor.vue';
+//import Editor from './components/Editor.vue';
 import {useToast} from "vue-toastification";
 
 

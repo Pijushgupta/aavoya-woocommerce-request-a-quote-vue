@@ -61,7 +61,7 @@
         <button  @click="fieldSeclectorMenuToOpen == 'message' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'message'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
         <FieldSelector v-if="fieldSeclectorMenuToOpen == 'message'" v-bind:name="'message'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
-      <Editor v-if="userNotificationSettingData != false" v-model="userNotificationSettingData.message" class="w-full" />
+      <textarea v-if="userNotificationSettingData != false" v-model="userNotificationSettingData.message" class="w-full" ></textarea>
     </div>
   </div>
   <div class=" bg-gray-50">
@@ -73,7 +73,7 @@
 <script setup>
 import {ref, watch} from 'vue';
 import FieldSelector from './components/FieldSelector';
-import Editor from './components/Editor.vue';
+//import Editor from './components/Editor.vue';
 import {useToast} from "vue-toastification";
 const props = defineProps({
   id:Number

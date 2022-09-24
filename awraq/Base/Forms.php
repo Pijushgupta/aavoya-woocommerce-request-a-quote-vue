@@ -232,6 +232,10 @@ class Forms {
 		if (!$postId) wp_die();
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$data = Officer::jsonToArray($_POST['data']);
+		foreach($data as &$input){
+			$input = sanitize_text_field($input);
+		}
+		unset($input);
 		echo json_encode(update_post_meta($postId,'awraqFormAdminNotification',serialize($data)));
 		wp_die();
 	}
@@ -262,6 +266,10 @@ class Forms {
 		if (!$postId) wp_die();
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$data = Officer::jsonToArray($_POST['data']);
+		foreach($data as &$input){
+			$input = sanitize_text_field($input);
+		}
+		unset($input);
 		echo json_encode(update_post_meta($postId,'awraqFormUserNotification',serialize($data)));
 		wp_die();
 	}
