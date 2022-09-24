@@ -31,7 +31,7 @@ class Entries {
 		foreach ($entries as $key => $entry) {
 			$e[$key]['id'] = $entry->ID;
 			$e[$key]['entry'] = unserialize($entry->post_content);
-			$e[$key]['form_name'] = get_the_title(esc_html((int)$entry->post_title)) == '' ? 'Form Deleted:'.(int)$entry->post_title : get_the_title(esc_html((int)$entry->post_title)) ;
+			$e[$key]['form_name'] = get_the_title(esc_html((int)$entry->post_title)) == '' ? (int)$entry->post_title : get_the_title(esc_html((int)$entry->post_title)) ;
 			$e[$key]['date'] = $entry->post_date;
 			$e[$key]['is_opened'] = get_post_meta($entry->ID, 'aavoya_wraq_fe_is_opened', true) ? get_post_meta($entry->ID, 'aavoya_wraq_fe_is_opened', true) : false;
 		}

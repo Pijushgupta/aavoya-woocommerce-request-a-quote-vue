@@ -12,7 +12,7 @@
 			<!-- Delete Form Button ends -->
 			<!-- Form name  -->
 		  <div class="w-6/12">
-			  <span  class="w-full font-semibold">{{localRow.post_title ? localRow.post_title : 'Untitled Form'}}</span>
+			  <span  class="w-full font-semibold rounded-full px-2 py-1 bg-gray-600 text-white">{{localRow.post_title ? localRow.post_title : 'Untitled Form'}}</span>
 		  </div>
 			<!-- Form name ends -->
 			<!-- Form shortcode to copy -->
