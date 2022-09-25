@@ -10,7 +10,7 @@
 					v-bind:key="option.id"
 					v-bind:value="option.id"
 					>
-					[shotcode id="{{option.id}}"]
+					[awraq id="{{option.id}}"]
 					</option>
 					
 			</select>

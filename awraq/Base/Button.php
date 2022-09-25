@@ -55,6 +55,10 @@ class Button {
 			'post_status' => 'publish',
 			'posts_per_page' => -1
 		));
+		if($posts == false || $posts == '' || count($posts) < 1){
+			echo json_encode(null);
+			wp_die();
+		}
 		$row_bundle = Meta::get($posts);
 		echo json_encode($row_bundle);
 

@@ -2,7 +2,7 @@
   <div>
 	 <div class="bg-white border border-t-0 rounded-b-lg min-h-4">
 		 <div v-if="rows !== null && rows !== ''">
-			 <ul class="pb-8">
+			 <ul >
 			 <Rows 
 			 v-for="row in rows" 
 			 v-bind:key="row.ID" 

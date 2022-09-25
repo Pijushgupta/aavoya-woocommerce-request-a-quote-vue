@@ -2,7 +2,7 @@
 	<div>
 	 <div class="bg-white border border-t-0 rounded-b-lg min-h-4">
 		<div v-if="entries !== 0" >
-			 <ul class="pb-8">
+			 <ul class="">
 			 <Rows
            v-for="entry in entries"
            v-bind:row="entry"
