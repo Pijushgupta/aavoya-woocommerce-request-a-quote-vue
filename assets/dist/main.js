@@ -27686,7 +27686,7 @@ var toastOption = {
   position: 'top-center',
   toastClassName: 'awraq-toast'
 };
-(0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]).use(vue_toastification__WEBPACK_IMPORTED_MODULE_1__["default"], toastOption).mount('#awraq-root');
+(0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]).use(vue_toastification__WEBPACK_IMPORTED_MODULE_1__["default"], toastOption).mount('#raqpba-root');
 
 /***/ }),
 

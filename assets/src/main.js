@@ -15,4 +15,4 @@ const toastOption = {
 
 createApp(App)
 	.use(Toast, toastOption)
-	.mount('#awraq-root');
+	.mount('#raqpba-root');
