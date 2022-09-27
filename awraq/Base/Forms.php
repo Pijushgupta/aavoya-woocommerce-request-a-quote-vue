@@ -74,7 +74,7 @@ class Forms {
 	 */
 	public static function awraqCreateForms() {
 		if (!Officer::check($_POST)) wp_die();
-		//TODO: User notification meta
+
 		$postId = wp_insert_post(array('ID' => '', 'post_type' => 'aavoya_wraq_form', 'post_status' => 'publish'));
 		add_post_meta(
 			$postId,
@@ -82,13 +82,13 @@ class Forms {
 			serialize(
 				array(
 					'en' => 'false',
-					'sent_to_email' => '{wordpress_admin}',
-					'from_name' => '{wordpress_admin_name}',
-					'from_email' => '{noreplay@domain.com}',
+					'sent_to_email' => sanitize_text_field('{wordpress_admin}'),
+					'from_name' => sanitize_text_field('{wordpress_admin_name}'),
+					'from_email' => sanitize_text_field('{noreplay@domain.com}'),
 					'replay_To' => '',
 					'bcc' => '',
 					'subject' => '',
-					'message' => '{all}'
+					'message' => sanitize_text_field('{all}')
 				)
 			)
 		);
@@ -99,8 +99,8 @@ class Forms {
 				array(
 					'en' => 'false',
 					'sent_to_email' => '',
-					'from_name' => '{wordpress_admin_name}',
-					'from_email' => '{noreplay@domain.com}',
+					'from_name' => sanitize_text_field('{wordpress_admin_name}'),
+					'from_email' => sanitize_text_field('{noreplay@domain.com}'),
 					'replay_To' => '',
 					'subject' => '',
 					'message' => ''
@@ -157,7 +157,6 @@ class Forms {
 	/**
 	 * Deleting form
 	 * @return void
-	 * TODO: deletes everything related form
 	 */
 	public static function awraqDeleteForm() {
 		if (!Officer::check($_POST)) wp_die();

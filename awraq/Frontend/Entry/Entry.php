@@ -16,10 +16,10 @@ class Entry {
 	public static function add($formId, $postData): bool {
 		$status =  wp_insert_post(array(
 			'ID' => '',
-			'post_type' => 'aavoya_wraq_fe',
+			'post_type' => sanitize_text_field('aavoya_wraq_fe'),
 			'post_title' => (string)$formId,
 			'post_content' => serialize($postData),
-			'post_status' => 'publish'
+			'post_status' => sanitize_text_field('publish')
 		), true);
 		if (!is_wp_error($status)) {
 			add_post_meta($status, 'aavoya_wraq_fe_is_opened', false);

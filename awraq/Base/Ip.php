@@ -36,8 +36,6 @@ class Ip {
 		if ($blockedIp != false) {
 			$blockedIp = unserialize($blockedIp);
 			echo json_encode($blockedIp);
-		} else {
-			echo json_encode(array('192.167.1.2', '123.25.36.1'));
 		}
 		wp_die();
 	}
