@@ -26,14 +26,13 @@ import { ref } from 'vue';
 let faqs = [
 	{
 		"id": 0,
-		"question": "How to create a Button",
-		"answer": "Click on the Button Tab"
+		"question": "How to create a Form for a Button",
+		"answer": ""
 	},
-	{ "id":1, "question": "How to create a Button", "answer": "hejek" },
-	{ "id":2, "question": "How to create a Button", "answer": "hejek" },
-	{ "id":3, "question": "How to create a Button", "answer": "hejek" },
+	
 	
 ]
 const activeAccordion = ref(null);
+const assetPath = ref(assetPath);
 
 </script>

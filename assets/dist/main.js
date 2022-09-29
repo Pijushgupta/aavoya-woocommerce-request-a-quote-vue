@@ -30728,25 +30728,15 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var faqs = [{
       "id": 0,
-      "question": "How to create a Button",
-      "answer": "Click on the Button Tab"
-    }, {
-      "id": 1,
-      "question": "How to create a Button",
-      "answer": "hejek"
-    }, {
-      "id": 2,
-      "question": "How to create a Button",
-      "answer": "hejek"
-    }, {
-      "id": 3,
-      "question": "How to create a Button",
-      "answer": "hejek"
+      "question": "How to create a Form for a Button",
+      "answer": ""
     }];
     var activeAccordion = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    var assetPath = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(assetPath);
     var __returned__ = {
       faqs: faqs,
       activeAccordion: activeAccordion,
+      assetPath: assetPath,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -36440,7 +36430,7 @@ var _hoisted_2 = {
 
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
-  "class": "inline w-4 h-4 cursor-pointer mr-1",
+  "class": "inline w-4 h-4 cursor-pointer",
   viewBox: "0 0 20 20",
   fill: "currentColor"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
@@ -36451,39 +36441,31 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
-
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "font-semibold"
-}, "Delete", -1
-/* HOISTED */
-);
-
-var _hoisted_6 = [_hoisted_3, _hoisted_4, _hoisted_5];
-var _hoisted_7 = {
+var _hoisted_4 = [_hoisted_3];
+var _hoisted_5 = {
   "class": "title w-4/12"
 };
-var _hoisted_8 = {
+var _hoisted_6 = {
   "class": "w-4/12"
 };
-var _hoisted_9 = ["value", "selected"];
-var _hoisted_10 = {
+var _hoisted_7 = ["value", "selected"];
+var _hoisted_8 = {
   "class": "short-code py-1 flex flex-row flex-wrap items-center"
 };
-var _hoisted_11 = {
+var _hoisted_9 = {
   "class": "flex flex-row justify-center"
 };
-var _hoisted_12 = {
+var _hoisted_10 = {
   "class": "code px-4"
 };
-var _hoisted_13 = {
+var _hoisted_11 = {
   "class": "flex flex-row justify-end"
 };
-var _hoisted_14 = {
+var _hoisted_12 = {
   "class": "copy-button"
 };
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "stroke-linecap": "round",
   "stroke-linejoin": "round",
   "stroke-width": "2",
@@ -36492,12 +36474,12 @@ var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_16 = [_hoisted_15];
-var _hoisted_17 = {
+var _hoisted_14 = [_hoisted_13];
+var _hoisted_15 = {
   "class": "rounded-full border cursor-pointer flex flex-row items-center px-1 py-1"
 };
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "fill-rule": "evenodd",
   d: "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z",
   "clip-rule": "evenodd"
@@ -36505,19 +36487,19 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_19 = [_hoisted_18];
-var _hoisted_20 = {
+var _hoisted_17 = [_hoisted_16];
+var _hoisted_18 = {
   "class": "drawer-open"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Drawer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Drawer");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "rounded border cursor-pointer flex flex-row items-center px-4 py-2 hover:text-blue-500",
+    "class": "rounded-full border cursor-pointer flex flex-row justify-center items-center w-10 h-10 hover:text-blue-500",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.deleteConfirmation && $options.deleteConfirmation.apply($options, arguments);
     })
-  }, _hoisted_6), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, _hoisted_4), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "w-full",
     type: "text",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -36528,7 +36510,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.title, void 0, {
     trim: true
-  }]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "contact7form",
     "class": "w-full",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -36541,16 +36523,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       selected: _ctx.selectedFormOption
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option.title), 9
     /* TEXT, PROPS */
-    , _hoisted_9);
+    , _hoisted_7);
   }), 128
   /* KEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.selectedFormOption, void 0, {
     number: true
-  }]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.row.sc), 1
+  }]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.row.sc), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_14, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     "class": "inline w-5 h-6 cursor-pointer",
     onClick: _cache[3] || (_cache[3] = function () {
@@ -36559,7 +36541,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     fill: "none",
     viewBox: "0 0 24 24",
     stroke: "currentColor"
-  }, _hoisted_16))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
+  }, _hoisted_14))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(_ctx.drawerIconPosition !== false ? 'hover:cursor-pointer transform rotate-90   w-4 h-4' : 'hover:cursor-pointer w-4 h-4'),
     onClick: _cache[4] || (_cache[4] = function ($event) {
@@ -36568,9 +36550,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     viewBox: "0 0 20 20",
     fill: "currentColor"
-  }, _hoisted_19, 2
+  }, _hoisted_17, 2
   /* CLASS */
-  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Drawer, {
+  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Drawer, {
     drawerData: _ctx.drawerData,
     formDrawerData: _ctx.formDrawerData,
     drawerId: $props.row.id,

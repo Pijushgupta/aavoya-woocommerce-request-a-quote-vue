@@ -941,14 +941,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-full {
   height: 100%;
 }
-.h-6 {
-  height: 1.5rem;
-}
 .h-5 {
   height: 1.25rem;
 }
 .h-4 {
   height: 1rem;
+}
+.h-6 {
+  height: 1.5rem;
 }
 .h-10 {
   height: 2.5rem;
@@ -969,9 +969,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-full {
   width: 100%;
-}
-.w-6 {
-  width: 1.5rem;
 }
 .w-5 {
   width: 1.25rem;
@@ -1087,11 +1084,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-lg {
   border-radius: 0.5rem;
 }
-.rounded-full {
-  border-radius: 9999px;
-}
 .rounded {
   border-radius: 0.25rem;
+}
+.rounded-full {
+  border-radius: 9999px;
 }
 .rounded-t-lg {
   border-top-left-radius: 0.5rem;
@@ -1113,11 +1110,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-b-0 {
   border-bottom-width: 0px;
 }
-.border-t-0 {
-  border-top-width: 0px;
-}
 .border-t {
   border-top-width: 1px;
+}
+.border-t-0 {
+  border-top-width: 0px;
 }
 .border-r {
   border-right-width: 1px;
@@ -1189,14 +1186,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .fill-cyan-500 {
   fill: #06b6d4;
 }
-.stroke-blue-500 {
-  stroke: #3b82f6;
-}
 .stroke-gray-500 {
   stroke: #6b7280;
 }
-.stroke-gray-400 {
-  stroke: #9ca3af;
+.stroke-blue-500 {
+  stroke: #3b82f6;
 }
 .p-2 {
   padding: 0.5rem;
@@ -1848,9 +1842,6 @@ a:hover {
 .first\:pt-4:first-child {
   padding-top: 1rem;
 }
-.first\:pt-2:first-child {
-  padding-top: 0.5rem;
-}
 .last\:mb-0:last-child {
   margin-bottom: 0px;
 }
@@ -1872,9 +1863,6 @@ a:hover {
 }
 .last\:pb-4:last-child {
   padding-bottom: 1rem;
-}
-.last\:pb-2:last-child {
-  padding-bottom: 0.5rem;
 }
 .hover\:cursor-pointer:hover {
   cursor: pointer;
