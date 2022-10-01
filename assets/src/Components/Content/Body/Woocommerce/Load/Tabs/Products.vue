@@ -44,7 +44,7 @@ export default {
 			.then((response) => response.json())
 			.then((response) => {
 				this.products = response;
-				console.log(response)
+				
 			})
 			.catch((err) => console.log(err));
 		}
