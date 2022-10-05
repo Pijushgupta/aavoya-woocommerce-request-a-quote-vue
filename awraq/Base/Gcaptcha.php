@@ -34,11 +34,11 @@ class Gcaptcha {
 		$ch = curl_init();
 
 		//TO be removed
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-		curl_setopt($ch, CURLOPT_VERBOSE, true);
-		curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert-2022-07-19.pem');
-		curl_setopt($ch, CURLOPT_CAPATH, __DIR__ . '/cacert-2022-07-19.pem');
+//		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+//		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+//		curl_setopt($ch, CURLOPT_VERBOSE, true);
+//		curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert-2022-07-19.pem');
+//		curl_setopt($ch, CURLOPT_CAPATH, __DIR__ . '/cacert-2022-07-19.pem');
 		//To be removed
 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
