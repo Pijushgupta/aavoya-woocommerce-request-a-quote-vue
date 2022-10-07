@@ -19,29 +19,29 @@ class Name {
 
 		$class = '';
 		if ($numberOfEnabledFields == 1) {
-			$class = 'w-full';
+			$class = 'aavoyaw-full';
 		}
 		if ($numberOfEnabledFields == 2) {
-			$class = 'w-1/2 pr-2';
+			$class = 'aavoyaw-1/2 aavoyapr-2';
 		}
 		if ($numberOfEnabledFields == 3) {
-			$class = 'w-1/3 pr-2';
+			$class = 'aavoyaw-1/3 aavoyapr-2';
 		}
 
-		 if(array_key_exists('cssClass',$formInput['data'])){
-			 $css = sanitize_html_class($formInput['data']['cssClass']);
-		 }else{
-			 $css = '';
-		 }
-		$form = '<div class="' .$css. '"><div class="flex name mt-2">';
+		if (array_key_exists('cssClass', $formInput['data'])) {
+			$css = sanitize_html_class($formInput['data']['cssClass']);
+		} else {
+			$css = '';
+		}
+		$form = '<div class="' . $css . '"><div class="aavoyaflex aavoyaname aavoyamt-2">';
 
 		foreach ($formInput['data']['Options'] as $k => $o) {
 			if ($o['enabled'] == true) {
 				$required = $o['required'] == true ? esc_attr('required') : '';
 				$placeholder = $o['placeholder'] ? 'placeholder="' . __(sanitize_text_field($o['placeholder']), AWRAQ_TEXT_DOMAIN) . '"' : '';
-				if($oldValueAsParam != false){
+				if ($oldValueAsParam != false) {
 					$value = strlen($oldValueAsParam[$formInput['uniqueName']][$k]['data']) > 0 ? $oldValueAsParam[$formInput['uniqueName']][$k]['data'] : '';
-				}else{
+				} else {
 					$value = '';
 				}
 				$form .= '<div class="' . $class . '">';

@@ -38,12 +38,12 @@ class Date {
 		$formId = sanitize_text_field($formInput['uniqueName']);
 		self::$footerScript = '<script>jQuery(\'input[name="' . $formId . '"]\').daterangepicker(' . $datepickerOptions . ')</script>';
 		add_action('wp_footer', array(self::$globalScopeName, 'set_footer_script'), 9999);
-		if(array_key_exists('cssClass',$formInput['data'])){
+		if (array_key_exists('cssClass', $formInput['data'])) {
 			$css = sanitize_html_class($formInput['data']['cssClass']);
-		}else{
+		} else {
 			$css = '';
 		}
-		$form = '<div class="' . $css . '"><div class="date mt-2">';
+		$form = '<div class="' . $css . '"><div class="aavoyadate aavoyamt-2">';
 		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($formId) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>' : '';
 		$required = ($formInput['data']['required'] == true) ? 'required' : '';
 		$form .= '<input type="text" id="' . esc_attr($formId) . '" name="' . esc_attr($formId) . '" ' . $required . '/>';

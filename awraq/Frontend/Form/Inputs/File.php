@@ -9,13 +9,13 @@ class File {
 		/**
 		 * Checking if custom css class Provided or not
 		 */
-		if(array_key_exists('cssClass',$formInput['data'])){
+		if (array_key_exists('cssClass', $formInput['data'])) {
 			$css = sanitize_html_class($formInput['data']['cssClass']);
-		}else{
+		} else {
 			$css = '';
 		}
 
-		$form = '<div class="' . $css . '"><div class="file mt-2">';
+		$form = '<div class="' . $css . '"><div class="aavoyafile aavoyamt-2">';
 
 		/**
 		 * declaring accept type variable to hold accept types

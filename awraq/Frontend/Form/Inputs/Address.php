@@ -35,7 +35,7 @@ class Address {
 		} else {
 			$css = '';
 		}
-		$form = '<div class="' . $css . '"><div class="flex flex-row flex-wrap address mt-2">';
+		$form = '<div class="' . $css . '"><div class="aavoyaflex aavoyaflex-row aavoyaflex-wrap aavoyaaddress aavoyamt-2">';
 
 		/**
 		 * Counting number of array elements
@@ -64,8 +64,8 @@ class Address {
 					$value = '';
 				}
 				$form .= '<div class="' . $class . '">';
-				$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $formInput['data']['Options'][$i]['name']) . $key) . '" class="block">' . __(sanitize_text_field($formInput['data']['Options'][$i]['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
-				$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $formInput['data']['Options'][$i]['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $i) . '" class="block w-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . ' value="' . $value . '">';
+				$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $formInput['data']['Options'][$i]['name']) . $key) . '" class="aavoyablock">' . __(sanitize_text_field($formInput['data']['Options'][$i]['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
+				$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $formInput['data']['Options'][$i]['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $i) . '" class="aavoyablock aavoyaw-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . ' value="' . $value . '">';
 				$form .= '</div>';
 				$c++;
 			}

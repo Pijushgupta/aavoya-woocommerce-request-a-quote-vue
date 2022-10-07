@@ -7,17 +7,17 @@ if (!defined('ABSPATH')) exit;
 class Checkbox {
 
 	public static function create($formInput, $key, $id, $oldValueAsParam) {
-		if(array_key_exists('cssClass',$formInput['data'])){
+		if (array_key_exists('cssClass', $formInput['data'])) {
 			$css =  sanitize_html_class($formInput['data']['cssClass']);
-		}else{
+		} else {
 			$css = '';
 		}
-		$form = '<div class="' .$css. '"><div class="checkbox mt-2">';
+		$form = '<div class="' . $css . '"><div class="aavoyacheckbox aavoyamt-2">';
 		$form .= '<label style="display:block;">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
 		foreach ($formInput['data']['Options'] as $k => $v) {
-			if($oldValueAsParam != false){
+			if ($oldValueAsParam != false) {
 				$value = strlen($oldValueAsParam[$formInput['uniqueName']][$k]['data']) > 0 ? $oldValueAsParam[$formInput['uniqueName']][$k]['data'] : '';
-			}else{
+			} else {
 				$value = '';
 			}
 			$checked = $value == $v['value'] ? 'checked' : '';
