@@ -12,6 +12,7 @@ class Css {
 		$css .= '.aavoyatextarea textarea{width:100%; height:150px;}';
 		$css .= '.awraq-form input , .awraq-form textarea{background:#f9f9f9;}';
 		$css .= '.awraq-form input[type="submit"] {background:unset;}';
+		$css .= '.awraq-form .submit {text-align:center;}';
 		$css .= '</style>';
 		return $css;
 	}

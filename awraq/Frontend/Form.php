@@ -95,7 +95,7 @@ class Form {
 					break;
 			}
 		}
-		$form .= count($formMeta) > 0 ? Submit::create() : '';
+		$form .= count($formMeta) > 0 ? Submit::create($id) : '';
 		$form .= '</form> </div>';
 		return $form;
 	}
