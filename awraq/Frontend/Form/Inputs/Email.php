@@ -22,7 +22,7 @@ class Email {
 			$value = '';
 		}
 
-		$form .= '<input type="email" id="' . esc_attr($id . $formInput['name'] . $key) . '" name="' . esc_attr($formInput['uniqueName']) . '"  placeholder="' . __(sanitize_text_field($formInput['data']['placeholder']), AWRAQ_TEXT_DOMAIN) . '" ' . $required . ' value="' . $value . '"/>';
+		$form .= '<input type="email" id="' . esc_attr($id . $formInput['name'] . $key) . '" class="aavoyaw-full" name="' . esc_attr($formInput['uniqueName']) . '"  placeholder="' . __(sanitize_text_field($formInput['data']['placeholder']), AWRAQ_TEXT_DOMAIN) . '" ' . $required . ' value="' . $value . '"/>';
 		$form .= '</div></div>';
 		return $form;
 	}
