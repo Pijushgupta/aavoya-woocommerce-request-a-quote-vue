@@ -60,7 +60,7 @@ class Forms {
 			}
 		}
 
-		if(gettype($forms) == 'array' && empty($forms)){
+		if (gettype($forms) == 'array' && empty($forms)) {
 			$forms = null;
 		}
 		echo json_encode($forms);
@@ -225,17 +225,19 @@ class Forms {
 	 * @param void
 	 * @return void
 	 */
-	public static function awraqUpdateAdminFormMeta(){
+	public static function awraqUpdateAdminFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['id'];
 		if (!$postId) wp_die();
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$data = Officer::jsonToArray($_POST['data']);
-		foreach($data as &$input){
-			$input = sanitize_text_field($input);
+		foreach ($data as $key => &$input) {
+			if ($key != 'en') {
+				$input = sanitize_text_field($input);
+			}
 		}
 		unset($input);
-		echo json_encode(update_post_meta($postId,'awraqFormAdminNotification',serialize($data)));
+		echo json_encode(update_post_meta($postId, 'awraqFormAdminNotification', serialize($data)));
 		wp_die();
 	}
 
@@ -244,10 +246,10 @@ class Forms {
 	 * @param void
 	 * @return void
 	 */
-	public static function awraqGetUserFormMeta(){
-		if(!Officer::check($_POST)) wp_die();
+	public static function awraqGetUserFormMeta() {
+		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['id'];
-		if(!$postId) wp_die();
+		if (!$postId) wp_die();
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$meta = get_post_meta($postId, 'awraqFormUserNotification', true);
 		echo json_encode(unserialize($meta));
@@ -259,17 +261,19 @@ class Forms {
 	 * @param void
 	 * @return void
 	 */
-	public static function awraqUpdateUserFormMeta(){
+	public static function awraqUpdateUserFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = $_POST['id'];
 		if (!$postId) wp_die();
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$data = Officer::jsonToArray($_POST['data']);
-		foreach($data as &$input){
-			$input = sanitize_text_field($input);
+		foreach ($data as $key => &$input) {
+			if ($key != 'en') {
+				$input = sanitize_text_field($input);
+			}
 		}
 		unset($input);
-		echo json_encode(update_post_meta($postId,'awraqFormUserNotification',serialize($data)));
+		echo json_encode(update_post_meta($postId, 'awraqFormUserNotification', serialize($data)));
 		wp_die();
 	}
 }

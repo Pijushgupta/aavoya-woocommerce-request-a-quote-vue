@@ -254,8 +254,9 @@ function inArray(needle,haystack) {
 
 </script>
 <style scoped>
-html body input[type='text']{
-  border-radius: .5rem;
+html body input[type="text"] {
+	border-radius: 0.5rem;
 }
-html body input[type='text']:active{}
+html body input[type="text"]:active {
+}
 </style>
