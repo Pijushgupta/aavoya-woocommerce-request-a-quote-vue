@@ -38,8 +38,13 @@ class Officer {
 	 */
 	public static function jsonToArray($json = null) {
 		if ($json == null) return false;
-
-		$array = (array)json_decode(str_replace('\\', '', $json), true);
+		/**
+		 * preserving newline char \n
+		 */
+		$json = str_replace('\\n', 'raqbyaavoyanewlinechar', $json);
+		$json = str_replace('\\', '', $json);
+		$json = str_replace('raqbyaavoyanewlinechar', '\\n', $json);
+		$array = (array)json_decode($json, true);
 		return $array;
 	}
 
@@ -274,6 +279,4 @@ class Officer {
 		}
 		unset($d);
 	}
-
-
 }

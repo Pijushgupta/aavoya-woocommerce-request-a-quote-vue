@@ -28170,7 +28170,6 @@ __webpack_require__.r(__webpack_exports__);
         return res.json();
       }).then(function (res) {
         adminNotificationSettingData.value = res;
-        console.log(adminNotificationSettingData.value);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -28239,11 +28238,16 @@ __webpack_require__.r(__webpack_exports__);
      */
 
     var typeToAllow = ['name', 'text', 'email', 'address', 'phone', 'textarea', 'checkbox', 'radio', 'date'];
+
+    function addbr() {
+      userNotificationSettingData.value.message = userNotificationSettingData.value.message.replace("\n", "&#13;&#10;");
+    }
     /**
      * Update the local variable related to inputs
      * @param {string} fieldName
      * @param {string} name
      */
+
 
     function selected(fieldName, name) {
       if (name === 'senttoemail') {
@@ -28419,6 +28423,7 @@ __webpack_require__.r(__webpack_exports__);
       userNotificationSettingData: userNotificationSettingData,
       fieldSeclectorMenuToOpen: fieldSeclectorMenuToOpen,
       typeToAllow: typeToAllow,
+      addbr: addbr,
       selected: selected,
       updateUserNotificationInputs: updateUserNotificationInputs,
       inArray: inArray,
@@ -33167,7 +33172,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
       return $setup.userNotificationSettingData.message = $event;
     }),
-    "class": "w-full"
+    "class": "w-full pre"
   }, null, 512
   /* NEED_PATCH */
   )), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.userNotificationSettingData.message]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -39877,7 +39882,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nhtml body input[type='text'][data-v-90a9d59a]{\r\n    border-radius: .5rem;\n}\nhtml body input[type='text'][data-v-90a9d59a]:active{}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nhtml body input[type=\"text\"][data-v-90a9d59a] {\r\n\tborder-radius: 0.5rem;\n}\nhtml body input[type=\"text\"][data-v-90a9d59a]:active {\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

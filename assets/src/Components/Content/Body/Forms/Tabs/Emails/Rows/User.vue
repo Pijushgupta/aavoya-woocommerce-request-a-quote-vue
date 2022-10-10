@@ -61,10 +61,11 @@
         <button  @click="fieldSeclectorMenuToOpen == 'message' ? fieldSeclectorMenuToOpen = 'none' : fieldSeclectorMenuToOpen = 'message'" class=" "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /> </svg></button>
         <FieldSelector v-if="fieldSeclectorMenuToOpen == 'message'" v-bind:name="'message'" v-bind:fields="flatInput" @selected='selected'/>
       </div>
-      <textarea v-if="userNotificationSettingData != false" v-model="userNotificationSettingData.message" class="w-full" ></textarea>
+      <textarea v-if="userNotificationSettingData != false" v-model="userNotificationSettingData.message"  class="w-full pre"></textarea>
+	  
     </div>
   </div>
-  <div class=" bg-gray-50">
+  <div class="bg-gray-50">
     <div class=" mx-auto md:w-7/12 flex flex-row justify-end px-4 py-2">
       <button class="px-6 py-2 rounded-full border bg-white" @click="updateUserNotificationInputs">Save</button>
     </div>
@@ -74,7 +75,8 @@
 import {ref, watch} from 'vue';
 import FieldSelector from './components/FieldSelector';
 //import Editor from './components/Editor.vue';
-import {useToast} from "vue-toastification";
+import { useToast } from "vue-toastification";
+
 const props = defineProps({
   id:Number
 })
@@ -87,6 +89,9 @@ const fieldSeclectorMenuToOpen = ref('none');
  */
 let typeToAllow = ['name','text','email','address','phone','textarea','checkbox','radio','date']
 
+function addbr() {
+	userNotificationSettingData.value.message = userNotificationSettingData.value.message.replace("\n","&#13;&#10;");
+}
 /**
  * Update the local variable related to inputs
  * @param {string} fieldName
@@ -249,8 +254,9 @@ const getUserMeta = (function () {
 
 </script>
 <style scoped>
-  html body input[type='text']{
-    border-radius: .5rem;
-  }
-  html body input[type='text']:active{}
+html body input[type="text"] {
+	border-radius: 0.5rem;
+}
+html body input[type="text"]:active {
+}
 </style>

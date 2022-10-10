@@ -232,8 +232,11 @@ class Forms {
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$data = Officer::jsonToArray($_POST['data']);
 		foreach ($data as $key => &$input) {
-			if ($key != 'en') {
+			if ($key != 'en' && $key != 'message') {
 				$input = sanitize_text_field($input);
+			}
+			if ($key == 'message') {
+				$input = wp_kses_post($input);
 			}
 		}
 		unset($input);
@@ -267,9 +270,13 @@ class Forms {
 		if (!$postId) wp_die();
 		$postId = (int)Officer::sanitize($postId, 'int');
 		$data = Officer::jsonToArray($_POST['data']);
+		var_dump($data);
 		foreach ($data as $key => &$input) {
-			if ($key != 'en') {
+			if ($key != 'en' && $key != 'message') {
 				$input = sanitize_text_field($input);
+			}
+			if ($key == 'message') {
+				$input = wp_kses_post($input);
 			}
 		}
 		unset($input);
