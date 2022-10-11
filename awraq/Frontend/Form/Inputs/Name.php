@@ -45,7 +45,7 @@ class Name {
 					$value = '';
 				}
 				$form .= '<div class="' . $class . '">';
-				$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $o['name']) . $key) . '" class="block">' . __(sanitize_text_field($o['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
+				$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $o['name']) . $key) . '" class="block">' . __(sanitize_text_field($o['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>';
 				$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $o['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $k) . '" ' . $placeholder . ' ' . $required . ' class="block w-full" value="' . $value . '">';
 				$form .= '</div>';
 			}

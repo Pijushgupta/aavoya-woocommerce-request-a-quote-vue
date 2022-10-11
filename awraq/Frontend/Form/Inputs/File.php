@@ -57,14 +57,15 @@ class File {
 		$acceptType = $acceptType == '' ? 'accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"' : 'accept="' . $acceptType . '"';
 
 		/**
-		 * Adding the input label if not empty
-		 */
-		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($id . $formInput['type'] . $key) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>' : '';
-
-		/**
 		 * Adding "required" to input if not empty 
 		 */
 		$required = ($formInput['data']['required'] == true) ? 'required' : '';
+
+		/**
+		 * Adding the input label if not empty
+		 */
+		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($id . $formInput['type'] . $key) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>' : '';
+
 
 		/**
 		 * Adding the actual input , input type of form

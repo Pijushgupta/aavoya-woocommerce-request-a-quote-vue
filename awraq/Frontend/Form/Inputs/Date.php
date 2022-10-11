@@ -44,8 +44,9 @@ class Date {
 			$css = '';
 		}
 		$form = '<div class="' . $css . '"><div class="aavoyadate aavoyamt-2">';
-		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($formId) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>' : '';
-		$required = ($formInput['data']['required'] == true) ? 'required' : '';
+		$required = $formInput['data']['required'] == true ? 'required' : '';
+
+		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($formId) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>' : '';
 		$form .= '<input type="text" id="' . esc_attr($formId) . '" name="' . esc_attr($formId) . '" ' . $required . '/>';
 		$form .= '</div></div>';
 

@@ -12,8 +12,9 @@ class Checkbox {
 		} else {
 			$css = '';
 		}
+		$required = $formInput['data']['required'] == true ?  ' (*)' : '';
 		$form = '<div class="' . $css . '"><div class="aavoyacheckbox aavoyamt-2">';
-		$form .= '<label style="display:block;">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
+		$form .= '<label style="display:block;">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) .  $required . '</label>';
 		foreach ($formInput['data']['Options'] as $k => $v) {
 			if ($oldValueAsParam != false) {
 				$value = strlen($oldValueAsParam[$formInput['uniqueName']][$k]['data']) > 0 ? $oldValueAsParam[$formInput['uniqueName']][$k]['data'] : '';

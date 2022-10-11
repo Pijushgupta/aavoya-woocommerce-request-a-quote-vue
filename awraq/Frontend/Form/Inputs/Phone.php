@@ -12,9 +12,9 @@ class Phone {
 			$css = '';
 		}
 		$form = '<div class="' . $css . '"><div class="aavoyatel aavoyamt-2">';
-
-		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($id . $formInput['uniqueName'] . $key) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . '</label>' : '';
 		$required = ($formInput['data']['required'] == true) ? 'required' : '';
+		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($id . $formInput['uniqueName'] . $key) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>' : '';
+
 		if ($oldValueAsParam != false) {
 			$value = strlen($oldValueAsParam[$formInput['uniqueName']][0]['data']) > 0 ? $oldValueAsParam[$formInput['uniqueName']][0]['data'] : '';
 		} else {

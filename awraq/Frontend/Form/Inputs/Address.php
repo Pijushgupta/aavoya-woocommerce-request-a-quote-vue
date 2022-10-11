@@ -64,7 +64,7 @@ class Address {
 					$value = '';
 				}
 				$form .= '<div class="' . $class . '">';
-				$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $formInput['data']['Options'][$i]['name']) . $key) . '" class="aavoyablock">' . __(sanitize_text_field($formInput['data']['Options'][$i]['label']), AWRAQ_TEXT_DOMAIN) . '</label>';
+				$form .= '<label for="' . esc_attr($id . preg_replace('/\s+/', '', $formInput['data']['Options'][$i]['name']) . $key) . '" class="aavoyablock">' . __(sanitize_text_field($formInput['data']['Options'][$i]['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>';
 				$form .= '<input type="text" id="' . esc_attr($id . preg_replace('/\s+/', '', $formInput['data']['Options'][$i]['name']) . $key) . '" name="' . esc_attr($formInput['uniqueName'] . '_' . $i) . '" class="aavoyablock aavoyaw-full"' . esc_attr($required) . ' ' . __(sanitize_text_field($placeholder), AWRAQ_TEXT_DOMAIN) . ' value="' . $value . '">';
 				$form .= '</div>';
 				$c++;
