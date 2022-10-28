@@ -94,13 +94,19 @@
 			credentials:'same-origin',
 			body:data
 		})
-			.then(res => res.json())
-			.then(res => { 
+			.then(res => {
+
+        return res.json()
+      })
+			.then(res => {
+
 				verificationLock.value = true;
 				res = JSON.parse(res);
 				const toast = useToast();
+
 				if (res.success === true) {
 					toast("Keys are Valid");
+
 				}
 				if (res.success === false) {
 					toast("Invalid Key(s)");

@@ -31,8 +31,10 @@ class Gcaptcha {
 		$secret = Officer::sanitize($_POST['secret'], 'text');
 		$token = Officer::sanitize($_POST['token'], 'text');
 		$url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $token;
-		$ch = curl_init();
 
+		//Removing CURL and Using HTTP API from Wordpress
+
+//		$ch = curl_init();
 		//TO be removed
 //		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 //		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
@@ -40,13 +42,16 @@ class Gcaptcha {
 //		curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert-2022-07-19.pem');
 //		curl_setopt($ch, CURLOPT_CAPATH, __DIR__ . '/cacert-2022-07-19.pem');
 		//To be removed
-
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_URL, $url);
-		$result = curl_exec($ch);
-		$error = curl_error($ch);
-		curl_close($ch);
-		echo json_encode($result);
+//		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//		curl_setopt($ch, CURLOPT_URL, $url);
+//		$result = curl_exec($ch);
+//		$error = curl_error($ch);
+//		curl_close($ch);
+//		echo json_encode($result);
+//		wp_die();
+		$response = wp_remote_get( $url );
+		$body     = wp_remote_retrieve_body( $response );
+		echo json_encode($body);
 		wp_die();
 	}
 
