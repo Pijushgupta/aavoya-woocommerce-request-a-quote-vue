@@ -17,13 +17,13 @@ class Map {
 	 *
 	 * @param  mixed $formID
 	 * @param  mixed $post
-	 * @return void
+	 * @return void|bool
 	 */
 	public static function check($formID, $post) {
 		if (!$formID || !$post) return;
 
 		/**
-		 * Form creating bluepirnt
+		 * Form creating blueprint
 		 */
 		$formMeta = Meta::getForm($formID);
 

@@ -135,13 +135,19 @@ class Action {
 		}
 
 		/**
-		 * checking if required filed are submitted or not, if not return to main form 
+		 * checking if required fields are submitted or not, if not return to main form
 		 */
 		$validatedStatus = Validation::do($formID, $mappedPostData);
 
 		if ($validatedStatus !== true) {
-			set_transient((string)($formID . '-' . 'values-' . $_SERVER['REMOTE_ADDR']), serialize($mappedPostData), 3600);
-			set_transient((string)($formID . '-' . 'errors-' . $_SERVER['REMOTE_ADDR']), serialize($validatedStatus), 3600);
+			/**
+			 * $mappedPostData - already sanitized
+			 */
+			set_transient(sanitize_text_field((string)($formID . '-' . 'values-' . $_SERVER['REMOTE_ADDR'])), serialize($mappedPostData), (int)3600);
+			/**
+			 * $validatedStatus - already sanitized
+			 */
+			set_transient(sanitize_text_field((string)($formID . '-' . 'errors-' . $_SERVER['REMOTE_ADDR'])), serialize($validatedStatus), (int)3600);
 			wp_redirect($originUrl);
 			exit();
 		}
