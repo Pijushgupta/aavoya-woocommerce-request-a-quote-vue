@@ -74,25 +74,17 @@ class Date {
 		global $wp_scripts, $wp_styles;
 
 		/**
-		 * adding jquery for not so edge cases 
+		 * adding Date Picker
 		 */
 
-		if (!in_array('jquery', $wp_scripts->queue)) {
-			wp_enqueue_script('jquery', AWRAQ_REL . '/awraq/Frontend/client/jquery.min.css', array(), '3.2.1', true);
-		}
 
 		/**
-		 * adding moment js
-		 */
-		if (!in_array('moment-js', $wp_scripts->queue)) {
-			wp_enqueue_script('moment-js', AWRAQ_REL . '/awraq/Frontend/client/moment.min.js', array('jquery'), '1', true);
-		}
-
-		/**
-		 * adding datepicker js
+		 * adding datepicker js depends on moment and jquery
+		 * By default WordPress include them in core, so need to provide them.
+		 * we just need declare them as dependency
 		 */
 		if (!in_array('datepicker-js', $wp_scripts->queue)) {
-			wp_enqueue_script('datepicker-js', AWRAQ_REL . '/awraq/Frontend/client/daterangepicker.min.js', array('jquery'), '1', true);
+			wp_enqueue_script('datepicker-js', AWRAQ_REL . '/awraq/Frontend/client/daterangepicker.min.js', array('jquery','moment'), '1', true);
 		}
 
 		/**
@@ -151,7 +143,11 @@ class Date {
 			'singleDatePicker' => $singleDatePicker,
 			'showDropdowns'	=> true,
 			'minDate' => $minDate,
-			'maxDate' => $maxDate
+			'maxDate' => $maxDate,
+			'timePicker' => false,
+			'locale' => [
+				'format' => 'M/DD/YYYY'
+            ]
 		);
 
 		return json_encode($options);
