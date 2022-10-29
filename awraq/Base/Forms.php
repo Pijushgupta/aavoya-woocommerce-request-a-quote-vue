@@ -119,7 +119,7 @@ class Forms {
 	public static function awraqSaveFormData() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['id'], 'int');
-		if ($postId == 0) wp_die();
+		if (!$postId ||$postId == 0) wp_die();
 
 		/* Sanitizing Form Title from backend */
 		$formTitle = Officer::sanitize($_POST['title'], 'text');
@@ -148,7 +148,7 @@ class Forms {
 	public static function awraqGetFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['id'], 'int');
-		if ($postId == 0) wp_die();
+		if (!$postId ||$postId == 0) wp_die();
 
 		echo json_encode(Meta::getForm($postId));
 		wp_die();
@@ -161,7 +161,7 @@ class Forms {
 	public static function awraqDeleteForm() {
 		if (!Officer::check($_POST)) wp_die();
 		$postId = (int)Officer::sanitize($_POST['id'], 'int');
-		if ($postId == 0) wp_die();
+		if (!$postId ||$postId == 0) wp_die();
 
 		Meta::deleteForm($postId);
 		wp_delete_post($postId, true);
@@ -177,10 +177,9 @@ class Forms {
 	 */
 	public static function awraqGetCaptchaMeta() {
 		if (!Officer::check($_POST)) wp_die();
-		$postId = $_POST['formId'];
-		if (!$postId) wp_die();
+		$postId = (int)Officer::sanitize($_POST['formId'], 'int');
+		if (!$postId || $postId == 0) wp_die();
 
-		$postId = (int)Officer::sanitize($postId, 'int');
 		$isCaptch = get_post_meta($postId, 'googleCaptchaMeta', true);
 		if ($isCaptch == true) {
 			echo json_encode(true);
@@ -197,9 +196,9 @@ class Forms {
 	 */
 	public static function awraqUpdateCaptchaMeta() {
 		if (!Officer::check($_POST)) wp_die();
-		$postId = $_POST['formId'];
-		if (!$postId) wp_die();
-		$postId = (int)Officer::sanitize($postId, 'int');
+		$postId = (int)Officer::sanitize($_POST['formId'], 'int');
+		if (!$postId || $postId == 0) wp_die();
+
 		$isCaptch = get_post_meta($postId, 'googleCaptchaMeta', true);
 		echo json_encode(update_post_meta($postId, 'googleCaptchaMeta', !$isCaptch));
 		wp_die();
@@ -212,9 +211,9 @@ class Forms {
 	 */
 	public static function awraqGetAdminFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
-		$postId = $_POST['id'];
-		if (!$postId) wp_die();
-		$postId = (int)Officer::sanitize($postId, 'int');
+		$postId = (int)Officer::sanitize($_POST['id'], 'int');
+		if (!$postId || $postId == 0) wp_die();
+
 		$meta = get_post_meta($postId, 'awraqFormAdminNotification', true);
 		echo json_encode(unserialize($meta));
 		wp_die();
@@ -227,9 +226,9 @@ class Forms {
 	 */
 	public static function awraqUpdateAdminFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
-		$postId = $_POST['id'];
-		if (!$postId) wp_die();
-		$postId = (int)Officer::sanitize($postId, 'int');
+		$postId = (int)Officer::sanitize($_POST['id'], 'int');
+		if (!$postId || $postId == 0) wp_die();
+
 		$data = Officer::jsonToArray($_POST['data']);
 		foreach ($data as $key => &$input) {
 			if ($key != 'en' && $key != 'message') {
@@ -251,9 +250,9 @@ class Forms {
 	 */
 	public static function awraqGetUserFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
-		$postId = $_POST['id'];
-		if (!$postId) wp_die();
-		$postId = (int)Officer::sanitize($postId, 'int');
+		$postId = (int)Officer::sanitize( $_POST['id'], 'int');
+		if (!$postId || $postId == 0) wp_die();
+
 		$meta = get_post_meta($postId, 'awraqFormUserNotification', true);
 		echo json_encode(unserialize($meta));
 		wp_die();
@@ -266,9 +265,9 @@ class Forms {
 	 */
 	public static function awraqUpdateUserFormMeta() {
 		if (!Officer::check($_POST)) wp_die();
-		$postId = $_POST['id'];
-		if (!$postId) wp_die();
-		$postId = (int)Officer::sanitize($postId, 'int');
+		$postId = (int)Officer::sanitize($_POST['id'], 'int');
+		if (!$postId || $postId == 0) wp_die();
+
 		$data = Officer::jsonToArray($_POST['data']);
 		var_dump($data);
 		foreach ($data as $key => &$input) {
