@@ -91,7 +91,7 @@ class Date {
 		 * adding datepicker 
 		 */
 		if (!in_array('datepicker-css', $wp_styles->queue)) {
-			wp_enqueue_style('datepicker-css', AWRAQ_REL . '/awraq/Frontend/client/daterangepicker.css', array(), '1', 'all');
+			wp_enqueue_style('datepicker-css', AWRAQ_REL . '/awraq/Frontend/client/daterangepicker.css', array('datepicker-js'), '1', 'all');
 		}
 	}
 
@@ -154,6 +154,6 @@ class Date {
 	}
 
 	public static function set_footer_script(): void {
-		echo self::$footerScript; // do not sanitize it. Output is javaScript 
+		echo (self::$footerScript); // do not sanitize it. Output is javaScript
 	}
 }
