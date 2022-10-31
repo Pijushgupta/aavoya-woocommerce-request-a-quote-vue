@@ -5,8 +5,9 @@ namespace Awraq\Frontend\Form\Inputs;
 if (!defined('ABSPATH')) exit;
 
 class Date {
+	public static $formID = '';
+	public static $dateRange = '';
 
-	public static $footerScript = '';
 	public static $globalScopeName = 'Awraq\Frontend\Form\Inputs\Date';
 
 	/**
@@ -33,11 +34,59 @@ class Date {
 		if (empty($dateRange['range'])) return '';
 
 
+		self::$dateRange = $dateRange;
 
-		$datepickerOptions = self::datepicker_options($dateRange);
-		$formId = sanitize_text_field($formInput['uniqueName']);
-		self::$footerScript = '<script>jQuery(\'input[name="' . $formId . '"]\').daterangepicker(' . $datepickerOptions . ')</script>';
-		add_action('wp_footer', array(self::$globalScopeName, 'set_footer_script'), 9999);
+		self::$formID = sanitize_text_field($formInput['uniqueName']);
+
+		add_action('wp_footer', function(){
+			$singleDatePicker = '';
+			$minDate = '';
+			$maxDate = '';
+
+			if (self::$dateRange['name'] == 'Simple') {
+				$singleDatePicker = true;
+			}
+			if (self::$dateRange['name'] == 'Range') {
+				$singleDatePicker = false;
+			}
+
+			if (gettype($singleDatePicker) == 'string') return '';
+
+			/**
+			 * Starting Date in Range
+			 * removing the time (T)
+			 * storing only first(0) index
+			 */
+			$minDate = (string)explode('T', self::$dateRange['range'][0])[0];
+			$minDate = explode('-', $minDate);
+			$minDate = implode('-', array($minDate[1], $minDate[2], $minDate[0]));
+
+
+			/**
+			 * Ending Date in Range
+			 * removing the time (T)
+			 * storing only first(0) index
+			 */
+			$maxDate = (string)explode('T', self::$dateRange['range'][1])[0];
+			$maxDate = explode('-', $maxDate);
+			$maxDate = implode('-', array($maxDate[1], $maxDate[2], $maxDate[0]));
+
+			?>
+			<script>
+				jQuery('input[name="<?php echo esc_attr(self::$formID); ?>"]').daterangepicker({
+                    'singleDatePicker': <?php echo $singleDatePicker == true ? 'true' : 'false';  ?>,
+                    'showDropdowns': true,
+                    'minDate': '<?php echo esc_attr($minDate); ?>',
+                    'maxDate': '<?php echo esc_attr($maxDate); ?>',
+                    'timePicker': false,
+                    'locale':{
+                        'format':'M/DD/YYYY'
+                    }
+                });
+			</script>
+			<?php
+
+		}, 9999);
 		if (array_key_exists('cssClass', $formInput['data'])) {
 			$css = sanitize_html_class($formInput['data']['cssClass']);
 		} else {
@@ -46,8 +95,8 @@ class Date {
 		$form = '<div class="' . $css . '"><div class="aavoyadate aavoyamt-2">';
 		$required = $formInput['data']['required'] == true ? 'required' : '';
 
-		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr($formId) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>' : '';
-		$form .= '<input type="text" id="' . esc_attr($formId) . '" name="' . esc_attr($formId) . '" ' . $required . '/>';
+		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr(self::$formID) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>' : '';
+		$form .= '<input type="text" id="' . esc_attr(self::$formID) . '" name="' . esc_attr(self::$formID) . '" ' . $required . '/>';
 		$form .= '</div></div>';
 
 		/**
@@ -91,69 +140,7 @@ class Date {
 		 * adding datepicker 
 		 */
 		if (!in_array('datepicker-css', $wp_styles->queue)) {
-			wp_enqueue_style('datepicker-css', AWRAQ_REL . '/awraq/Frontend/client/daterangepicker.css', array('datepicker-js'), '1', 'all');
+			wp_enqueue_style('datepicker-css', AWRAQ_REL . '/awraq/Frontend/client/daterangepicker.css', array(), '1', 'all');
 		}
-	}
-
-	/**
-	 * datepicker_options
-	 * Creating options required for datepicker client-side code 
-	 * @param  mixed $dateRange
-	 * @return string
-	 */
-	public static function datepicker_options($dateRange): string {
-		$singleDatePicker = '';
-		$minDate = '';
-		$maxDate = '';
-
-		if ($dateRange['name'] == 'Simple') {
-			$singleDatePicker = true;
-		}
-		if ($dateRange['name'] == 'Range') {
-			$singleDatePicker = false;
-		}
-
-		if (gettype($singleDatePicker) == 'string') return '';
-
-		/**
-		 * Starting Date in Range
-		 * removing the time (T)
-		 * storing only first(0) index
-		 */
-		$minDate = (string)explode('T', $dateRange['range'][0])[0];
-		$minDate = explode('-', $minDate);
-		$minDate = implode('-', array($minDate[1], $minDate[2], $minDate[0]));
-
-
-		/**
-		 * Ending Date in Range
-		 * removing the time (T)
-		 * storing only first(0) index
-		 */
-		$maxDate = (string)explode('T', $dateRange['range'][1])[0];
-		$maxDate = explode('-', $maxDate);
-		$maxDate = implode('-', array($maxDate[1], $maxDate[2], $maxDate[0]));
-
-
-
-		/**
-		 * Creating the Options for Datepicker 
-		 */
-		$options = array(
-			'singleDatePicker' => $singleDatePicker,
-			'showDropdowns'	=> true,
-			'minDate' => $minDate,
-			'maxDate' => $maxDate,
-			'timePicker' => false,
-			'locale' => [
-				'format' => 'M/DD/YYYY'
-            ]
-		);
-
-		return json_encode($options);
-	}
-
-	public static function set_footer_script(): void {
-		echo (self::$footerScript); // do not sanitize it. Output is javaScript
 	}
 }
