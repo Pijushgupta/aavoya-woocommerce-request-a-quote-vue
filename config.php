@@ -1,11 +1,11 @@
 <?php
 
-define('AWRAQ_TEXT_DOMAIN', 'request-a-quote-pro-by-aavoya');
+define('AWRAQ_TEXT_DOMAIN', 'aavoya-woocommerce-request-a-quote');
 define('AWRAQ_ABS', plugin_dir_path(__FILE__));
 define('AWRAQ_REL', plugins_url('', __FILE__));
-define('AWRAQ_ADMIN_MENU_TITLE', 'Request a Quote Pro by Aavoya');
-define('AWRAQ_ADMIN_MENU_NAME', 'RAQ Pro');
-define('AWRAQ_SPA_SLUG', 'request_a_quote_pro_by_aavoya');
+define('AWRAQ_ADMIN_MENU_TITLE', 'Aavoya Request a Quote');
+define('AWRAQ_ADMIN_MENU_NAME', 'Aavoya RAQ');
+define('AWRAQ_SPA_SLUG', 'aavoya_request_a_quote');
 define('AWRAQ_VUE_ROOT_ID', 'raqpba-root');
 
 define('AWRAQ_SUPPORTED_PLUGINS', array(
