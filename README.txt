@@ -1,4 +1,4 @@
-=== Request a Quote Pro by Aavoya ===
+=== Aavoya Request a Quote ===
 Contributors: Pijush_Gupta
 Tags: ecommerce, woocommerce request a quote shortcode, woocommerce , popup, form, request a quote button, woocommerce request for quote,  request a quote, quote, Aavoya, shop, e-commerce, quotations, request for quote, raq, proposal, query an estimate, budget, email quotation
 Requires at least: 4.7
@@ -8,14 +8,14 @@ Requires PHP: 7.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Request a Quote Pro by Aavoya WooCommerce plugin enables your customers query for an estimate of a list of products they are interested. Add Request a quote button on single products, Categories and Tags. Integrated Form. Forms can be used a stand-alone form.
+Aavoya Request a Quote WooCommerce plugin enables your customers query for an estimate of a list of products they are interested. Add Request a quote button on single products, Categories and Tags. Integrated Form. Forms can be used a stand-alone form.
 
 == Description ==
-Request a Quote Pro by Aavoya for woocommerce is a powerful plugin to hide products add to cart button and Price and let your customer/viewers request a custom quotation for product.
+Aavoya Request a Quote for woocommerce is a powerful plugin to hide products add to cart button and Price and let your customer/viewers request a custom quotation for product.
 
 if you sell products for which simple price label is not enough and want to communicate with your customer, a quotation plugin like this is the perfect solution for your WooCommerce site.
 
-Request a Quote Pro by Aavoya allows displaying an "Add to Quote" button on your product pages, posts and on normal pages.  Customer can open a form by clicking the "Add to Quote" button, fill the form and then submit the form.
+Aavoya Request a Quote allows displaying an "Add to Quote" button on your product pages, posts and on normal pages.  Customer can open a form by clicking the "Add to Quote" button, fill the form and then submit the form.
 
 Then Admin or any other person in mailing list will receive an email with the quote request. Also you send confirmation email to the customer after he/she submit a quote request.
 
@@ -41,16 +41,16 @@ Forms support ip blocking. You can block particular ip address from sending subm
 * Fully customizable Quotation button.
 * Zero coding, fully drag and drop form creation.
 
-= Official documentation of Request a Quote Pro by Aavoya =
-For a more detailed description of options and features of Request a Quote Pro by Aavoya, please read the [official documentation](https://www.aavoya.co/request-a-quote-pro-by-aavoya/ "Request a Quote Pro by Aavoya official documentation").
+= Official documentation of Aavoya Request a Quote =
+For a more detailed description of options and features of Aavoya Request a Quote, please read the [official documentation](https://www.aavoya.co/aavoya-woocommerce-request-a-quote "Aavoya Request a Quote official documentation").
 
 == Installation ==
 1. Download and Unzip the file.
 2. Upload the plugin into the `wp-content/plugins/` directory of your WordPress site.
-3. Activate `Request a Quote Pro by Aavoya` from plugin page.
+3. Activate `Aavoya Request a Quote` from plugin page.
 
 = Configuration =
-Request a Quote Pro by Aavoya called 'RAQ Pro' in the menu. In that page will find modules for forms and buttons. Each module have settings which are applicable them.
+Aavoya Request a Quote called 'RAQ Pro' in the menu. In that page will find modules for forms and buttons. Each module have settings which are applicable them.
 
 == Frequently Asked Questions ==
 = How to create a Form =
