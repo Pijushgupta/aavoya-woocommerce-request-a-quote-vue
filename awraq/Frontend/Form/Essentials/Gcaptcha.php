@@ -42,12 +42,13 @@ class Gcaptcha {
 		self::$siteKey = $gCaptchaCredentials['siteKey'];
 		wp_enqueue_script('google-captcha-cdn', 'https://www.google.com/recaptcha/api.js?render='. $gCaptchaCredentials['siteKey'], array(), false, false);
 		add_action('wp_footer',function(){
-			$script =  '<script>';
-			$script .= "grecaptcha.ready(function () {
+			?>
+			<script>
+			grecaptcha.ready(function () {
 				try {
-					grecaptcha.execute(\"".self::$siteKey."\", {action: 'submit'}).then(function(token) {
+					grecaptcha.execute(" <?php echo esc_attr(self::$siteKey); ?> ", {action: 'submit'}).then(function(token) {
 					if(token){
-						var google_token = document.querySelector('input[name=\"google-captcha-".self::$formID."\"]');
+						var google_token = document.querySelector('input[name="<?php echo esc_attr('google-captcha-'.self::$formID); ?>"]');
 						google_token.setAttribute('value',token);
 					}
 				});
@@ -57,9 +58,10 @@ class Gcaptcha {
 					
 				}
 				
-			});";
-			$script .= '</script>';
-			echo $script;
+			});
+            </script>
+			<?php
+
 		},9999);
 	}
 
