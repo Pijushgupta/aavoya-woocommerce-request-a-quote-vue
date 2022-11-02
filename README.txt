@@ -66,6 +66,20 @@ Assuming that you have installed and activated woocommerce and created a product
 = How to assign a button to an woocommerce tag =
 Assuming that you have installed and activated woocommerce and created a product. Also assuming that you have created a form and a button. Go to "RAQ Pro" page > go to woocommerce tab and click on tags sub tab. Now go to tags row and select a button from drop-down and turn on the toggle switch.
 
+== Screenshots ==
+1. Form Page
+2. Form Notification(Email) Setting - User
+3. Form Notification(Email) Setting - Admin
+4. Submitted form(quote) Entries
+5. Form Setting Page
+6. Request a Quote Button Setting
+7. Assigning button to WooCommerce Products
+8. Assigning button to WooCommerce Category
+9. Assigning button to WooCommerce Tag
+9. Help/FAQ
+
+
+
 
 
 
