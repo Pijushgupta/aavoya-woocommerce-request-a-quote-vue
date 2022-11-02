@@ -2,8 +2,8 @@
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 /**
- * Plugin Name: Aavoya Request a Quote
- * Plugin URI: https://www.aavoya.co/aavoya-woocommerce-request-a-quote
+ * Plugin Name:  Request a Quote Pro by Aavoya
+ * Plugin URI: https://www.aavoya.co/request-a-quote-pro-by-aavoya
  * Description: Add Request a quote button on single products or on Product Categories or Product tags. Comes with Drag and Drop Form builder.
  * Version: 2022.10
  * Requires PHP: 7.3.0
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
  * Author URI: https://www.linkedin.com/in/pijush-gupta-php/
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- * Text Domain: aavoya-woocommerce-request-a-quote
+ * Text Domain: request-a-quote-pro-by-aavoya
  */
 
 if (file_exists(__DIR__) . '/vendor/autoload.php') {

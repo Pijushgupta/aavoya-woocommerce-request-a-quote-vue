@@ -46,7 +46,7 @@ class Gcaptcha {
 			<script>
 			grecaptcha.ready(function () {
 				try {
-					grecaptcha.execute(" <?php echo esc_attr(self::$siteKey); ?> ", {action: 'submit'}).then(function(token) {
+					grecaptcha.execute("<?php echo esc_attr(self::$siteKey); ?>", {action: 'submit'}).then(function(token) {
 					if(token){
 						var google_token = document.querySelector('input[name="<?php echo esc_attr('google-captcha-'.self::$formID); ?>"]');
 						google_token.setAttribute('value',token);
