@@ -3,7 +3,7 @@ Contributors: Pijush_Gupta
 Tags: ecommerce, woocommerce request a quote shortcode, woocommerce , popup, form, request a quote button, woocommerce request for quote,  request a quote, quote, Aavoya, shop, e-commerce, quotations, request for quote, raq, proposal, query an estimate, budget, email quotation
 Requires at least: 4.7
 Tested up to: 6.0.2
-Stable tag: 2022.10
+Stable tag: 2022.11
 Requires PHP: 7.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

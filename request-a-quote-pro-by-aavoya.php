@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
  * Plugin Name:  Request a Quote Pro by Aavoya
  * Plugin URI: https://www.aavoya.co/request-a-quote-pro-by-aavoya
  * Description: Add Request a quote button on single products or on Product Categories or Product tags. Comes with Drag and Drop Form builder.
- * Version: 2022.10
+ * Version: 2022.11
  * Requires PHP: 7.3.0
  * Author: Pijush Gupta
  * Author URI: https://www.linkedin.com/in/pijush-gupta-php/
