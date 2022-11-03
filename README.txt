@@ -2,7 +2,7 @@
 Contributors: Pijush_Gupta
 Tags: ecommerce, woocommerce request a quote shortcode, woocommerce , popup, form, request a quote button, woocommerce request for quote,  request a quote, quote, Aavoya, shop, e-commerce, quotations, request for quote, raq, proposal, query an estimate, budget, email quotation
 Requires at least: 4.7
-Tested up to: 6.0.2
+Tested up to: 6.1
 Stable tag: 2022.11
 Requires PHP: 7.3.0
 License: GPLv2 or later
@@ -50,7 +50,7 @@ For a more detailed description of options and features of Request a Quote Pro b
 3. Activate `Request a Quote Pro by Aavoya` from plugin page.
 
 = Configuration =
-Request a Quote Pro by Aavoya called 'RAQ Pro' in the menu. In that page will find modules for forms and buttons. Each module have settings which are applicable them.
+Request a Quote Pro by Aavoya called 'RAQ Pro' in the menu. In that page you will find modules for forms and buttons. Each module have settings for itself.
 
 == Frequently Asked Questions ==
 = How to create a Form =
