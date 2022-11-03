@@ -96,7 +96,7 @@ class Date {
 		$required = $formInput['data']['required'] == true ? 'required' : '';
 
 		$form .= $formInput['data']['label'] ? '<label for="' . esc_attr(self::$formID) . '">' . __(sanitize_text_field($formInput['data']['label']), AWRAQ_TEXT_DOMAIN) . ($required != "" ? " (*)" : "") . '</label>' : '';
-		$form .= '<input type="text" id="' . esc_attr(self::$formID) . '" name="' . esc_attr(self::$formID) . '" ' . $required . '/>';
+		$form .= '<input class="aavoyaw-full" type="text" id="' . esc_attr(self::$formID) . '" name="' . esc_attr(self::$formID) . '" ' . $required . '/>';
 		$form .= '</div></div>';
 
 		/**
